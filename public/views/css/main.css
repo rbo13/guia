@@ -1,0 +1,64 @@
+nav{
+	background: #fff !important;
+}
+
+
+.header-brand-logo{
+	margin: 15px;
+	height: 32px;
+	width: 32px;
+}
+
+.container .nav-wrapper .brand-logo{
+	color: #363635 !important;
+}
+
+.header-parallax-top{
+	height: 95% !important;
+	background: rgba(0,0,0,0.4);
+}
+
+.header-parallax-bottom{
+	background: rgba(0,0,0,0.4);
+}
+
+.header{
+	color: #fff !important;
+}
+
+.center-wrapper{
+	margin-top: 20% !important;
+	margin-bottom: 20% !important;
+}
+
+.header-feature-section{
+	text-align: center;
+	color: #363635 !important;
+}
+
+.btn{
+	background: #61e24c !important;
+}
+
+.grey-text{
+	text-align: center !important;
+}
+
+.header-team{
+	text-align: left;
+	color: #61e24c !important;
+}
+
+.header-team-text{
+	text-align: left;
+}
+
+.feature-icon{
+	color: #ccc !important;
+	font-size: 4rem;
+	margin-left: 40%;	
+}
+
+.footer-section{
+	background: #61e24c !important;
+}
