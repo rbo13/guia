@@ -44,8 +44,7 @@
               birthday: req.body.birthday,
               age: req.body.age,
               gender: req.body.gender,
-              profImage: req.body.profImage,
-              token: req.body.token
+              profImage: req.body.profImage
           });
 
           if(!req.body.name){
@@ -56,6 +55,15 @@
                       res.send(err);
                       return;
                   }else if(!err){
+                      User.find({})
+                          .populate('name')
+                          .populate('birthday')
+                          .populate('age')
+                          .populate('gender')
+                          .populate('profImage')
+                          .exec(function(error, users) {
+                              console.log(JSON.stringify(users, null, "\t"))
+                          })
                       res.json(user);
                   }
               }); //end user.save()
@@ -92,6 +100,12 @@
                 if(err){
                     res.send(err);
                 }
+                Location.find({})
+                    .populate('location.country')
+                    .populate('location.city')
+                    .exec(function(error, locations) {
+                        console.log(JSON.stringify(locations, null, "\t"))
+                    })
                 res.json(location);
             })
         });//end of location POST endpoint.
@@ -106,12 +120,14 @@
           .post(function(req, res){
               if(!loggedInUser){
                   guide = new Guide({
-                      guide_user_id: user._id,
                       location:{
                           country: req.body.location.country,
                           city: req.body.location.city
                       },
-                      type: req.body.type
+                      contact_number: req.body.contact_number,
+                      email_address: req.body.email_address,
+                      type: req.body.type,
+                      guide_user_id: user._id
                   });
               }else if(loggedInUser){
                   guide = new Guide({

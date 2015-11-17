@@ -3,12 +3,14 @@ var mongoose = require('mongoose'),
 
 //create guide Schema
 var GuideSchema = new Schema({
-  type: String,
-  guide_user_id: { type: Schema.Types.ObjectId, ref: 'User' },
-  location: {
-      country: String,
-      city: String
-  }
+    location: {
+        country: String,
+        city: String
+    },
+    contact_number: String,
+    type: String,
+    email_address: String,
+    guide_user_id: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 //end creating guide Schema
 module.exports = mongoose.model('Guide', GuideSchema);
