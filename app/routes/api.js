@@ -104,7 +104,7 @@
                     .populate('location.country')
                     .populate('location.city')
                     .exec(function(error, locations) {
-                        console.log(JSON.stringify(locations, null, "\t"))
+                        console.log(JSON.stringify(locations, null, "\t"));
                     })
                 res.json(location);
             })
@@ -131,12 +131,14 @@
                   });
               }else if(loggedInUser){
                   guide = new Guide({
-                      guide_user_id: loggedInUser,
                       location:{
                           country: req.body.location.country,
                           city: req.body.location.city
                       },
-                      type: req.body.type
+                      contact_number: req.body.contact_number,
+                      email_address: req.body.email_address,
+                      type: req.body.type,
+                      guide_user_id: loggedInUser
                   });
               }
 
@@ -144,11 +146,23 @@
               guide.save(function(err){
                   if(err){
                       res.send(err);
+                  }else if(!err){
+                      Guide.find({})
+                          .populate('location.country')
+                          .populate('location.city')
+                          .populate('contact_number')
+                          .populate('email_address')
+                          .populate('type')
+                          .populate('guide_user_id')
+                          .exec(function(error, guides){
+                              console.log(JSON.stringify(guides, null, "\t"));
+                          });
+
+                      res.json({
+                          success: true,
+                          message: "Guide Activated!"
+                      });
                   }
-                  res.json({
-                      success: true,
-                      message: "Guide Activated!"
-                  });
               });
           })
           .get(endpoints.getGuide);
