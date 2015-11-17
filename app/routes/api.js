@@ -25,18 +25,6 @@
       redeem, booking, note;
   //
 
-  //create token.
-  function createToken(user){
-      var token = jsonwebtoken.sign({
-          _id: user._id,
-          name: user.name
-      }, secretKey, {
-          expiresInMinute: 1440
-      });
-
-      return token;
-  }
-
   module.exports = function(app, express){
       var api = express.Router();
       var endpoints = require('../../endpoints/endpoints.js')();
@@ -47,33 +35,33 @@
          .patch(endpoints.patch)
          .delete(endpoints.deleteUser);
 
-  //signup-POST endpoint
-    api.post('/signup', function(req, res){
-      user = new User({
-        name: req.body.name,
-        birthday: req.body.birthday,
-        age: req.body.age,
-        gender: req.body.gender,
-        profImage: req.body.profImage,
-        token: req.body.token
-      });
-        if(!req.body.name){
-            res.status(400).send('Name is required!');
-        }else{
-            user.save(function(err){
-                if(err){
-                    res.send(err);
-                    return;
-                }
-                var token = createToken(user);
+  //createUser
+      var createUser = function(req, res){
+          user = new User({
+              name: req.body.name,
+              birthday: req.body.birthday,
+              age: req.body.age,
+              gender: req.body.gender,
+              profImage: req.body.profImage,
+              token: req.body.token
+          });
+          if(!req.body.name){
+              res.status(400).send('Name is required!');
+          }else{
+              user.save(function(err){
+                  if(err){
+                      res.send(err);
+                      return;
+                  }
+                  var token = createToken(user);
                   res.json({
                       success: true,
                       message: 'User has been created',
                       token: token
                   });
-            }); //end user.save()
-        }
-    }); //end api POST endpoint.
+              }); //end user.save()
+          }
+      };
 
     //start: login endpoint
     api.post('/login', function(req, res){
@@ -87,17 +75,9 @@
           if(err) throw err;
 
           if(!user){
-            res.send({
-              success: false,
-              message: "User doesnt Exist"
-            })
+            createUser(req, res);
           } else if (user) {
-            var token = createToken(user);
-              res.json({
-                  success: true,
-                  message: 'Successfully logged in',
-                  token: token
-              });
+              res.json(user);
           }
       })
     });
@@ -122,25 +102,6 @@
     api.route('/locations')
         .get(endpoints.getLocation); //end GET location endpoint
 
-      //create custom middleware
-      api.use(function(req, res, next){
-         //get token.
-          var token = req.body.token || req.param('token') || req.headers['x-access-token'];
-          //check if token exist.
-          if(token){
-              jsonwebtoken.verify(token, secretKey, function(err, decoded){
-                  if(err){
-                      res.status(403).send({ success: false, message: "Token dont match" });
-                  }else{
-                      //proceed to next route.
-                      req.decoded = decoded;
-                      next();
-                  }
-              });
-          }else{
-              res.status(403).send({ success: false, message: "Token mismatch" });
-          }//end of checking token
-      }); //end of custom middleware.
       api.get('/users', endpoints.getAllUsers); //end get endpoint
 
       //POST/GET guide endpoint
