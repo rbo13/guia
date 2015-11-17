@@ -56,13 +56,11 @@
                       res.send(err);
                       return;
                   }else if(!err){
-                      loggedInUser = user._id;
                       res.json(user);
                   }
               }); //end user.save()
           }
       }; //end createUser
-
     //start: login endpoint
     api.post('/login', function(req, res){
       User.findOne({
@@ -77,12 +75,11 @@
           if(!user){
             createUser(req, res);
           } else if (user) {
+              loggedInUser = user._id;
               res.json(user);
           }
       })
-    });
-    //end: login endpoint
-
+    });//end: login endpoint
     //POST location endpoint.
     api.route('/location')
         .post(function(req, res){
@@ -97,8 +94,8 @@
                 }
                 res.json(location);
             })
-        });
-    //end of location POST endpoint.
+        });//end of location POST endpoint.
+
     api.route('/locations')
         .get(endpoints.getLocation); //end GET location endpoint
 
