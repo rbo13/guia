@@ -5,7 +5,10 @@ var mongoose = require('mongoose'),
 var GuideSchema = new Schema({
   type: String,
   guide_user_id: { type: Schema.Types.ObjectId, ref: 'User' },
-  guide_location_id: { type: Schema.Types.ObjectId, ref: 'Location' }
+  location: {
+      country: String,
+      city: String
+  }
 });
 //end creating guide Schema
 module.exports = mongoose.model('Guide', GuideSchema);

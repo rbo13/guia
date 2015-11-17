@@ -25,6 +25,8 @@
       redeem, booking, note;
   //
 
+  var loggedInUser;
+
   module.exports = function(app, express){
       var api = express.Router();
       var endpoints = require('../../endpoints/endpoints.js')();
@@ -45,6 +47,7 @@
               profImage: req.body.profImage,
               token: req.body.token
           });
+
           if(!req.body.name){
               res.status(400).send('Name is required!');
           }else{
@@ -52,16 +55,13 @@
                   if(err){
                       res.send(err);
                       return;
+                  }else if(!err){
+                      loggedInUser = user._id;
+                      res.json(user);
                   }
-                  var token = createToken(user);
-                  res.json({
-                      success: true,
-                      message: 'User has been created',
-                      token: token
-                  });
               }); //end user.save()
           }
-      };
+      }; //end createUser
 
     //start: login endpoint
     api.post('/login', function(req, res){
@@ -107,11 +107,26 @@
       //POST/GET guide endpoint
       api.route('/guide')
           .post(function(req, res){
-              guide = new Guide({
-                  guide_user_id: user._id,
-                  guide_location_id: location._id,
-                  type: req.body.type
-              });
+              if(!loggedInUser){
+                  guide = new Guide({
+                      guide_user_id: user._id,
+                      location:{
+                          country: req.body.location.country,
+                          city: req.body.location.city
+                      },
+                      type: req.body.type
+                  });
+              }else if(loggedInUser){
+                  guide = new Guide({
+                      guide_user_id: loggedInUser,
+                      location:{
+                          country: req.body.location.country,
+                          city: req.body.location.city
+                      },
+                      type: req.body.type
+                  });
+              }
+
               //save to MongoDB
               guide.save(function(err){
                   if(err){
@@ -160,7 +175,6 @@
       api.route('/preference')
              .post(function(req, res){
                preference = new Preference({
-                   user_id: user._id,
                    preferences: req.body.preferences
                });
                 //save to mongodb
