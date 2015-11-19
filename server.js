@@ -52,3 +52,9 @@ app.get('/font/roboto/Roboto-Regular.ttf', function(req, res){
 app.get('/font/roboto/Roboto-Light.ttf', function(req, res){
     res.sendFile(__dirname + '/public/app/views/font/roboto/Roboto-Light.ttf');
 });
+app.get('/images/parallax1-min.jpg', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/images/parallax1-min.jpg');
+});
+app.get('/images/parallax2-min.jpg', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/images/parallax2-min.jpg');
+});
