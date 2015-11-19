@@ -4,7 +4,10 @@ var mongoose = require('mongoose'),
 //create user Schema
 var TripSchema = new Schema({
   trip_traveler_id: { type: Schema.Types.ObjectId, ref: 'Traveler' },
-  trip_location_id: { type: Schema.Types.ObjectId, ref: 'Location' },
+  location: {
+        country: String,
+        city: String
+  },
   destination: String,
   date_from: Date,
   date_to: Date

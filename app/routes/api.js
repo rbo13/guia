@@ -63,7 +63,7 @@
                           .populate('profImage')
                           .exec(function(error, users) {
                               console.log(JSON.stringify(users, null, "\t"))
-                          })
+                          });
                       res.json(user);
                   }
               }); //end user.save()
@@ -105,7 +105,7 @@
                     .populate('location.city')
                     .exec(function(error, locations) {
                         console.log(JSON.stringify(locations, null, "\t"));
-                    })
+                    });
                 res.json(location);
             })
         });//end of location POST endpoint.
@@ -157,7 +157,6 @@
                           .exec(function(error, guides){
                               console.log(JSON.stringify(guides, null, "\t"));
                           });
-
                       res.json({
                           success: true,
                           message: "Guide Activated!"
@@ -171,15 +170,22 @@
       //POST/GET - traveler endpoint
       api.route('/traveler')
           .post(function(req, res){
-              traveler = new Traveler({
-                  traveler_user_id: user._id,
-                  traveler_location_id: location._id
-              });
+              if(!loggedInUser){
+                  traveler = new Traveler({
+                      traveler_user_id: user._id
+                  });
+              }else if(loggedInUser){
+                  traveler = new Traveler({
+                      traveler_user_id: loggedInUser
+                  });
+              }
               //save to MongoDB
               traveler.save(function(err){
                   if(err){
                       res.send(err);
                   }
+                  Traveler.find({})
+                          .populate('traveler_user_id');
                   res.json({
                       success: true,
                       message: "Traveler Activated!"
@@ -198,7 +204,7 @@
       api.route('/location/:locationId')
          .get(endpoints.getLocationByIdRoute); //register getLocationById route
 
-      //start POST-preference endpoint
+      //start POST-preference endpoint - traveler
       api.route('/preference')
              .post(function(req, res){
                preference = new Preference({
@@ -258,17 +264,27 @@
       api.route('/trip')
          .post(function(req, res){
            trip = new Trip({
-             trip_traveler_id: traveler._id,
-             destination: req.body.destination,
-             trip_location_id: location._id,
-             date_from: req.body.date_from,
-             date_to: req.body.date_to
+               trip_traveler_id: traveler._id,
+               location: {
+                   country: req.body.location.country,
+                   city: req.body.location.city
+               },
+               destination: req.body.destination,
+               date_from: req.body.date_from,
+               date_to: req.body.date_to
            });
           //save to mongodb
            trip.save(function(err){
              if(err)  res.send(err);
-
-             res.json(trip);
+             else if(!err){
+                 Trip.find({})
+                     .populate('location.country')
+                     .populate('location.city')
+                     .populate('destination')
+                     .populate('date_from')
+                     .populate('date_to');
+                 res.json(trip);
+             }
            });
          });
       //end POST-trip endpoint
@@ -281,9 +297,9 @@
              name: req.body.name,
              duration: req.body.duration,
              details: req.body.details,
-             tour_guide_id: guide._id,
+             tour_preference: req.body.preference,
              rate: req.body.rate,
-             tour_preference_id: preference._id
+             tour_guide_id: guide._id
            });
           //save to mongodb
            tour.save(function(err){
