@@ -304,11 +304,18 @@
           //save to mongodb
            tour.save(function(err){
              if(err)  res.send(err);
-
-             res.json(tour);
+             else if(!err){
+                 Tour.find({})
+                     .populate('name')
+                     .populate('duration')
+                     .populate('details')
+                     .populate('tour_preference')
+                     .populate('rate')
+                     .populate('tour_guide_id');
+                 res.json(tour);
+             }
            });
-         });
-      //end POST-tour endpoint
+         });//end POST-tour endpoint
       api.get('/tours', endpoints.getAllTours); //end GET-tour endpoint
 
       //start: POST - reward endpoint
@@ -324,9 +331,7 @@
 
               res.json(reward);
             });
-          });
-      //end: POST - reward endpoint
-
+          });//end: POST - reward endpoint
       //start GET-reward endpoint
       api.get('/rewards', function(req, res){
           Reward.find({}, function(err, getRewards){
@@ -336,9 +341,7 @@
               }
               res.json(getRewards);
           });
-      });
-      //end GET-reward endpoint
-
+      });//end GET-reward endpoint
       //start: POST - redeem endpoint
       api.route('/redeem')
           .post(function(req, res){
@@ -352,9 +355,7 @@
 
               res.json(redeem);
             });
-          });
-      //end: POST - redeem endpoint
-
+          });//end: POST - redeem endpoint
       //start GET-redeem endpoint
       api.get('/redeems', function(req, res){
           Redeemed.find({}, function(err, getRedeems){
@@ -364,9 +365,7 @@
               }
               res.json(getRedeems);
           });
-      });
-      //end GET-redeem endpoint
-
+      });//end GET-redeem endpoint
       //start: POST - booking endpoint
       api.route('/book')
          .post(function(req, res){
@@ -381,13 +380,10 @@
            });
            //save to mongoDB
            booking.save(function(err){
-             if(err)  console.log(err);
-
+             if(err)  res.send(err);
              res.json(booking);
            });
-         });
-      //end: POST - booking endpoint
-
+         });//end: POST - booking endpoint
       //start: POST - note endpoint
       api.route('/note')
           .post(function(req, res){
@@ -397,16 +393,13 @@
               });
               //save to mongoDB
               note.save(function(err){
-                  if(err)  console.log(err);
-
+                  if(err)  res.send(err);
                   res.json(note);
               });
-          });
-      //end: POST - note endpoint
+          });//end: POST - note endpoint
       api.get('/notes', endpoints.getAllNotes); //end: GET - note endpoint
       api.use('/note/:noteId', endpoints.getNoteById); //end getByPreferenceId endpoint
-      api.route('/note/:noteId')
-          .get(endpoints.getNoteByIdRoute); //end: getById - note endpoint
+      api.route('/note/:noteId').get(endpoints.getNoteByIdRoute); //end: getById - note endpoint
 
     return api;
   };
