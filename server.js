@@ -36,12 +36,6 @@ http.listen(config.port, function(err){
 });
 
 //add libraries: js, css
-app.get('/css/prism.css', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/css/prism.css');
-});
-app.get('/css/ghpages-materialize.css', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/css/ghpages-materialize.css');
-});
 app.get('/css/inconsolata.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/inconsolata.css');
 });
@@ -50,37 +44,6 @@ app.get('/css/material-icons.css', function(req, res){
 });
 app.get('/css/main.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/main.css');
-});
-app.get('/js/jquery.timeago.js', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/js/jquery.timeago.js');
-});
-app.get('/js/prism.js', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/js/prism.js');
-});
-app.get('/js/init.js', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/js/init.js');
-});
-app.get('/bin/materialize.js', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/bin/materialize.js');
-});
-//images
-app.get('/images/favicon/guia-favicon.png', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/images/favicon/guia-favicon.png');
-});
-app.get('/images/logo.png', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/images/logo.png');
-});
-app.get('/images/parallax1-min.jpg', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/images/parallax1-min.jpg');
-});
-app.get('/images/parallax2.jpg', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/images/parallax2.jpg');
-});
-app.get('/images/favicon/favicon.ico', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/images/favicon/favicon.ico');
-});
-app.get('/images/guia-phone.png', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/images/guia-phone.png');
 });
 //fonts
 app.get('/font/roboto/Roboto-Regular.ttf', function(req, res){
