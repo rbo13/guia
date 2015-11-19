@@ -66,6 +66,9 @@ app.get('/bin/materialize.js', function(req, res){
 app.get('/images/favicon/guia-favicon.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/favicon/guia-favicon.png');
 });
+app.get('/images/logo.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/images/logo.png');
+});
 app.get('/images/parallax1-min.jpg', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/parallax1-min.jpg');
 });
@@ -74,6 +77,9 @@ app.get('/images/parallax2.jpg', function(req, res){
 });
 app.get('/images/favicon/favicon.ico', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/favicon/favicon.ico');
+});
+app.get('/images/guia-phone.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/images/guia-phone.png');
 });
 //fonts
 app.get('/font/roboto/Roboto-Regular.ttf', function(req, res){
