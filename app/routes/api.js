@@ -327,9 +327,13 @@
             });
             //save to mongoDB
             reward.save(function(err){
-              if(err) console.log(err);
-
-              res.json(reward);
+              if(err) res.send(err);
+              else if(!err){
+                  Reward.find({})
+                      .populate('reward_tour_id')
+                      .populate('redeem_points');
+                  res.json(reward);
+              }
             });
           });//end: POST - reward endpoint
       //start GET-reward endpoint
@@ -351,9 +355,13 @@
             });
             //save to mongoDB
             redeem.save(function(err){
-              if(err) console.log(err);
-
-              res.json(redeem);
+              if(err) res.send(err);
+              else if(!err){
+                  Redeemed.find({})
+                      .populate('redeem_traveler_id')
+                      .populate('redeem_reward_id');
+                  res.json(redeem);
+              }
             });
           });//end: POST - redeem endpoint
       //start GET-redeem endpoint
@@ -381,7 +389,17 @@
            //save to mongoDB
            booking.save(function(err){
              if(err)  res.send(err);
-             res.json(booking);
+             else if(!err){
+                 Booking.find({})
+                     .populate('booking_tour_id')
+                     .populate('booking_traveler_id')
+                     .populate('schedule')
+                     .populate('rate')
+                     .populate('status')
+                     .populate('booking_review_id')
+                     .populate('booking_rating_id');
+                 res.json(booking);
+             }
            });
          });//end: POST - booking endpoint
       //start: POST - note endpoint
@@ -394,7 +412,12 @@
               //save to mongoDB
               note.save(function(err){
                   if(err)  res.send(err);
-                  res.json(note);
+                  else if(!err){
+                      Note.find({})
+                          .populate('note_tour_id')
+                          .populate('notes');
+                      res.json(note);
+                  }
               });
           });//end: POST - note endpoint
       api.get('/notes', endpoints.getAllNotes); //end: GET - note endpoint
@@ -421,7 +444,7 @@
                       res.json(negotiate);
                   }
               })
-          });
+          }); //end
 
     return api;
   };
