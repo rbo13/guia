@@ -14,16 +14,16 @@
       Redeemed = require('../models/Redeemed'),
       Booking = require('../models/Booking'),
       Note = require('../models/Note'),
+      Negotiate = require('../models/Negotiate'),
       config = require('../../config');
   var jsonwebtoken = require('jsonwebtoken');
   var secretKey = config.secretKey;
 
-  // declare global variables.
   var user, location, traveler,
       preference, guide, rating,
       review, trip, tour, reward,
-      redeem, booking, note;
-  //
+      redeem, booking, note, negotiate;
+
 
   var loggedInUser;
 
@@ -400,6 +400,28 @@
       api.get('/notes', endpoints.getAllNotes); //end: GET - note endpoint
       api.use('/note/:noteId', endpoints.getNoteById); //end getByPreferenceId endpoint
       api.route('/note/:noteId').get(endpoints.getNoteByIdRoute); //end: getById - note endpoint
+
+      //negotiation endpoint
+      api.route('/negotiate')
+          .post(function(req, res){
+            negotiate = new Negotiate({
+                negotiate_tour_id: tour._id,
+                negotiate_traveler_id: traveler._id,
+                proposed_rate: req.body.proposed_rate,
+                offered_rate: req.body.offered_rate
+            });
+              negotiate.save(function(err){
+                  if(err)   res.send(err);
+                  else if(!err){
+                      Negotiate.find({})
+                          .populate('negotiate_tour_id')
+                          .populate('negotiate_traveler_id')
+                          .populate('proposed_rate')
+                          .populate('offered_rate');
+                      res.json(negotiate);
+                  }
+              })
+          });
 
     return api;
   };
