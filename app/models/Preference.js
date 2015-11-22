@@ -2,6 +2,6 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var PreferenceSchema = new Schema({
-  preferences: String
+  preference: String
 });
 module.exports = mongoose.model('Preference', PreferenceSchema);

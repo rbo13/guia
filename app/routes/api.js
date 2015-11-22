@@ -60,10 +60,7 @@
                           .populate('birthday')
                           .populate('age')
                           .populate('gender')
-                          .populate('profImage')
-                          .exec(function(error, users) {
-                              console.log(JSON.stringify(users, null, "\t"))
-                          });
+                          .populate('profImage');
                       res.json(user);
                   }
               }); //end user.save()
@@ -88,6 +85,7 @@
           }
       })
     });//end: login endpoint
+    api.get('/users', endpoints.getAllUsers); //end get endpoint
     //POST location endpoint.
     api.route('/location')
         .post(function(req, res){
@@ -110,11 +108,7 @@
             })
         });//end of location POST endpoint.
 
-    api.route('/locations')
-        .get(endpoints.getLocation); //end GET location endpoint
-
-      api.get('/users', endpoints.getAllUsers); //end get endpoint
-
+    api.route('/locations').get(endpoints.getLocation); //end GET location endpoint
       //POST/GET guide endpoint
       api.route('/guide')
           .post(function(req, res){
@@ -208,7 +202,7 @@
       api.route('/preference')
              .post(function(req, res){
                preference = new Preference({
-                   preferences: req.body.preferences
+                   preference: req.body.preference
                });
                 //save to mongodb
                 preference.save(function(err){
@@ -222,9 +216,7 @@
       //start GET-preference endpoint
        api.get('/preferences', endpoints.getPreference); //end get endpoint
        api.use('/preference/:preferenceId', endpoints.getPreferenceById); //end getByPreferenceId endpoint
-       api.route('/preference/:preferenceId')
-              .get(endpoints.getPreferenceByIdRoute); //register route - GET endpoint
-
+       api.route('/preference/:preferenceId').get(endpoints.getPreferenceByIdRoute); //register route - GET endpoint
       //start POST-rating endpoint
       api.route('/rating/guide/:guideId')
              .post(function(req, res){
@@ -236,8 +228,13 @@
                 //save to mongodb
                 rating.save(function(err){
                   if(err) res.send(err);
-
-                  res.json(rating);
+                  else if(!err){
+                      Rating.find({})
+                          .populate('TravelerID')
+                          .populate('GuideID')
+                          .populate('rating');
+                      res.json(rating);
+                  }
                 });
              });
       //end POST-rating endpoint
@@ -253,8 +250,13 @@
             });
             review.save(function(err){
               if(err) res.send(err);
-
-              res.json(review);
+              else if(!err){
+                  Review.find({})
+                      .populate('review_traveler_id')
+                      .populate('review_guide_id')
+                      .populate('comment');
+                  res.json(review);
+              }
             });
           });
       //end POST-review endpoint
@@ -286,10 +288,8 @@
                  res.json(trip);
              }
            });
-         });
-      //end POST-trip endpoint
+         }); //end POST-trip endpoint
       api.get('/trips', endpoints.getTrips); //GET-trip endpoint
-
       //start POST-tour endpoint
       api.route('/tour')
          .post(function(req, res){
