@@ -30,7 +30,6 @@
               gender: req.body.gender,
               profImage: req.body.profImage
           });
-
           if(!req.body.name){
               res.status(400).send('Name is required!');
           }else{
@@ -382,7 +381,6 @@
       api.route('/note')
           .post(function(req, res){
               note = new file.Note({
-                  note_tour_id: tour._id,
                   notes: req.body.notes
               });
               //save to mongoDB
@@ -390,7 +388,6 @@
                   if(err)  res.send(err);
                   else if(!err){
                       file.Note.find({})
-                          .populate('note_tour_id')
                           .populate('notes');
                       res.json(note);
                   }
