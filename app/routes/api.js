@@ -1,36 +1,20 @@
 (function(){
     'use strict';
 
-  var User = require('../models/User'),
-      Location = require('../models/Location'),
-      Guide = require('../models/Guide'),
-      Traveler = require('../models/Traveler'),
-      Preference = require('../models/Preference'),
-      Rating = require('../models/Rating'),
-      Review = require('../models/Review'),
-      Trip = require('../models/Trip'),
-      Tour = require('../models/Tour'),
-      Reward = require('../models/Reward'),
-      Redeemed = require('../models/Redeemed'),
-      Booking = require('../models/Booking'),
-      Note = require('../models/Note'),
-      Negotiate = require('../models/Negotiate'),
-      config = require('../../config');
+  var config = require('../../config');
+  var file = require('../models/Files');
   var jsonwebtoken = require('jsonwebtoken');
   var secretKey = config.secretKey;
-
-  var user, location, traveler,
-      preference, guide, rating,
-      review, trip, tour, reward,
-      redeem, booking, note, negotiate;
-
-
   var loggedInUser;
+  var user, location, traveler,
+    preference, guide, rating,
+    review, trip, tour, reward,
+    redeem, booking, note, negotiate;
 
   module.exports = function(app, express){
       var api = express.Router();
       var endpoints = require('../../endpoints/endpoints.js')();
-//
+//begin endpoints
       api.use('/user/:userId', endpoints.getById); //end getById endpoint
       api.route('/user/:userId')
          .get(endpoints.get)
@@ -39,7 +23,7 @@
 
   //createUser
       var createUser = function(req, res){
-          user = new User({
+          user = new file.User({
               name: req.body.name,
               birthday: req.body.birthday,
               age: req.body.age,
@@ -55,7 +39,7 @@
                       res.send(err);
                       return;
                   }else if(!err){
-                      User.find({})
+                      file.User.find({})
                           .populate('name')
                           .populate('birthday')
                           .populate('age')
@@ -68,7 +52,7 @@
       }; //end createUser
     //start: login endpoint
     api.post('/login', function(req, res){
-      User.findOne({
+      file.User.findOne({
         name: req.body.name,
         birthday: req.body.birthday,
         age: req.body.age,
@@ -89,7 +73,7 @@
     //POST location endpoint.
     api.route('/location')
         .post(function(req, res){
-            location = new Location({
+            location = new file.Location({
                 country: req.body.country,
                 city: req.body.city
             });
@@ -98,7 +82,7 @@
                 if(err){
                     res.send(err);
                 }
-                Location.find({})
+                file.Location.find({})
                     .populate('location.country')
                     .populate('location.city')
                     .exec(function(error, locations) {
@@ -113,7 +97,7 @@
       api.route('/guide')
           .post(function(req, res){
               if(!loggedInUser){
-                  guide = new Guide({
+                  guide = new file.Guide({
                       location:{
                           country: req.body.location.country,
                           city: req.body.location.city
@@ -124,7 +108,7 @@
                       guide_user_id: user._id
                   });
               }else if(loggedInUser){
-                  guide = new Guide({
+                  guide = new file.Guide({
                       location:{
                           country: req.body.location.country,
                           city: req.body.location.city
@@ -141,16 +125,13 @@
                   if(err){
                       res.send(err);
                   }else if(!err){
-                      Guide.find({})
+                      file.Guide.find({})
                           .populate('location.country')
                           .populate('location.city')
                           .populate('contact_number')
                           .populate('email_address')
                           .populate('type')
-                          .populate('guide_user_id')
-                          .exec(function(error, guides){
-                              console.log(JSON.stringify(guides, null, "\t"));
-                          });
+                          .populate('guide_user_id');
                       res.json({
                           success: true,
                           message: "Guide Activated!"
@@ -165,11 +146,11 @@
       api.route('/traveler')
           .post(function(req, res){
               if(!loggedInUser){
-                  traveler = new Traveler({
+                  traveler = new file.Traveler({
                       traveler_user_id: user._id
                   });
               }else if(loggedInUser){
-                  traveler = new Traveler({
+                  traveler = new file.Traveler({
                       traveler_user_id: loggedInUser
                   });
               }
@@ -178,8 +159,7 @@
                   if(err){
                       res.send(err);
                   }
-                  Traveler.find({})
-                          .populate('traveler_user_id');
+                  file.Traveler.find({}).populate('traveler_user_id');
                   res.json({
                       success: true,
                       message: "Traveler Activated!"
@@ -195,24 +175,23 @@
          .patch(endpoints.patchTraveler); //register getTravelerById
 
       api.use('/location/:locationId', endpoints.getLocationById); //getLocationById
-      api.route('/location/:locationId')
-         .get(endpoints.getLocationByIdRoute); //register getLocationById route
-
+      api.route('/location/:locationId').get(endpoints.getLocationByIdRoute); //register getLocationById route
       //start POST-preference endpoint - traveler
       api.route('/preference')
              .post(function(req, res){
-               preference = new Preference({
+               preference = new file.Preference({
                    preference: req.body.preference
                });
                 //save to mongodb
                 preference.save(function(err){
                   if(err) res.send(err);
-
-                  res.json(preference);
+                  else if(!err){
+                      file.Preference.find({})
+                          .populate('preference');
+                      res.json(preference);
+                  }
                 });
-             });
-      //end POST-preference endpoint
-
+             });//end POST-preference endpoint
       //start GET-preference endpoint
        api.get('/preferences', endpoints.getPreference); //end get endpoint
        api.use('/preference/:preferenceId', endpoints.getPreferenceById); //end getByPreferenceId endpoint
@@ -220,7 +199,7 @@
       //start POST-rating endpoint
       api.route('/rating/guide/:guideId')
              .post(function(req, res){
-              rating = new Rating({
+              rating = new file.Rating({
                    TravelerID: traveler._id,
                    GuideID: guide._id,
                    rating: req.body.rating
@@ -229,7 +208,7 @@
                 rating.save(function(err){
                   if(err) res.send(err);
                   else if(!err){
-                      Rating.find({})
+                      file.Rating.find({})
                           .populate('TravelerID')
                           .populate('GuideID')
                           .populate('rating');
@@ -239,11 +218,10 @@
              });
       //end POST-rating endpoint
        api.get('/ratings', endpoints.getRatings); //GET-rating endpoint
-
       //start POST-review endpoint
       api.route('/review/guide/:guideId')
           .post(function(req, res){
-            review = new Review({
+            review = new file.Review({
               review_traveler_id: traveler._id,
               review_guide_id: guide._id,
               comment: req.body.comment
@@ -251,7 +229,7 @@
             review.save(function(err){
               if(err) res.send(err);
               else if(!err){
-                  Review.find({})
+                  file.Review.find({})
                       .populate('review_traveler_id')
                       .populate('review_guide_id')
                       .populate('comment');
@@ -261,11 +239,10 @@
           });
       //end POST-review endpoint
       api.get('/reviews', endpoints.getReviews); //GET-review endpoint
-
       //start POST-trip endpoint
       api.route('/trip')
          .post(function(req, res){
-           trip = new Trip({
+           trip = new file.Trip({
                trip_traveler_id: traveler._id,
                location: {
                    country: req.body.location.country,
@@ -279,7 +256,7 @@
            trip.save(function(err){
              if(err)  res.send(err);
              else if(!err){
-                 Trip.find({})
+                 file.Trip.find({})
                      .populate('location.country')
                      .populate('location.city')
                      .populate('destination')
@@ -293,7 +270,7 @@
       //start POST-tour endpoint
       api.route('/tour')
          .post(function(req, res){
-           tour = new Tour({
+           tour = new file.Tour({
              name: req.body.name,
              duration: req.body.duration,
              details: req.body.details,
@@ -305,7 +282,7 @@
            tour.save(function(err){
              if(err)  res.send(err);
              else if(!err){
-                 Tour.find({})
+                 file.Tour.find({})
                      .populate('name')
                      .populate('duration')
                      .populate('details')
@@ -317,11 +294,10 @@
            });
          });//end POST-tour endpoint
       api.get('/tours', endpoints.getAllTours); //end GET-tour endpoint
-
       //start: POST - reward endpoint
       api.route('/reward')
           .post(function(req, res){
-            reward = new Reward({
+            reward = new file.Reward({
               reward_tour_id: tour._id,
               redeem_points: req.body.redeem_points
             });
@@ -329,7 +305,7 @@
             reward.save(function(err){
               if(err) res.send(err);
               else if(!err){
-                  Reward.find({})
+                  file.Reward.find({})
                       .populate('reward_tour_id')
                       .populate('redeem_points');
                   res.json(reward);
@@ -338,7 +314,7 @@
           });//end: POST - reward endpoint
       //start GET-reward endpoint
       api.get('/rewards', function(req, res){
-          Reward.find({}, function(err, getRewards){
+          file.Reward.find({}, function(err, getRewards){
               if(err){
                   res.send(err);
                   return;
@@ -349,7 +325,7 @@
       //start: POST - redeem endpoint
       api.route('/redeem')
           .post(function(req, res){
-            redeem = new Redeemed({
+            redeem = new file.Redeemed({
               redeem_traveler_id: traveler._id,
               redeem_reward_id: reward._id
             });
@@ -357,7 +333,7 @@
             redeem.save(function(err){
               if(err) res.send(err);
               else if(!err){
-                  Redeemed.find({})
+                  file.Redeemed.find({})
                       .populate('redeem_traveler_id')
                       .populate('redeem_reward_id');
                   res.json(redeem);
@@ -366,7 +342,7 @@
           });//end: POST - redeem endpoint
       //start GET-redeem endpoint
       api.get('/redeems', function(req, res){
-          Redeemed.find({}, function(err, getRedeems){
+          file.Redeemed.find({}, function(err, getRedeems){
               if(err){
                   res.send(err);
                   return;
@@ -377,7 +353,7 @@
       //start: POST - booking endpoint
       api.route('/book')
          .post(function(req, res){
-           booking = new Booking({
+           booking = new file.Booking({
              booking_tour_id: tour._id,
              booking_traveler_id: traveler._id,
              schedule: req.body.schedule,
@@ -390,7 +366,7 @@
            booking.save(function(err){
              if(err)  res.send(err);
              else if(!err){
-                 Booking.find({})
+                 file.Booking.find({})
                      .populate('booking_tour_id')
                      .populate('booking_traveler_id')
                      .populate('schedule')
@@ -405,7 +381,7 @@
       //start: POST - note endpoint
       api.route('/note')
           .post(function(req, res){
-              note = new Note({
+              note = new file.Note({
                   note_tour_id: tour._id,
                   notes: req.body.notes
               });
@@ -413,7 +389,7 @@
               note.save(function(err){
                   if(err)  res.send(err);
                   else if(!err){
-                      Note.find({})
+                      file.Note.find({})
                           .populate('note_tour_id')
                           .populate('notes');
                       res.json(note);
@@ -427,7 +403,7 @@
       //negotiation endpoint
       api.route('/negotiate')
           .post(function(req, res){
-            negotiate = new Negotiate({
+            negotiate = new file.Negotiate({
                 negotiate_tour_id: tour._id,
                 negotiate_traveler_id: traveler._id,
                 proposed_rate: req.body.proposed_rate,
@@ -436,7 +412,7 @@
               negotiate.save(function(err){
                   if(err)   res.send(err);
                   else if(!err){
-                      Negotiate.find({})
+                      file.Negotiate.find({})
                           .populate('negotiate_tour_id')
                           .populate('negotiate_traveler_id')
                           .populate('proposed_rate')
