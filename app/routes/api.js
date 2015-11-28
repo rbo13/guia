@@ -5,7 +5,7 @@
   var file = require('../models/Files');
   var jsonwebtoken = require('jsonwebtoken');
   var secretKey = config.secretKey;
-  var loggedInUser;
+  var loggedInUser, guide_id;
   var user, location, traveler,
     preference, guide, rating,
     review, trip, tour, reward,
@@ -138,6 +138,18 @@
       api.route('/guide/:userId')
          .get(endpoints.getGuideByIdRoute);
       //end
+
+      api.get('/guide/:guideId', function(req, res){
+         file.Guide.findById({
+             _id: guide._id
+         }).select('_id').exec(function(err, guide){
+             if(err) throw err;
+             else if (guide) {
+                 guide_id = user._id;
+                 res.json(guide_id);
+             }
+         })
+      });
 
       //POST/GET - traveler endpoint
       api.route('/traveler')

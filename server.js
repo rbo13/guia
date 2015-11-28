@@ -32,6 +32,7 @@ app.get('/', function(req, res){
 });
 //load admin page
 app.get('/dashboard', function(req, res){
+<<<<<<< HEAD
     res.sendFile(__dirname + '/public/app/views/admin/admin.html');
 });
 app.get('/dashboard/preferences', function(req, res){
@@ -41,6 +42,13 @@ app.get('/dashboard/rewards', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/admin.html');
 });
 
+=======
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+app.get('/dashboard/preference', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+>>>>>>> 5fd0d1f5eee02576b9422e36c2ed7a1faa23c50a
 
 http.listen(config.port, function(err){
   if(err){
