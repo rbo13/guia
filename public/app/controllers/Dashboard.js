@@ -5,6 +5,12 @@
         .controller('DashboardController', function(Location, $scope){
 
             //var vm = this;
+            $scope.locations = [];
+
+            Location.getAllLocation()
+                .success(function(data){
+                $scope.locations = data;
+            });
 
             $scope.addLocation = function(){
                 console.log('Added New Location');

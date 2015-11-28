@@ -32,8 +32,12 @@ app.get('/', function(req, res){
 });
 //load admin page
 app.get('/dashboard', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/admin/admin.html')
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });
+app.get('/dashboard/preference', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+
 http.listen(config.port, function(err){
   if(err){
     console.log(err);
