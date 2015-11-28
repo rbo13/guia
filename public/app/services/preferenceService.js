@@ -9,7 +9,7 @@
             }
 
             var getAllPreferences = function(){
-                return $http.get('/api/v1/preference');
+                return $http.get('/api/v1/preferences');
             }
 
             return {
