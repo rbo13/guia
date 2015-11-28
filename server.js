@@ -26,7 +26,10 @@ app.use('/api/v1', api);
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/app/views/index.html');
 });
-
+//load admin page
+app.get('/admin', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/admin.html')
+});
 http.listen(config.port, function(err){
   if(err){
     console.log(err);
