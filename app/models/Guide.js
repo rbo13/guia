@@ -10,6 +10,7 @@ var GuideSchema = new Schema({
     contact_number: String,
     type: String,
     email_address: String,
+    isActivated: { type: Boolean, default: false },
     guide_user_id: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 //end creating guide Schema

@@ -73,7 +73,7 @@
       };
 
       var getGuideById = function(req, res, next){
-          User.findById(req.params.userId, function(err, guide){
+          Guide.findById(req.params.userId, function(err, guide){
               if(err) res.status(500).send(err);
               else if(guide){
                   req.getGuide = guide;
