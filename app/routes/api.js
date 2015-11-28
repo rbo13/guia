@@ -51,10 +51,6 @@
               }); //end user.save()
           }
       }; //end createUser
-
-      var findUserByFacebookId = function(){
-          
-      }
     //start: login endpoint
     api.post('/login', function(req, res){
       file.User.findOne({
