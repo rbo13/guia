@@ -32,8 +32,16 @@ app.get('/', function(req, res){
 });
 //load admin page
 app.get('/dashboard', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/admin/admin.html')
+    res.sendFile(__dirname + '/public/app/views/admin/admin.html');
 });
+app.get('/dashboard/preferences', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/admin.html');
+});
+app.get('/dashboard/rewards', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/admin.html');
+});
+
+
 http.listen(config.port, function(err){
   if(err){
     console.log(err);
@@ -80,6 +88,12 @@ app.get('/public/app/app.route.js', function(req, res){
 });
 app.get('/public/app/services/locationService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/services/locationService.js');
+});
+app.get('/public/app/services/rewardService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/rewardService.js');
+});
+app.get('/public/app/services/preferenceService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/preferenceService.js');
 });
 app.get('/public/app/controllers/Dashboard.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Dashboard.js');
