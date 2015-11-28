@@ -24,13 +24,14 @@
   //createUser
       var createUser = function(req, res){
           user = new file.User({
+              facebook_id: req.body.facebook_id,
               name: req.body.name,
               birthday: req.body.birthday,
               age: req.body.age,
               gender: req.body.gender,
               profImage: req.body.profImage
           });
-          if(!req.body.name){
+          if(!req.body.facebook_id){
               res.status(400).send('Name is required!');
           }else{
               user.save(function(err){
@@ -39,6 +40,7 @@
                       return;
                   }else if(!err){
                       file.User.find({})
+                          .populate('facebook_id')
                           .populate('name')
                           .populate('birthday')
                           .populate('age')
@@ -49,15 +51,15 @@
               }); //end user.save()
           }
       }; //end createUser
+
+      var findUserByFacebookId = function(){
+          
+      }
     //start: login endpoint
     api.post('/login', function(req, res){
       file.User.findOne({
-        name: req.body.name,
-        birthday: req.body.birthday,
-        age: req.body.age,
-        gender: req.body.gender,
-        profImage: req.body.profImage
-      }).select('name birthday age gender profImage ').exec(function(err, user){
+        facebook_id: req.body.facebook_id
+      }).select('facebook_id').exec(function(err, user){
           if(err) throw err;
 
           if(!user){
