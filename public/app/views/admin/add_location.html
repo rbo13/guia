@@ -1,0 +1,12 @@
+<div class="dashboard-card" ng-controller="DashboardController">
+    <h5>Add location</h5>
+    <div class="input-field">
+        <input id="country" type="text" class="validate" name="country" ng-model="locationData.country">
+        <label for="country">Country</label>
+    </div>
+    <div class="input-field">
+        <input id="city" type="text" class="validate" name="city" ng-model="locationData.city">
+        <label for="city">City</label>
+    </div>
+    <button class="waves-effect waves-light btn green" ng-click="addLocation()">Add</button>
+</div>

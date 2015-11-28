@@ -3,10 +3,8 @@ var mongoose = require('mongoose'),
 
 //create guide Schema
 var GuideSchema = new Schema({
-    location: {
-        country: String,
-        city: String
-    },
+    country: String,
+    city: String,
     contact_number: String,
     type: String,
     email_address: String,

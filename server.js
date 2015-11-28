@@ -22,6 +22,10 @@ app.use(express.static(__dirname + '/public'));
 var api = require('./app/routes/api')(app, express);
 app.use('/api/v1', api);
 
+//app.use(function(req, res){
+//    res.sendfile(__dirname + '/public/app/views/index.html');
+//});
+
 //load index page.
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/app/views/index.html');
@@ -66,4 +70,17 @@ app.get('/images/parallax2-min.jpg', function(req, res){
 });
 app.get('/images/guia.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/guia.png');
+});
+//angular files
+app.get('/public/app/app.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/app.js');
+});
+app.get('/public/app/app.route.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/app.route.js');
+});
+app.get('/public/app/services/locationService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/locationService.js');
+});
+app.get('/public/app/controllers/Dashboard.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/controllers/Dashboard.js');
 });

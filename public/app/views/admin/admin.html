@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="guia">
 <head>
+    <base href="/">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,7 +27,10 @@
 <body>
 
 <header>
-    <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="mdi-navigation-menu"></i></a></div>
+    <div class="container">
+        <a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="mdi-navigation-menu"></i>
+        </a>
+    </div>
     <ul id="nav-mobile" class="fixed side-nav">
         <li class="logo nav-logo"><a id="logo-container" class="brand-logo">
             <img class="dashboard-logo" src="images/guia.png">
@@ -77,6 +81,8 @@
             </ul>
         </div>
     </nav>
+
+    <ng-view></ng-view>
 </main>
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -87,6 +93,15 @@
 <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/js/prism.js"></script>
 <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/bin/materialize.js"></script>
 <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/js/init.js"></script>
+<!--Angular Scripts-->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-route.min.js"></script>
+<!--Angular Scripts: Service-->
+<script type="text/javascript" src="/public/app/app.js"></script>
+<script type="text/javascript" src="/public/app/app.route.js"></script>
+<script type="text/javascript" src="/public/app/services/locationService.js"></script>
+<script type="text/javascript" src="/public/app/controllers/Dashboard.js"></script>
+
 <!-- Twitter Button -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 

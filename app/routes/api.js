@@ -95,10 +95,8 @@
           .post(function(req, res){
               if(!loggedInUser){
                   guide = new file.Guide({
-                      location:{
-                          country: req.body.location.country,
-                          city: req.body.location.city
-                      },
+                      country: req.body.country,
+                      city: req.body.city,
                       contact_number: req.body.contact_number,
                       email_address: req.body.email_address,
                       type: req.body.type,
@@ -106,10 +104,8 @@
                   });
               }else if(loggedInUser){
                   guide = new file.Guide({
-                      location:{
-                          country: req.body.location.country,
-                          city: req.body.location.city
-                      },
+                      country: req.body.country,
+                      city: req.body.city,
                       contact_number: req.body.contact_number,
                       email_address: req.body.email_address,
                       type: req.body.type,

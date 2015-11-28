@@ -27,3 +27,44 @@ body{
 	background: #61e24c;
 }
 
+.dashboard-card{
+	background: #fff;
+	box-shadow: 0px 1px 1px #ccc;
+	margin-top: 10%;
+	margin-bottom: 10%;
+	margin-right: 20%;
+	margin-left: 20%;
+	padding: 5%;
+}
+
+.pref-card{
+	margin: 5px;
+}
+
+.login-panel{
+	background: #fff;
+	box-shadow: 0px 1px 1px #ccc;
+	margin-top: 10%;
+	margin-bottom: 10%;
+	margin-right: 33%;
+	margin-left: 33%;
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.login-panel img{
+	height: 150px;
+	width: 150x;
+	margin-left: 30%;
+	margin-right: 30%;
+	margin-top: 5px;
+	margin-top: 5px;
+}
+
+.login-panel button{
+	margin-left: 35%;
+	margin-right: 35%;
+}
+
