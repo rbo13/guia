@@ -27,7 +27,7 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/app/views/index.html');
 });
 //load admin page
-app.get('/admin', function(req, res){
+app.get('/dashboard', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/admin.html')
 });
 http.listen(config.port, function(err){
@@ -48,6 +48,9 @@ app.get('/css/material-icons.css', function(req, res){
 app.get('/css/main.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/main.css');
 });
+app.get('/css/admin.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/css/admin.css');
+});
 //fonts
 app.get('/font/roboto/Roboto-Regular.ttf', function(req, res){
     res.sendFile(__dirname + '/public/app/views/font/roboto/Roboto-Regular.ttf');
@@ -60,4 +63,7 @@ app.get('/images/parallax1-min.jpg', function(req, res){
 });
 app.get('/images/parallax2-min.jpg', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/parallax2-min.jpg');
+});
+app.get('/images/guia.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/images/guia.png');
 });

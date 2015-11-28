@@ -1,0 +1,29 @@
+body{
+	background: #f4f7f3;
+}
+.side-nav{
+	box-shadow: none;
+	background: #fff;
+}
+
+.dashboard-logo{
+	height: 64px;
+	width: 64px;
+}
+
+.user-header{
+	color: #363635 !important;
+	background: #61e24c;
+	box-shadow: none;
+}
+
+.right li{
+	height: 64px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.right li:hover{
+	background: #61e24c;
+}
+

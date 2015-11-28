@@ -32,7 +32,7 @@
               profImage: req.body.profImage
           });
           if(!req.body.facebook_id){
-              res.status(400).send('Name is required!');
+              res.status(400).send('User not available!');
           }else{
               user.save(function(err){
                   if(err){
@@ -135,9 +135,13 @@
                       });
                   }
               });
-          })
-          .get(endpoints.getGuide);
-      //end POST/GET guide endpoint
+          });//end POST
+      api.route('/guides').get(endpoints.getGuide); //end /GET guide endpoint
+      //start getGuideById
+      api.use('/guide/:userId', endpoints.getGuideById); //getTravelerById
+      api.route('/guide/:userId')
+         .get(endpoints.getGuideByIdRoute);
+      //end
 
       //POST/GET - traveler endpoint
       api.route('/traveler')
