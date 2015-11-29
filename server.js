@@ -59,6 +59,9 @@ app.get('/css/material-icons.css', function(req, res){
 app.get('/css/main.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/main.css');
 });
+app.get('/public/app/views/css/ghpages-materialize.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/css/ghpages-materialize.css');
+});
 app.get('/css/admin.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/admin.css');
 });

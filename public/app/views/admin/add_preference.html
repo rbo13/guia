@@ -1,10 +1,10 @@
-<div class="dashboard-card">
+<div class="dashboard-card" ng-controller="DashboardController">
     <h5>Add Preference</h5>
     <div class="input-field">
-        <input type="text" id="preference" class="validate">
+        <input type="text" id="preference" class="validate" name="preference" ng-model="preferenceData.preference">
         <label for="preference">Preference</label>
     </div>
-    <button class="waves-effect waves-light btn green">Set preference</button>
+    <button class="waves-effect waves-light btn green" ng-click="addPreference()">Set preference</button>
 </div>
 
 <div class="dashboard-card">

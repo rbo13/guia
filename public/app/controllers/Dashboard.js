@@ -7,7 +7,6 @@
             //var vm = this;
             $scope.locations = [];
 
-
             Location.getAllLocations()
                 .success(function(data){
                 $scope.locations = data;
@@ -21,7 +20,6 @@
                     });
             }
     });
-
 
     angular.module('rewardController', ['rewardSrvc'])
         .controller('DashboardController', function(Reward, $scope){
@@ -39,10 +37,6 @@
             //Preferences
             $scope.addPreference = function(){
                 console.log('Added New Preference');
-                Preference.preference($scope.preferenceData)
-                        .success(function(data){
-                        $scope.commentData = '';
-                    });
             }
 
             //Locations
@@ -51,7 +45,7 @@
             Location.getAllLocations()
                 .success(function(data){
                     $scope.locations = data;
-                });
+            });
 
             $scope.addLocation = function(){
                 console.log('Added New Location');
@@ -65,7 +59,7 @@
                 console.log('Location Activated');
                 Location.activateLocation($scope.id, $scope.value)
                     .success(function(data){
-                        console.log('Updated Location')
+                        console.log('Updated Location');
                         console.log(data);
                     }).error(function(){
                         console.log('FAIL');
