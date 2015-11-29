@@ -397,7 +397,6 @@
       api.get('/notes', endpoints.getAllNotes); //end: GET - note endpoint
       api.use('/note/:noteId', endpoints.getNoteById); //end getByPreferenceId endpoint
       api.route('/note/:noteId').get(endpoints.getNoteByIdRoute); //end: getById - note endpoint
-
       //negotiation endpoint
       api.route('/negotiate')
           .post(function(req, res){

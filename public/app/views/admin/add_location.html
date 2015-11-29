@@ -1,5 +1,5 @@
 <div class="dashboard-card" ng-app="preferenceController" ng-controller="DashboardController">
-    <h5 class="green-text">Add location {{bicbic}}</h5>
+    <h5 class="green-text">Add location</h5>
     <div class="input-field">
         <select id="country" class="validate" name="country" ng-model="locationData.country">
             <option value="" disabled selected>Select a Country</option>
@@ -51,12 +51,12 @@
             <option>Virgin Islands</option>
         </select>
     </div>
+    {{location.country}}
     <div class="input-field">
         <input id="city" type="text" class="validate" name="city" ng-model="locationData.city">
         <label for="city">City</label>
     </div>
     <button class="waves-effect waves-light btn green" ng-click="addLocation()">Add</button>
-
 </div>
 
 <div class="dashboard-card">
