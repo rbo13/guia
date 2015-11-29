@@ -8,13 +8,13 @@
                 return $http.post('/api/v1/location', locationData);
             };
 
-            var getAllLocation = function(){
+            var getAllLocations = function(){
                 return $http.get('/api/v1/locations');
             };
 
             return {
                 location: location,
-                getAllLocation: getAllLocation
+                getAllLocations: getAllLocations
             }
         });
 })();

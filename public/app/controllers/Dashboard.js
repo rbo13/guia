@@ -7,7 +7,7 @@
             //var vm = this;
             $scope.locations = [];
 
-            Location.getAllLocation()
+            Location.getAllLocations()
                 .success(function(data){
                 $scope.locations = data;
             });
@@ -16,7 +16,7 @@
                 console.log('Added New Location');
                 Location.location($scope.locationData)
                     .success(function(data){
-                        $scope.commentData = '';
+                        $scope.locationData = '';
                     });
             }
     });
