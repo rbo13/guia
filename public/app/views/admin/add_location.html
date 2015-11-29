@@ -72,9 +72,10 @@
             <tr ng-repeat="location in locations">
                 <td>{{location.country}}</td>
                 <td>{{location.city}}</td>
+                <td>{{location._id}}</td>
                 <td colspan="2">
-                    <button ng-show="{{location.isActivated == true}}" class="waves-effect waves-light btn green">Activated</button>
-                    <button ng-show="{{location.isActivated == false}}" class="waves-effect waves-light btn red">Deactivated</button>
+                    <button href="/api/v1/location/location._id" ng-show="{{location.isActivated == true}}" class="waves-effect waves-light btn green" ng-click="activateLocation(location._id, !location.isActivated)">Activated</button>
+                    <button ng-show="{{location.isActivated == false}}" class="waves-effect waves-light btn red" ng-click="activateLocation(location._id, !location.isActivated)">Deactivated</button>
                 </td>
             </tr>
         </tbody>

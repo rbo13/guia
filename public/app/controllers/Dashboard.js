@@ -48,7 +48,6 @@
             //Locations
             $scope.locations = [];
 
-
             Location.getAllLocations()
                 .success(function(data){
                     $scope.locations = data;
@@ -63,7 +62,14 @@
             }
 
             $scope.activateLocation = function(){
-
+                console.log('Location Activated');
+                Location.activateLocation($scope.id, $scope.value)
+                    .success(function(data){
+                        console.log('Updated Location')
+                        console.log(data);
+                    }).error(function(){
+                        console.log('FAIL');
+                    });
             };
     });
 })();
