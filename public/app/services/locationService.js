@@ -12,7 +12,6 @@
                 return $http.get('/api/v1/locations');
             };
 
-            //Kentoy: to do, patch request to update "isActivated value"
             var activateLocation = function(id, updateValue){
                 var obj = { isActivated: updateValue };
                 return $http.patch('/api/v1/location/'+id, obj);

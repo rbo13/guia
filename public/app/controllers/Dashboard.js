@@ -91,7 +91,6 @@
 
             //Locations
             $scope.locations = [];
-
             Location.getAllLocations()
                 .success(function(data){
                     $scope.locations = data;
@@ -102,6 +101,9 @@
                 Location.location($scope.locationData)
                     .success(function(data){
                         $scope.locationData = '';
+                        console.log(data);
+                        $scope.locations.push(data);
+                        console.log($scope.locations);
                     });
             }
 
