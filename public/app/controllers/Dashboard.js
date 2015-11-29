@@ -3,20 +3,17 @@
 
     angular.module('locationController', ['locationSrvc'])
         .controller('DashboardController', function(Location, Reward, $scope){
-
-            //var vm = this;
-            $scope.locations = [];
-
+            var vm = this;
             Location.getAllLocations()
                 .success(function(data){
-                $scope.locations = data;
+                vm.locations = data;
             });
 
-            $scope.addLocation = function(){
+            vm.addLocation = function(){
                 console.log('Added New Location');
-                Location.location($scope.locationData)
+                Location.location(vm.locationData)
                     .success(function(data){
-                        $scope.locationData = '';
+                        vm.locationData = data;
                     });
             }
     });
