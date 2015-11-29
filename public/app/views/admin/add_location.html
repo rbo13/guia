@@ -1,0 +1,92 @@
+<div class="dashboard-card" ng-controller="DashboardController">
+    <h5>Add location</h5>
+    <div class="input-field">
+        <select id="country" class="validate" name="country" ng-model="locationData.country">
+            <option value="1">Argentina</option>
+            <option value="2">Armenia</option>
+            <option value="3">Bahamas</option>
+            <option value="4">Belgium</option>
+            <option value="5">Brazil</option>
+            <option value="6">Caribbean</option>
+            <option value="7">Cayman Islands</option>
+            <option value="8">Chile</option>
+            <option value="9">China</option>
+            <option value="10">Denmark</option>
+            <option value="11">Ecuador</option>
+            <option value="12">Ethiopia</option>
+            <option value="13">Finland</option>
+            <option value="14">France</option>
+            <option value="15">Germany</option>
+            <option value="16">Greece</option>
+            <option value="17">Hong Kong</option>
+            <option value="18">Indonesia</option>
+            <option value="19">Korea (south)</option>
+            <option value="20">Macao</option>
+            <option value="21">Malaysia</option>
+            <option value="22">Maldives</option>
+            <option value="23">Malta</option>
+            <option value="24">Monaco</option>
+            <option value="25">Netherlands</option>
+            <option value="26">North America</option>
+            <option value="27">Norway</option>
+            <option value="28">Palau</option>
+            <option value="29">Peru</option>
+            <option value="30">Philippines</option>
+            <option value="31">Poland</option>
+            <option value="32">Saudi Arabia</option>
+            <option value="33">Singapore</option>
+            <option value="34">Spain</option>
+            <option value="35">Sri Lanka</option>
+            <option value="36">Sweden</option>
+            <option value="37">Switzerland</option>
+            <option value="38">Taiwan</option>
+            <option value="39">Thailand</option>
+            <option value="40">United Arab Emirates</option>
+            <option value="41">United Kingdom</option>
+            <option value="42">United States</option>
+            <option value="43">Vatican</option>
+            <option value="44">Venezuela</option>
+            <option value="45">Vietnam</option>
+            <option value="46">Virgin Islands</option>
+        </select>
+    </div>
+    <div class="input-field">
+        <input id="city" type="text" class="validate" name="city" ng-model="locationData.city">
+        <label for="city">City</label>
+    </div>
+    <button class="waves-effect waves-light btn green" ng-click="addLocation()">Add</button>
+
+    <div ng-repeat="location in locations">
+        {{location.country}}
+        {{location.city}}
+    </div>
+</div>
+
+<div class="dashboard-card">
+    <table class="striped responsive-table">
+        <thead>
+        <tr>
+            <th data-field="country">Country</th>
+            <th data-field="city">City</th>
+            <th data-field="action">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Philippines</td>
+            <td>Bohol</td>
+            <td><button class="waves-effect waves-light btn green">Activated</button></td>
+        </tr>
+        <tr>
+            <td>Philippines</td>
+            <td>Palawan</td>
+            <td><button class="waves-effect waves-light btn red">Deactivated</button</td>
+        </tr>
+        <tr>
+            <td>Philippines</td>
+            <td>Cebu</td>
+            <td><button class="waves-effect waves-light btn green">Activated</button</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

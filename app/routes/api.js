@@ -5,7 +5,7 @@
   var file = require('../models/Files');
   var jsonwebtoken = require('jsonwebtoken');
   var secretKey = config.secretKey;
-  var loggedInUser;
+  var loggedInUser, guide_id;
   var user, location, traveler,
     preference, guide, rating,
     review, trip, tour, reward,
@@ -24,14 +24,16 @@
   //createUser
       var createUser = function(req, res){
           user = new file.User({
+              facebook_id: req.body.facebook_id,
               name: req.body.name,
               birthday: req.body.birthday,
               age: req.body.age,
               gender: req.body.gender,
-              profImage: req.body.profImage
+              profImage: req.body.profImage,
+              guide_id: req.body.guide_id
           });
-          if(!req.body.name){
-              res.status(400).send('Name is required!');
+          if(!req.body.facebook_id){
+              res.status(400).send('User not available!');
           }else{
               user.save(function(err){
                   if(err){
@@ -39,11 +41,13 @@
                       return;
                   }else if(!err){
                       file.User.find({})
+                          .populate('facebook_id')
                           .populate('name')
                           .populate('birthday')
                           .populate('age')
                           .populate('gender')
-                          .populate('profImage');
+                          .populate('profImage')
+                          .populate('guide_id');
                       res.json(user);
                   }
               }); //end user.save()
@@ -52,12 +56,9 @@
     //start: login endpoint
     api.post('/login', function(req, res){
       file.User.findOne({
-        name: req.body.name,
-        birthday: req.body.birthday,
-        age: req.body.age,
-        gender: req.body.gender,
-        profImage: req.body.profImage
-      }).select('name birthday age gender profImage ').exec(function(err, user){
+        guide_id: req.body.guide_id,
+        facebook_id: req.body.facebook_id
+      }).select('guide_id facebook_id').exec(function(err, user){
           if(err) throw err;
 
           if(!user){
@@ -97,10 +98,8 @@
           .post(function(req, res){
               if(!loggedInUser){
                   guide = new file.Guide({
-                      location:{
-                          country: req.body.location.country,
-                          city: req.body.location.city
-                      },
+                      country: req.body.country,
+                      city: req.body.city,
                       contact_number: req.body.contact_number,
                       email_address: req.body.email_address,
                       type: req.body.type,
@@ -108,10 +107,8 @@
                   });
               }else if(loggedInUser){
                   guide = new file.Guide({
-                      location:{
-                          country: req.body.location.country,
-                          city: req.body.location.city
-                      },
+                      country: req.body.country,
+                      city: req.body.city,
                       contact_number: req.body.contact_number,
                       email_address: req.body.email_address,
                       type: req.body.type,
@@ -137,10 +134,12 @@
                       });
                   }
               });
-          })
-          .get(endpoints.getGuide);
-      //end POST/GET guide endpoint
-
+          });//end POST
+      api.route('/guides').get(endpoints.getGuide); //end /GET guide endpoint
+      //start getGuideById
+      api.use('/guide/:userId', endpoints.getGuideById); //getTravelerById
+      api.route('/guide/:userId')
+         .get(endpoints.getGuideByIdRoute);//end
       //POST/GET - traveler endpoint
       api.route('/traveler')
           .post(function(req, res){

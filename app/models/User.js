@@ -3,11 +3,13 @@ var mongoose = require('mongoose'),
 
 //create user Schema
 var UserSchema = new Schema({
+  facebook_id: { type: String, select: false },
   name: String,
   birthday: String,
   age: Number,
   gender: String,
   profImage: String,
+  guide_id: { type: String, required: false, default: "" },
   token: { type: String, required: false, select: false }
 });
 //end creating user Schema

@@ -22,9 +22,26 @@ app.use(express.static(__dirname + '/public'));
 var api = require('./app/routes/api')(app, express);
 app.use('/api/v1', api);
 
+//app.use(function(req, res){
+//    res.sendfile(__dirname + '/public/app/views/index.html');
+//});
+
 //load index page.
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/app/views/index.html');
+});
+//load admin page
+app.get('/dashboard', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+app.get('/dashboard/preferences', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+app.get('/dashboard/rewards', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+app.get('/dashboard/preference', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });
 
 http.listen(config.port, function(err){
@@ -45,6 +62,9 @@ app.get('/css/material-icons.css', function(req, res){
 app.get('/css/main.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/main.css');
 });
+app.get('/css/admin.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/css/admin.css');
+});
 //fonts
 app.get('/font/roboto/Roboto-Regular.ttf', function(req, res){
     res.sendFile(__dirname + '/public/app/views/font/roboto/Roboto-Regular.ttf');
@@ -57,4 +77,26 @@ app.get('/images/parallax1-min.jpg', function(req, res){
 });
 app.get('/images/parallax2-min.jpg', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/parallax2-min.jpg');
+});
+app.get('/images/guia.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/images/guia.png');
+});
+//angular files
+app.get('/public/app/app.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/app.js');
+});
+app.get('/public/app/app.route.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/app.route.js');
+});
+app.get('/public/app/services/locationService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/locationService.js');
+});
+app.get('/public/app/services/rewardService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/rewardService.js');
+});
+app.get('/public/app/services/preferenceService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/preferenceService.js');
+});
+app.get('/public/app/controllers/Dashboard.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/controllers/Dashboard.js');
 });
