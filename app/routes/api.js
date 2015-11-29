@@ -195,7 +195,7 @@
       //start GET-preference endpoint
        api.get('/preferences', endpoints.getPreference); //end get endpoint
        api.use('/preference/:preferenceId', endpoints.getPreferenceById); //end getByPreferenceId endpoint
-       api.route('/preference/:preferenceId').get(endpoints.getPreferenceByIdRoute); //register route - GET endpoint
+       api.route('/preference/:preferenceId').get(endpoints.getPreferenceByIdRoute).patch(endpoints.patchPreference); //register route - GET endpoint
       //start POST-rating endpoint
       api.route('/rating/guide/:guideId')
              .post(function(req, res){

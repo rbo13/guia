@@ -32,12 +32,14 @@
       <img class="dashboard-logo" src="images/guia.png">
     </a>
     </li>
+
     <li class="search nav-search">
       <div class="search-wrapper card">
         <input id="search"><i class="material-icons">search</i>
         <div class="search-results"></div>
       </div>
     </li>
+
     <li class="no-padding nav-option">
       <ul class="collapsible collapsible-accordion">
         <li class="bold"><a class="collapsible-header  waves-effect waves-green">Statistics</a>
@@ -65,13 +67,17 @@
   </ul>
 </header>
 <main>
-  <nav class="user-header navbar-fixed">
-    <div class="col s12">
-      <ul class="right">
-        <li class="waves-effect waves-light"><a href=""><i class="material-icons white-text">power_settings_new</i></a></li>
-      </ul>
+    <div class="">
+        <nav class="nav-wrapper user-header">
+            <h4 class="left brand-logo "><i class="material-icons white-text">play_arrow</i>Location</h4>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li  class="waves-effect waves-light logout-button right">
+                    <a class="white-text" href=""><i class="material-icons white-text">power_settings_new</i></a>
+                </li>
+            </ul>
+        </nav>
     </div>
-  </nav>
+
     <ng-view></ng-view>
 </main>
 <!--  Scripts-->
@@ -79,6 +85,7 @@
 <script>if (!window.jQuery) { document.write('<script src="bin/jquery-2.1.1.min.js"><\/script>'); }
 </script>
 <script src="../jade/search.js" type="text/javascript"></script>
+<script src="../jade/lunr.min.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/js/jquery.timeago.min.js"></script>
 <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/js/prism.js"></script>
@@ -88,6 +95,7 @@
 <!--Angular Scripts-->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/angular.charts/0.2.7/angular-charts.min.js"></script>
 <!--Angular Scripts: Services-->
 <script type="text/javascript" src="/public/app/app.js"></script>
 <script type="text/javascript" src="/public/app/app.route.js"></script>

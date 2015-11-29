@@ -12,9 +12,15 @@
                 return $http.get('/api/v1/preferences');
             }
 
+            var activatePreference = function(id, updatevalue){
+                var obj = { isActivated: updatevalue };
+                return $http.patch('/api/v1/location/'+id, obj);
+            }
+
             return {
                 preference: preference,
-                getAllPreferences: getAllPreferences
+                getAllPreferences: getAllPreferences,
+                activatePreference: activatePreference
             }
         });
 })();

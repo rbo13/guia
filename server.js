@@ -65,6 +65,12 @@ app.get('/public/app/views/css/ghpages-materialize.css', function(req, res){
 app.get('/css/admin.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/admin.css');
 });
+app.get('/jade/search.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/jade/search.js');
+});
+app.get('/jade/lunr.min.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/jade/lunr.min.js');
+});
 //fonts
 app.get('/font/roboto/Roboto-Regular.ttf', function(req, res){
     res.sendFile(__dirname + '/public/app/views/font/roboto/Roboto-Regular.ttf');

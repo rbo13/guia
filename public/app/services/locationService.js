@@ -14,8 +14,8 @@
 
             //Kentoy: to do, patch request to update "isActivated value"
             var activateLocation = function(id, updateValue){
-                var locationId = '565a6b0bdf00f7bc164a5579';
-                return $http.patch('/api/v1/location/'+locationId, updateValue);
+                var obj = { isActivated: updateValue };
+                return $http.patch('/api/v1/location/'+id, obj);
             };
 
             return {

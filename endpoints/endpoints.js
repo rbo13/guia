@@ -199,6 +199,21 @@
       var getPreferenceByIdRoute = function(req, res){
           res.json(req.preference)
       };
+
+      var patchPreference = function(req, res) {
+          if (req.body._id) {
+              delete req.body._id;
+          }
+          for (var p in req.body) {
+              req.preference[p] = req.body[p];
+          }
+          req.preference.save(function (err) {
+              if (err)
+                  res.status(500).send(err);
+              else
+                  res.json(req.preference);
+          })
+      }
 //end preference
 
 //start rating
@@ -289,6 +304,7 @@
           getPreference: getPreference,
           getPreferenceById: getPreferenceById,
           getPreferenceByIdRoute: getPreferenceByIdRoute,
+          patchPreference: patchPreference,
           getRatings: getRatings,
           getReviews: getReviews,
           getTrips: getTrips,
