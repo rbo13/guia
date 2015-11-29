@@ -29,7 +29,8 @@
               birthday: req.body.birthday,
               age: req.body.age,
               gender: req.body.gender,
-              profImage: req.body.profImage
+              profImage: req.body.profImage,
+              guide_id: req.body.guide_id
           });
           if(!req.body.facebook_id){
               res.status(400).send('User not available!');
@@ -45,7 +46,8 @@
                           .populate('birthday')
                           .populate('age')
                           .populate('gender')
-                          .populate('profImage');
+                          .populate('profImage')
+                          .populate('guide_id');
                       res.json(user);
                   }
               }); //end user.save()
@@ -54,8 +56,9 @@
     //start: login endpoint
     api.post('/login', function(req, res){
       file.User.findOne({
+        guide_id: req.body.guide_id,
         facebook_id: req.body.facebook_id
-      }).select('facebook_id').exec(function(err, user){
+      }).select('guide_id facebook_id').exec(function(err, user){
           if(err) throw err;
 
           if(!user){
@@ -136,21 +139,7 @@
       //start getGuideById
       api.use('/guide/:userId', endpoints.getGuideById); //getTravelerById
       api.route('/guide/:userId')
-         .get(endpoints.getGuideByIdRoute);
-      //end
-
-      api.get('/guide/:guideId', function(req, res){
-         file.Guide.findById({
-             _id: guide._id
-         }).select('_id').exec(function(err, guide){
-             if(err) throw err;
-             else if (guide) {
-                 guide_id = user._id;
-                 res.json(guide_id);
-             }
-         })
-      });
-
+         .get(endpoints.getGuideByIdRoute);//end
       //POST/GET - traveler endpoint
       api.route('/traveler')
           .post(function(req, res){

@@ -9,6 +9,7 @@ var UserSchema = new Schema({
   age: Number,
   gender: String,
   profImage: String,
+  guide_id: { type: String, required: false, default: "" },
   token: { type: String, required: false, select: false }
 });
 //end creating user Schema

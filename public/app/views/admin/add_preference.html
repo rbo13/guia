@@ -1,15 +1,33 @@
 <div class="dashboard-card">
-		<h5>Add Preference</h5>
-		Preferences: 
-        <div>
-            <span class="btn green pref-card">Street party</span>
-            <span class="btn green pref-card">Clubs</span>
-            <span class="btn green pref-card">Treks</span>
-            <span class="btn green pref-card">Mountain Climbing</span>
-        </div>
-        <div class="input-field">
-            <input type="text" id="preference" class="validate">
-            <label for="preference">Preference</label>
-        </div>
-		<button class="waves-effect waves-light btn green">Set preference</button>
+    <h5>Add Preference</h5>
+    <div class="input-field">
+        <input type="text" id="preference" class="validate">
+        <label for="preference">Preference</label>
+    </div>
+    <button class="waves-effect waves-light btn green">Set preference</button>
+</div>
+
+<div class="dashboard-card">
+    <table class="striped responsive-table">
+        <thead>
+        <tr>
+            <th data-field="preference">Preference</th>
+            <th data-field="action">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Street Party</td>
+            <td><button class="waves-effect waves-light btn green">Activated</button></td>
+        </tr>
+        <tr>
+            <td>Club</td>
+            <td><button class="waves-effect waves-light btn red">Deactivated</button</td>
+        </tr>
+        <tr>
+            <td>Mountain Climbing</td>
+            <td><button class="waves-effect waves-light btn green">Activated</button</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
