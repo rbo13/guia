@@ -173,7 +173,9 @@
          .patch(endpoints.patchTraveler); //register getTravelerById
 
       api.use('/location/:locationId', endpoints.getLocationById); //getLocationById
-      api.route('/location/:locationId').get(endpoints.getLocationByIdRoute); //register getLocationById route
+      api.route('/location/:locationId')
+          .get(endpoints.getLocationByIdRoute)
+          .patch(endpoints.patchLocation); //register getLocationById route
       //start POST-preference endpoint - traveler
       api.route('/preference')
              .post(function(req, res){

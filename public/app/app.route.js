@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('appRoutes', ['ngRoute'])
-        .config(function($routeProvider, $locationProvider){
+        .config(function($routeProvider, $locationProvider, $httpProvider){
             $routeProvider
                 .when('/dashboard', {
                     templateUrl: 'app/views/admin/add_location.html',
@@ -23,5 +23,9 @@
                     redirectTo: '/'
                 });
             $locationProvider.html5Mode(true);
+
+            $httpProvider.defaults.headers.patch = {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
         });
 })();

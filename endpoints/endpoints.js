@@ -115,6 +115,21 @@
               res.json(locations);
           });
       };
+
+      var patchLocation = function(req, res){
+          if(req.body._id){
+              delete req.body._id;
+          }
+          for(var l in req.body){
+              req.getLocation[l] = req.body[l];
+          }
+          req.getLocation.save(function(err){
+              if(err)
+                  res.status(500).send(err);
+              else
+                  res.json(req.getLocation);
+          });
+      };
 //end location
 
 //traveler
@@ -264,6 +279,7 @@
           getLocationByIdRoute: getLocationByIdRoute,
           getLocation: getLocation,
           getGuide: getGuide,
+          patchLocation: patchLocation,
           getGuideById: getGuideById,
           getGuideByIdRoute: getGuideByIdRoute,
           getTraveler: getTraveler,

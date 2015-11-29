@@ -2,10 +2,11 @@
     'use strict';
 
     angular.module('locationController', ['locationSrvc'])
-        .controller('DashboardController', function(Location, Reward, $scope){
+        .controller('DashboardController', function(Location, $scope){
 
             //var vm = this;
             $scope.locations = [];
+
 
             Location.getAllLocations()
                 .success(function(data){
@@ -21,6 +22,7 @@
             }
     });
 
+
     angular.module('rewardController', ['rewardSrvc'])
         .controller('DashboardController', function(Reward, $scope){
             $scope.addReward = function(){
@@ -32,14 +34,36 @@
             }
     });
 
-    angular.module('preferenceController', ['preferenceSrvc'])
-        .controller('DashboardController', function(Preference, $scope){
+    angular.module('preferenceController', ['preferenceSrvc','locationSrvc','rewardSrvc'])
+        .controller('DashboardController', function(Preference, Location, Reward, $scope){
+            //Preferences
             $scope.addPreference = function(){
                 console.log('Added New Preference');
-                Location.location($scope.preferenceData)
-                    .success(function(data){
+                Preference.preference($scope.preferenceData)
+                        .success(function(data){
                         $scope.commentData = '';
                     });
             }
+
+            //Locations
+            $scope.locations = [];
+
+
+            Location.getAllLocations()
+                .success(function(data){
+                    $scope.locations = data;
+                });
+
+            $scope.addLocation = function(){
+                console.log('Added New Location');
+                Location.location($scope.locationData)
+                    .success(function(data){
+                        $scope.locationData = '';
+                    });
+            }
+
+            $scope.activateLocation = function(){
+
+            };
     });
 })();

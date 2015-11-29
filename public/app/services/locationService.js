@@ -12,9 +12,15 @@
                 return $http.get('/api/v1/locations');
             };
 
+            //Kentoy: to do, patch request to update "isActivated value"
+            var activateLocation = function(id){
+
+            };
+
             return {
                 location: location,
-                getAllLocations: getAllLocations
+                getAllLocations: getAllLocations,
+                activateLocation: activateLocation
             }
         });
 })();
