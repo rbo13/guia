@@ -34,9 +34,6 @@ app.get('/', function(req, res){
 app.get('/dashboard', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });
-app.get('/dashboard/preferences', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
-});
 app.get('/dashboard/rewards', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });

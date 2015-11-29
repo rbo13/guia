@@ -54,12 +54,11 @@
         <input id="city" type="text" class="validate" name="city" ng-model="dashboard.locationData.city">
         <label for="city">City</label>
     </div>
-    {{dashboard.locationData.city}}
     <button class="waves-effect waves-light btn green" ng-click="dashboard.addLocation()">Add</button>
 
     <div ng-repeat="location in locations">
-        {{location.country}}
-        {{location.city}}
+        {{dashboard.location.country}}
+        {{dashboard.location.city}}
     </div>
 </div>
 
