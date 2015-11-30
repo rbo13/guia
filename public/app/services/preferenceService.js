@@ -14,13 +14,22 @@
 
             var activatePreference = function(id, updatevalue){
                 var obj = { isActivated: updatevalue };
-                return $http.patch('/api/v1/location/'+id, obj);
+                return $http.patch('/api/v1/preference/'+id, obj);
+
+            }
+
+            var updatePreference = function(id, updatevalue){
+                var obj = { preference: updatevalue };
+                return $http.patch('/api/v1/preference/'+id, obj);
+
             }
 
             return {
                 preference: preference,
                 getAllPreferences: getAllPreferences,
-                activatePreference: activatePreference
+                activatePreference: activatePreference,
+                updatePreference: updatePreference
+
             }
         });
 })();

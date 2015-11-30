@@ -2,6 +2,16 @@ body{
 	background: #f4f7f3;
 }
 
+.nav-logo-container{
+    margin-bottom: 0px !important;
+    border-bottom: 1px solid #ccc;
+}
+
+.nav-search{
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
 .logout-button{
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -75,6 +85,10 @@ body{
 .dashboard-logo{
 	height: 64px;
 	width: 64px;
+}
+
+.guide-list li{
+    display: inline !important;
 }
 
 .user-header{

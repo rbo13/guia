@@ -34,10 +34,16 @@ app.get('/', function(req, res){
 app.get('/dashboard', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });
+app.get('/dashboard/location', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
 app.get('/dashboard/rewards', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });
 app.get('/dashboard/preference', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+app.get('/dashboard/users', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });
 
@@ -103,6 +109,22 @@ app.get('/public/app/services/rewardService.js', function(req, res){
 app.get('/public/app/services/preferenceService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/services/preferenceService.js');
 });
+app.get('/public/app/services/userService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/userService.js');
+});
+app.get('/public/app/services/guideService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/guideService.js');
+});
 app.get('/public/app/controllers/Dashboard.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Dashboard.js');
+});
+//bower files
+app.get('/bower_components/angular-chart.js/dist/angular-chart.js', function(req, res){
+    res.sendFile(__dirname + '/bower_components/angular-chart.js/dist/angular-chart.js');
+});
+app.get('/bower_components/Chart.js/Chart.min.js', function(req, res){
+    res.sendFile(__dirname + '/bower_components/Chart.js/Chart.min.js');
+});
+app.get('/bower_components/c3/c3.min.js', function(req, res){
+    res.sendFile(__dirname + '/bower_components/c3/c3.min.js');
 });

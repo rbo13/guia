@@ -53,10 +53,35 @@
               }); //end user.save()
           }
       }; //end createUser
+
+      //start createTraveler
+      var createTraveler = function(req, res){
+          if(!loggedInUser){
+              traveler = new file.Traveler({
+                  traveler_user_id: user._id
+              });
+          }else if(loggedInUser){
+              traveler = new file.Traveler({
+                  traveler_user_id: loggedInUser
+              });
+          }
+          //save to MongoDB
+          traveler.save(function(err){
+              if(err){
+                  res.send(err);
+              }
+              file.Traveler.find({}).populate('traveler_user_id');
+              res.json({
+                  success: true,
+                  message: "Traveler Activated!"
+              });
+          });
+      };//end createTraveler
+
     //start: login endpoint
     api.post('/login', function(req, res){
       file.User.findOne({
-        guide_id: req.body.guide_id,
+        //guide_id: req.body.guide_id,
         facebook_id: req.body.facebook_id
       }).select('guide_id facebook_id').exec(function(err, user){
           if(err) throw err;
@@ -67,7 +92,7 @@
               loggedInUser = user._id;
               res.json(user);
           }
-      })
+      });
     });//end: login endpoint
     api.get('/users', endpoints.getAllUsers); //end get endpoint
     //POST location endpoint.
@@ -139,30 +164,24 @@
       //start getGuideById
       api.use('/guide/:userId', endpoints.getGuideById); //getTravelerById
       api.route('/guide/:userId')
-         .get(endpoints.getGuideByIdRoute);//end
+         .get(endpoints.getGuideByIdRoute)
+         .patch(endpoints.patchGuide);//end
       //POST/GET - traveler endpoint
       api.route('/traveler')
           .post(function(req, res){
-              if(!loggedInUser){
-                  traveler = new file.Traveler({
-                      traveler_user_id: user._id
-                  });
-              }else if(loggedInUser){
-                  traveler = new file.Traveler({
-                      traveler_user_id: loggedInUser
-                  });
-              }
-              //save to MongoDB
-              traveler.save(function(err){
-                  if(err){
-                      res.send(err);
+              file.Traveler.findOne({
+                  facebook_id: req.body.facebook_id
+              }).select('facebook_id').exec(function(err, user){
+                  if(err) throw err;
+
+                  if(!user){
+                      createTraveler(req, res);
+                  } else if (user) {
+                      loggedInUser = user._id;
+                      res.json(user);
                   }
-                  file.Traveler.find({}).populate('traveler_user_id');
-                  res.json({
-                      success: true,
-                      message: "Traveler Activated!"
-                  })
               });
+
           })
         .get(endpoints.getTraveler);
       //end POST/GET - traveler endpoint

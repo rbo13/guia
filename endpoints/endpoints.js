@@ -87,6 +87,21 @@
       var getGuideByIdRoute = function(req, res){
           res.json(req.getGuide);
       };
+
+      var patchGuide = function(req, res){
+          if(req.body._id){
+              delete req.body._id;
+          }
+          for(var g in req.body){
+              req.getGuide[g] = req.body[g];
+          }
+          req.getGuide.save(function(err){
+              if(err)
+                  res.status(500).send(err);
+              else
+                  res.json(req.getGuide);
+          });
+      };
 //end guide
 
 //location
@@ -297,6 +312,7 @@
           patchLocation: patchLocation,
           getGuideById: getGuideById,
           getGuideByIdRoute: getGuideByIdRoute,
+          patchGuide: patchGuide,
           getTraveler: getTraveler,
           getTravelerById: getTravelerById,
           getTravelerByIdRoute: getTravelerByIdRoute,

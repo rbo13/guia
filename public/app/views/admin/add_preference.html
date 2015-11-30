@@ -1,33 +1,68 @@
 <div class="dashboard-card" ng-controller="DashboardController">
     <h5>Add Preference</h5>
     <div class="input-field">
-        <input type="text" id="preference" class="validate" name="preference" ng-model="preferenceData.preference">
+        <input type="text" id="preference" class="validate" ng-model="preferenceData.preference">
         <label for="preference">Preference</label>
     </div>
-    <button class="waves-effect waves-light btn green" ng-click="addPreference()">Set preference</button>
+    <button id='set_preference' onClick='window.location.reload();' class="waves-effect waves-light btn green white-text" ng-click="addPreference()" disabled>Set preference</button>
 </div>
 
-<div class="dashboard-card">
+<div class="dashboard-card" ng-controller="DashboardController" >
     <table class="striped responsive-table">
         <thead>
         <tr>
             <th data-field="preference">Preference</th>
-            <th data-field="action">Action</th>
+            <th data-field="action">Action </th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Street Party</td>
-            <td><button class="waves-effect waves-light btn green">Activated</button></td>
-        </tr>
-        <tr>
-            <td>Club</td>
-            <td><button class="waves-effect waves-light btn red">Deactivated</button></td>
-        </tr>
-        <tr>
-            <td>Mountain Climbing</td>
-            <td><button class="waves-effect waves-light btn green">Activated</button></td>
+        <tr ng-repeat="preference in preferences | orderBy:'preference'" >
+            <td>
+                <a class="black-text" onclick="update_pref();" ng-click="getPreferenceInfo(preference._id,preference.preference)" >{{ preference.preference }}</a>
+            </td>
+            <td>
+                <button ng-if="preference.isActivated == true" class="waves-effect waves-light btn green" ng-click="activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Activated</button>
+                <button ng-if="preference.isActivated == false" class="waves-effect waves-light btn red" ng-click="activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Deactivated</button>
+            </td>
         </tr>
         </tbody>
     </table>
+
+    <div id="myModal" class="modal hide fade" style="padding: 20px;">
+        <div class="modal-header">
+            <h5 id="myModalLabel">Update Preference</h5>
+        </div>
+        <div class="modal-body">
+            <input type='text' id='id'  value='' ng-model="preferenceData._id" hidden>
+            <input type="text" ng-model="preferenceData.preference" >
+        </div>
+        <div class="modal-footer">
+            <button class="btn green" onClick="closeModal();" >Close</button>
+            <button class="btn green btn-primary" onClick="closeModal();" ng-click="updatePreference(preferenceData._id, preferenceData.preference);" style="margin-right: 20px;" >Save changes</button>
+        </div>
+    </div>
 </div>
+
+<script type="text/javascript">
+    $('#preference').on('change keydown keyup paste input keypress', function(){
+        var input =document.getElementById('preference').value;
+        if(input !== ''){
+            $('#set_preference').prop('disabled',false);
+        }
+        else{
+            $('#set_preference').prop('disabled',true);
+        }
+    })
+
+    function update_pref()
+    {
+        console.log($('a').html());
+        $('#myModal').openModal();
+    }
+
+    function closeModal()
+    {
+        $('#myModal').closeModal();
+        window.location.reload();
+    }
+</script>

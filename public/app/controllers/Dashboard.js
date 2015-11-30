@@ -32,11 +32,10 @@
             }
     });
 
-    angular.module('preferenceController', ['preferenceSrvc','locationSrvc','rewardSrvc'])
-        .controller('DashboardController', function(Preference, Location, Reward, $scope){
-
+    angular.module('preferenceController', ['preferenceSrvc','locationSrvc','rewardSrvc', 'userSrvc', 'guideSrvc'])
+        .controller('DashboardController', function(Preference, Location, Reward, User, Guide, $scope){
             //country
-            $scope.countries = [
+            /*$scope.countries = [
                 "Argentina",
                 "Armenia",
                 "Bahamas",
@@ -83,7 +82,8 @@
                 "Venezuela",
                  "Vietnam",
                 "Virgin Islands"
-            ];
+            ];*/
+
             //Preferences
             $scope.addPreference = function(){
                 console.log('Added New Preference');
@@ -91,10 +91,25 @@
 
             //Locations
             $scope.locations = [];
+            $scope.guides = [];
 
             Location.getAllLocations()
                 .success(function(data){
                     $scope.locations = data;
+            });
+
+            $scope.getValues = function(id,country,city){
+                $scope.locationData = {
+                    _id: id,
+                    country: country,
+                    city: city
+                };
+            }
+
+            User.getAllGuides()
+                .success(function(data){
+                    $scope.guides = data;
+                    console.log(data);
             });
 
             $scope.addLocation = function(){
@@ -105,12 +120,78 @@
                     });
             }
 
+            $scope.updateLocation = function(){
+                console.log('Updated Location');
+                Location.updateLocation($scope.locationData._id,$scope.locationData.country,$scope.locationData.city)
+                    .success(function(data){
+                        console.log('Updated Location');
+                        console.log(data);
+                        $scope.locationData = '';
+                    }).error(function(){
+                        console.log('FAIL');
+                    });
+            }
+
             $scope.activateLocation = function(id, value){
                 console.log('Location Activated');
                 Location.activateLocation(id, value)
                     .success(function(data){
                         console.log('Updated Location');
+                        console.log(data);
+                    }).error(function(){
+                        console.log('FAIL');
+                    });
+            };
 
+            $scope.activateGuide = function(guide_user_id, id, value){
+
+                $scope.user = function(){
+                    User.patchUser(guide_user_id, id)
+                        .success(function(data){
+                            console.log(data);
+                        }).error(function(){
+                            console.log('FAIL');
+                        });
+                };
+
+                console.log('Guide Activated');
+                Guide.patchGuide(id, value)
+                    .success(function(data){
+                        $scope.user();
+                        console.log(data);
+                    }).error(function(){
+                        console.log('FAIL');
+                    });
+            }
+
+            $scope.activatePreference = function(id,value){
+                console.log('Preference Activated');
+                Preference.activatePreference(id, value)
+                    .success(function(data){
+                        console.log('Updated Preference')
+                        console.log(data);
+                    }).error(function(){
+                        console.log('FAIL');
+                    });
+            };
+
+            $scope.getPreferenceInfo = function(id,preference){
+                $scope.preferenceData = {
+                    _id: id,
+                    preference: preference
+                };
+            }
+
+            Preference.getAllPreferences()
+                .success(function(data){
+                    $scope.preferences = data;
+            });
+
+            $scope.updatePreference = function(id,updatedValue){
+                console.log('Preference Updated');
+                Preference.updatePreference(id,updatedValue)
+                    .success(function(data){
+                        console.log('Updated Preference')
                         console.log(data);
                     }).error(function(){
                         console.log('FAIL');

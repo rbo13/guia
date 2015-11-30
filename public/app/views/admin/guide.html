@@ -1,0 +1,59 @@
+<div ng-controller="DashboardController">
+    <div class="dashboard-card">
+        <table class="striped responsive-table">
+            <thead>
+            <tr>
+                <th class="green-text" data-field="availguideID">Activated Guides:</th>
+            </tr>
+            </thead>
+            <tr>
+                <td ng-repeat="guide in guides">
+                    <ul class="guide-list">
+                        <table>
+                            <tr>
+                                <td>
+                                    <li ng-if="guide.isActivated == true"><h6 class="green-text">Email Address</h6> {{guide.email_address}}</li>
+                                </td>
+                                <td>
+                                    <li ng-if="guide.isActivated == true"><h6 class="green-text">Type</h6> {{guide.type}}</li>
+                                </td>
+                            </tr>
+                        </table>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="dashboard-card">
+        <table class="striped centered responsive-table">
+            <thead>
+            <tr>
+                <th class="green-text" data-field="guideid">Email</th>
+                <th class="green-text" data-field="action">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="guide in guides">
+                <td>
+                    <div class="input-field">
+                        {{guide.email_address}}
+                    </div>
+                </td>
+
+                <td>
+                    <button ng-if="guide.isActivated == true" ng-click="activateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn green">Activated</button>
+                    <button ng-if="guide.isActivated == false" ng-click="activateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn red">Deactivated</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+    </script>
+</div>
+
