@@ -69,12 +69,12 @@
         </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="location in locations">
-                <td><span id="loc" ng-click="getValues(location._id,location.country,location.city)" value="">{{location.country}}</span></td>
+            <tr ng-repeat="location in locations" ng-click="getValues(location._id,location.country,location.city)">
+                <td><span>{{location.country}}</span></td>
                 <td>{{location.city}}</td>
                 <td colspan="2">
-                    <button ng-if="location.isActivated == true" class="waves-effect waves-light btn green" ng-click="activateLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated">Activated</button>
-                    <button ng-if="location.isActivated == false" class="waves-effect waves-light btn red" ng-click="activateLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated">Deactivated</button>
+                    <button ng-if="location.isActivated == true" class="waves-effect waves-light btn green" ng-click="activateLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Activated</button>
+                    <button ng-if="location.isActivated == false" class="waves-effect waves-light btn red" ng-click="activateLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Deactivated</button>
                 </td>
                 <!--<td><span id="loc" style="visibility:hidden">{{location._id}}</span></td>-->
             </tr>
