@@ -17,10 +17,17 @@
                 return $http.patch('/api/v1/location/'+id, obj);
             };
 
+            var updateLocation = function(id, country, city){
+                var obj = { country: country,
+                            city: city };
+                return $http.patch('/api/v1/location/'+id, obj);            
+            };
+
             return {
                 location: location,
                 getAllLocations: getAllLocations,
-                activateLocation: activateLocation
+                activateLocation: activateLocation,
+                updateLocation: updateLocation
             }
         });
 })();

@@ -46,6 +46,14 @@
                     $scope.locations = data;
             });
 
+            $scope.getValues = function(id,country,city){
+                $scope.locationData = { 
+                    _id: id,
+                    country: country,
+                    city: city
+                };
+            }
+
             $scope.addLocation = function(){
                 console.log('Added New Location');
                 Location.location($scope.locationData)
@@ -54,6 +62,18 @@
                         console.log(data);
                         $scope.locations.push(data);
                         console.log($scope.locations);
+                    });
+            }
+
+            $scope.updateLocation = function(){
+                console.log('Updated Location');
+                Location.updateLocation($scope.locationData._id,$scope.locationData.country,$scope.locationData.city)
+                    .success(function(data){
+                        console.log('Updated Location');
+                        console.log(data);
+                        $scope.locationData = '';
+                    }).error(function(){
+                        console.log('FAIL');
                     });
             }
 
