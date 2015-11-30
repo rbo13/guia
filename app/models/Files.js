@@ -14,7 +14,7 @@
         Review: require('./Review.js'),
         Reward: require('./Reward.js'),
         Tour: require('./Tour.js'),
-        Traveler: require('./Traveler.js'),
-        Trip: require('./Trip.js')
+        Trip: require('./Trip.js'),
+        Admin: require('./Admin.js')
     };
 })();

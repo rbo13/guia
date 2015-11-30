@@ -6,10 +6,20 @@
   var jsonwebtoken = require('jsonwebtoken');
   var secretKey = config.secretKey;
   var loggedInUser, guide_id;
-  var user, location, traveler,
-    preference, guide, rating,
+  var user, location, preference, guide, rating,
     review, trip, tour, reward,
-    redeem, booking, note, negotiate;
+    redeem, booking, note, negotiate, admin;
+
+    function createToken(admin){
+        var token = jsonwebtoken.sign({
+            id: admin._id,
+            username: admin.username
+        }, secretKey, {
+            expiresInMinute: 1440
+        });
+
+        return token;
+    }
 
   module.exports = function(app, express){
       var api = express.Router();
@@ -53,30 +63,6 @@
               }); //end user.save()
           }
       }; //end createUser
-
-      //start createTraveler
-      var createTraveler = function(req, res){
-          if(!loggedInUser){
-              traveler = new file.Traveler({
-                  traveler_user_id: user._id
-              });
-          }else if(loggedInUser){
-              traveler = new file.Traveler({
-                  traveler_user_id: loggedInUser
-              });
-          }
-          //save to MongoDB
-          traveler.save(function(err){
-              if(err){
-                  res.send(err);
-              }
-              file.Traveler.find({}).populate('traveler_user_id');
-              res.json({
-                  success: true,
-                  message: "Traveler Activated!"
-              });
-          });
-      };//end createTraveler
 
     //start: login endpoint
     api.post('/login', function(req, res){
@@ -162,40 +148,16 @@
           });//end POST
       api.route('/guides').get(endpoints.getGuide); //end /GET guide endpoint
       //start getGuideById
-      api.use('/guide/:userId', endpoints.getGuideById); //getTravelerById
+      api.use('/guide/:userId', endpoints.getGuideById);
       api.route('/guide/:userId')
          .get(endpoints.getGuideByIdRoute)
          .patch(endpoints.patchGuide);//end
-      //POST/GET - traveler endpoint
-      api.route('/traveler')
-          .post(function(req, res){
-              file.Traveler.findOne({
-                  facebook_id: req.body.facebook_id
-              }).select('facebook_id').exec(function(err, user){
-                  if(err) throw err;
-
-                  if(!user){
-                      createTraveler(req, res);
-                  } else if (user) {
-                      loggedInUser = user._id;
-                      res.json(user);
-                  }
-              });
-
-          })
-        .get(endpoints.getTraveler);
-      //end POST/GET - traveler endpoint
-
-      api.use('/traveler/:travelerId', endpoints.getTravelerById); //getTravelerById
-      api.route('/traveler/:travelerId')
-         .get(endpoints.getTravelerByIdRoute)
-         .patch(endpoints.patchTraveler); //register getTravelerById
 
       api.use('/location/:locationId', endpoints.getLocationById); //getLocationById
       api.route('/location/:locationId')
           .get(endpoints.getLocationByIdRoute)
           .patch(endpoints.patchLocation); //register getLocationById route
-      //start POST-preference endpoint - traveler
+      //start POST-preference endpoint
       api.route('/preference')
              .post(function(req, res){
                preference = new file.Preference({
@@ -219,7 +181,7 @@
       api.route('/rating/guide/:guideId')
              .post(function(req, res){
               rating = new file.Rating({
-                   TravelerID: traveler._id,
+                   //TravelerID: traveler._id,
                    GuideID: guide._id,
                    rating: req.body.rating
                });
@@ -228,7 +190,6 @@
                   if(err) res.send(err);
                   else if(!err){
                       file.Rating.find({})
-                          .populate('TravelerID')
                           .populate('GuideID')
                           .populate('rating');
                       res.json(rating);
@@ -241,7 +202,7 @@
       api.route('/review/guide/:guideId')
           .post(function(req, res){
             review = new file.Review({
-              review_traveler_id: traveler._id,
+              //review_traveler_id: traveler._id,
               review_guide_id: guide._id,
               comment: req.body.comment
             });
@@ -249,7 +210,6 @@
               if(err) res.send(err);
               else if(!err){
                   file.Review.find({})
-                      .populate('review_traveler_id')
                       .populate('review_guide_id')
                       .populate('comment');
                   res.json(review);
@@ -262,10 +222,10 @@
       api.route('/trip')
          .post(function(req, res){
            trip = new file.Trip({
-               trip_traveler_id: traveler._id,
+               //trip_traveler_id: traveler._id,
                location: {
-                   country: req.body.location.country,
-                   city: req.body.location.city
+                   country: req.body.country,
+                   city: req.body.city
                },
                destination: req.body.destination,
                date_from: req.body.date_from,
@@ -289,14 +249,16 @@
       //start POST-tour endpoint
       api.route('/tour')
          .post(function(req, res){
-           tour = new file.Tour({
-             name: req.body.name,
-             duration: req.body.duration,
-             details: req.body.details,
-             tour_preference: req.body.preference,
-             rate: req.body.rate,
-             tour_guide_id: guide._id
-           });
+          tour = new file.Tour;
+          tour.name = req.body.name;
+          tour.duration = req.body.duration;
+          tour.details = req.body.details;
+          tour.tour_preference = req.body.tour_preference;
+          tour.rate = req.body.rate;
+          tour.negotiable = req.body.negotiable;
+          tour.tour_guide_id = req.body.tour_guide_id;
+          tour.img.data = req.body.data;
+          tour.img.contentType = 'img/bmp';
           //save to mongodb
            tour.save(function(err){
              if(err)  res.send(err);
@@ -345,7 +307,7 @@
       api.route('/redeem')
           .post(function(req, res){
             redeem = new file.Redeemed({
-              redeem_traveler_id: traveler._id,
+              //redeem_traveler_id: traveler._id,
               redeem_reward_id: reward._id
             });
             //save to mongoDB
@@ -353,7 +315,6 @@
               if(err) res.send(err);
               else if(!err){
                   file.Redeemed.find({})
-                      .populate('redeem_traveler_id')
                       .populate('redeem_reward_id');
                   res.json(redeem);
               }
@@ -374,7 +335,7 @@
          .post(function(req, res){
            booking = new file.Booking({
              booking_tour_id: tour._id,
-             booking_traveler_id: traveler._id,
+             //booking_traveler_id: traveler._id,
              schedule: req.body.schedule,
              rate: req.body.rate,
              status: req.body.status,
@@ -387,7 +348,6 @@
              else if(!err){
                  file.Booking.find({})
                      .populate('booking_tour_id')
-                     .populate('booking_traveler_id')
                      .populate('schedule')
                      .populate('rate')
                      .populate('status')
@@ -421,7 +381,7 @@
           .post(function(req, res){
             negotiate = new file.Negotiate({
                 negotiate_tour_id: tour._id,
-                negotiate_traveler_id: traveler._id,
+                //negotiate_traveler_id: traveler._id,
                 proposed_rate: req.body.proposed_rate,
                 offered_rate: req.body.offered_rate
             });
@@ -430,7 +390,6 @@
                   else if(!err){
                       file.Negotiate.find({})
                           .populate('negotiate_tour_id')
-                          .populate('negotiate_traveler_id')
                           .populate('proposed_rate')
                           .populate('offered_rate');
                       res.json(negotiate);
@@ -438,6 +397,86 @@
               })
           }); //end
 
+      //signup admin
+      api.post('/admin/signup', function(req, res){
+          //create instance of user object...
+          admin = new file.Admin({
+              username: req.body.username,
+              password: req.body.password
+          });
+
+          var token = createToken(admin);
+
+          //save to database
+          admin.save(function(err){
+              if(err){
+                  res.send(err);
+                  return;
+              }
+
+              //return as a json-response for the api.
+              res.json({
+                  success: true,
+                  message: 'Success, Admin has been created',
+                  token: token
+              });
+
+          });
+      });
+      //end
+      //admin login
+      api.post('/admin/login', function(req, res){
+          //finding specific user object
+          file.Admin.findOne({
+              username: req.body.username
+          }).select('username password').exec(function(err, admin){
+              if(err) throw err;
+
+              if(!admin){
+                  res.send({ message: "Admin doesnt exist"});
+              }else if(admin){
+                  var validPassword = user.comparePassword(req.body.password);
+
+                  if(!validPassword){
+                      res.send({ message: "Password is invalid" });
+                  }else{
+                      //create token
+                      var token = createToken(admin);
+                      res.json({
+                          success: true,
+                          message: "Success!",
+                          token: token
+                      });
+                  }
+              }
+          });
+
+      });
+      //end admin login
+
+      //secure admin page
+      api.use(function(req, res, next){
+          console.log("Login Admin.");
+          //fetch the token.
+          var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+          //check if token is true.
+          if(token){
+              jsonwebtoken.verify(token, secretKey, function(err, decoded){
+
+                  if(err){
+                      res.status(403).send({ success:false, message: "Token dont match" });
+                  }else{
+                      //go to the next route
+                      req.decoded = decoded;
+                      next();
+                  }
+              });
+          }else{
+              res.status(403).send({ success:false, message: "Token Mismatch" });
+          }
+          //end of checking token.
+      });
+      //end securing admin page
     return api;
   };
 })();

@@ -29,6 +29,11 @@
                     controller: 'DashboardController',
                     controllerAs: 'dashboard'
                 }).
+                when('/admin', {
+                    templateUrl: 'app/views/admin/admin_login.html',
+                    controller: 'AdminController',
+                    controllerAs: 'admin'
+                }).
                 otherwise({
                     redirectTo: '/'
                 });

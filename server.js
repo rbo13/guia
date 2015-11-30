@@ -46,6 +46,9 @@ app.get('/dashboard/preference', function(req, res){
 app.get('/dashboard/users', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });
+app.get('/admin', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/admin_login.html');
+});
 
 http.listen(config.port, function(err){
   if(err){
@@ -115,8 +118,14 @@ app.get('/public/app/services/userService.js', function(req, res){
 app.get('/public/app/services/guideService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/services/guideService.js');
 });
+app.get('/public/app/services/authService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/authService.js');
+});
 app.get('/public/app/controllers/Dashboard.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Dashboard.js');
+});
+app.get('/public/app/controllers/Admin.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/controllers/Admin.js');
 });
 //bower files
 app.get('/bower_components/angular-chart.js/dist/angular-chart.js', function(req, res){

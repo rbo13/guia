@@ -3,7 +3,6 @@ var mongoose = require('mongoose'),
 
 var BookingSchema = new Schema({
   booking_tour_id: { type: Schema.Types.ObjectId, ref: 'Tour' },
-  booking_traveler_id: { type: Schema.Types.ObjectId, ref: 'Traveler' },
   schedule: Date,
   rate: Number,
   status: String,

@@ -4,7 +4,6 @@
   var User = require('../app/models/User');
   var Guide = require('../app/models/Guide');
   var Location = require('../app/models/Location');
-  var Traveler = require('../app/models/Traveler');
   var Preference = require('../app/models/Preference');
   var Rating = require('../app/models/Rating');
   var Review = require('../app/models/Review');

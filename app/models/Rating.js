@@ -3,7 +3,6 @@ var mongoose = require('mongoose'),
 
 //create guide Schema
 var RatingSchema = new Schema({
-  TravelerID: { type: Schema.Types.ObjectId, ref: 'Traveler' },
   GuideID: { type: Schema.Types.ObjectId, ref: 'Guide' },
   rating: Number
 });

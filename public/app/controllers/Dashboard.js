@@ -32,8 +32,8 @@
             }
     });
 
-    angular.module('preferenceController', ['preferenceSrvc','locationSrvc','rewardSrvc', 'userSrvc', 'guideSrvc'])
-        .controller('DashboardController', function(Preference, Location, Reward, User, Guide, $scope){
+    angular.module('preferenceController', ['preferenceSrvc','locationSrvc','rewardSrvc', 'userSrvc', 'guideSrvc', 'authSrvc'])
+        .controller('DashboardController', function(Preference, Location, Reward, User, Guide, Auth, $scope){
             //country
             /*$scope.countries = [
                 "Argentina",

@@ -3,7 +3,6 @@ var mongoose = require('mongoose'),
 
 //create user Schema
 var TripSchema = new Schema({
-  trip_traveler_id: { type: Schema.Types.ObjectId, ref: 'Traveler' },
   location: {
         country: String,
         city: String
