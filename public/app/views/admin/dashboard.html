@@ -26,60 +26,59 @@
 <body>
 
 <header>
-  <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="mdi-navigation-menu"></i></a></div>
-  <ul id="nav-mobile" class="side-nav fixed">
-    <li class="logo nav-logo nav-logo-container"><a id="logo-container" class="brand-logo">
-      <img class="dashboard-logo" src="images/guia.png">
-    </a>
-    </li>
+    <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="mdi-navigation-menu"></i></a></div>
+    <ul id="nav-mobile" class="side-nav fixed">
+        <li class="logo nav-logo"><a id="logo-container" class="brand-logo">
+            <img class="dashboard-logo" src="images/guia.png">
+        </a>
+        </li>
 
-    <li class="search nav-search">
-      <div class="search-wrapper card">
-        <input id="search"><i class="material-icons">search</i>
-        <div class="search-results"></div>
-      </div>
-    </li>
+        <li class="search nav-search">
+            <div class="search-wrapper card">
+                <input id="search"><i class="material-icons">search</i>
+                <div class="search-results"></div>
+            </div>
+        </li>
 
-    <li class="no-padding nav-option">
-      <ul class="collapsible collapsible-accordion">
-        <li class="bold"><a href="/dashboard" class="collapsible-header  waves-effect waves-green">Statistics</a>
-          <div class="collapsible-body">
-            <ul>
-              <li><a href="#">Tours</a></li>
-              <li><a href="#">Places</a></li>
+        <li class="no-padding nav-option">
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold"><a class="collapsible-header  waves-effect waves-green">Statistics</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="#">Tours</a></li>
+                            <li><a href="#">Places</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="bold"><a class="collapsible-header  waves-effect waves-green">Users</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="/dashboard/users">Guides</a></li>
+                            <li><a href="#">Travelers</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="bold"><a href="/dashboard/rewards" class="collapsible-header  waves-effect waves-green">Rewards</a>
+                </li>
+                <li class="bold"><a href="/dashboard/location" class="collapsible-header waves-effect waves-green">Location</a>
+                <li class="bold"><a href="/dashboard/preference" class="collapsible-header waves-effect waves-green">Preferences</a>
             </ul>
-          </div>
         </li>
-        <li class="bold"><a class="collapsible-header  waves-effect waves-green">Users</a>
-          <div class="collapsible-body">
-            <ul>
-              <li><a href="/dashboard/users">Guides</a></li>
-              <li><a href="#">Travelers</a></li>
-            </ul>
-          </div>
-        </li>
-        <li class="bold"><a href="/dashboard/rewards" class="collapsible-header  waves-effect waves-green">Rewards</a>
-        </li>
-        <li class="bold"><a href="/dashboard/location" class="collapsible-header waves-effect waves-green">Location</a>
-        <li class="bold"><a href="/dashboard/preference" class="collapsible-header waves-effect waves-green">Preferences</a>
-      </ul>
-    </li>
-  </ul>
+    </ul>
 </header>
 <main>
-    <div class="">
+    <div>
         <nav class="nav-wrapper user-header">
-            <h4 class="left brand-logo "><i class="material-icons white-text">play_arrow</i>Location</h4>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <ul id="nav-mobile" class="right">
                 <li  class="waves-effect waves-light logout-button right">
                     <a class="white-text" href=""><i class="material-icons white-text">power_settings_new</i></a>
                 </li>
             </ul>
         </nav>
     </div>
-
     <ng-view></ng-view>
 </main>
+
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>if (!window.jQuery) { document.write('<script src="bin/jquery-2.1.1.min.js"><\/script>'); }
