@@ -27,7 +27,7 @@
 
             var getAdmin = function(){
                 if(AuthToken.getToken())
-                    return $http.get('/dashboard');
+                    return $http.get('/');
                 else
                     return $q.reject({ message: "User has no token" });
             };
@@ -68,15 +68,13 @@
             };
 
             var responseError = function(response){
-                if(response.status == 403)	$location.path('/admins');
+                if(response.status == 403)	$location.path('/admin');
 
                 return $q.reject(response);
             };
-
             return {
                 request: request,
                 responseError: responseError
             };
         });
-
 })();

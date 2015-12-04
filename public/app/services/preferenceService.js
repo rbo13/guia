@@ -29,7 +29,6 @@
                 getAllPreferences: getAllPreferences,
                 activatePreference: activatePreference,
                 updatePreference: updatePreference
-
             }
         });
 })();

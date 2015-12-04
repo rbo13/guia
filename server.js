@@ -22,33 +22,6 @@ app.use(express.static(__dirname + '/public'));
 var api = require('./app/routes/api')(app, express);
 app.use('/api/v1', api);
 
-//app.use(function(req, res){
-//    res.sendfile(__dirname + '/public/app/views/index.html');
-//});
-
-//load index page.
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/public/app/views/index.html');
-});
-//load admin page
-app.get('/dashboard', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
-});
-app.get('/dashboard/location', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
-});
-app.get('/dashboard/rewards', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
-});
-app.get('/dashboard/preference', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
-});
-app.get('/dashboard/users', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
-});
-app.get('/admin', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/admin/admin_login.html');
-});
 
 http.listen(config.port, function(err){
   if(err){
@@ -58,6 +31,47 @@ http.listen(config.port, function(err){
   }
 });
 
+//load index page.
+app.get('/', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/index.html');
+});
+//load admin page
+app.get('/dashboard', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+app.get('/dashboard/guides', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+app.get('/dashboard/rewards', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+app.get('/dashboard/location', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+app.get('/dashboard/preference', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+app.get('/dashboard/statistics', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+app.get('/guide.html', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/guide.html');
+});
+app.get('/add_rewards.html', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/add_rewards.html');
+});
+app.get('/add_location.html', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/add_location.html');
+});
+app.get('/add_preference.html', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/add_preference.html');
+});
+app.get('/statistics.html', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/statistics.html');
+});
+app.get('/admin', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/admin.html');
+});
 //add libraries: js, css
 app.get('/css/inconsolata.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/inconsolata.css');
@@ -100,8 +114,14 @@ app.get('/images/guia.png', function(req, res){
 app.get('/public/app/app.js', function(req, res){
     res.sendFile(__dirname + '/public/app/app.js');
 });
+app.get('/public/app/app.dashboard.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/app.dashboard.js');
+});
 app.get('/public/app/app.route.js', function(req, res){
     res.sendFile(__dirname + '/public/app/app.route.js');
+});
+app.get('/public/app/dashboard.route.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/dashboard.route.js');
 });
 app.get('/public/app/services/locationService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/services/locationService.js');
@@ -127,9 +147,24 @@ app.get('/public/app/controllers/Dashboard.js', function(req, res){
 app.get('/public/app/controllers/Admin.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Admin.js');
 });
+app.get('/public/app/controllers/User.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/controllers/User.js');
+});
+app.get('/public/app/controllers/Reward.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/controllers/Reward.js');
+});
+app.get('/public/app/controllers/Location.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/controllers/Location.js');
+});
+app.get('/public/app/controllers/Preference.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/controllers/Preference.js');
+});
+app.get('/public/app/controllers/Statistics.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/controllers/Statistics.js');
+});
 //bower files
-app.get('/bower_components/angular-chart.js/dist/angular-chart.js', function(req, res){
-    res.sendFile(__dirname + '/bower_components/angular-chart.js/dist/angular-chart.js');
+app.get('/bower_components/angular-chart.js/dist/angular-chart.min.js', function(req, res){
+    res.sendFile(__dirname + '/bower_components/angular-chart.js/dist/angular-chart.min.js');
 });
 app.get('/bower_components/Chart.js/Chart.min.js', function(req, res){
     res.sendFile(__dirname + '/bower_components/Chart.js/Chart.min.js');

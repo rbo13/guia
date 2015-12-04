@@ -1,10 +1,10 @@
-<div class="dashboard-card">
+<div class="dashboard-card" ng-controller="RewardController as reward">
     <h5>Add Reward</h5>
     <div class="input-field">
         <input type="text" id="reward" class="validate"/>
         <label for="reward">Reward</label>
     </div>
-    <button class="waves-effect waves-light btn green">Set reward</button>
+    <button class="waves-effect waves-light btn green">{{reward.setReward}}</button>
 </div>
 
 <div class="dashboard-card">

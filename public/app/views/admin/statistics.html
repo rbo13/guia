@@ -1,10 +1,28 @@
-<div class="dashboard-card" ng-app="preferenceController" ng-controller="DashboardController">
-    <h5 class="green-text">Statistics</h5>
+<div>
+    <div class="dashboard-card" ng-controller="StatisticsController as stat">
+        <canvas id="line" class="chart chart-line" chart-data="stat.data"
+                chart-labels="stat.labels" chart-legend="true" chart-series="stat.series"
+                chart-click="stat.onClick" >
+        </canvas>
+    </div>
 
+    <div id="tours" class="dashboard-card" ng-controller="StatisticsController as stat">
+        <h3>Tours Statistics</h3>
+        <canvas id="bar" class="chart chart-bar"
+                chart-data="stat.data" chart-labels="stat.labels">
+        </canvas>
+    </div>
+
+    <div id="places" class="dashboard-card" ng-controller="StatisticsController as stat">
+        <h3>Places Statistics</h3>
+        <canvas id="radar" class="chart chart-radar"
+                chart-data="stat.data" chart-labels="stat.labels">
+        </canvas>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+    </script>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('select').material_select();
-    });
-</script>

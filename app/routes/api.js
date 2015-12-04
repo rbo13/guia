@@ -404,16 +404,13 @@
               username: req.body.username,
               password: req.body.password
           });
-
           var token = createToken(admin);
-
           //save to database
           admin.save(function(err){
               if(err){
                   res.send(err);
                   return;
               }
-
               //return as a json-response for the api.
               res.json({
                   success: true,
@@ -435,8 +432,7 @@
               if(!admin){
                   res.send({ message: "Admin doesnt exist"});
               }else if(admin){
-                  var validPassword = user.comparePassword(req.body.password);
-
+                  var validPassword = admin.comparePassword(req.body.password);
                   if(!validPassword){
                       res.send({ message: "Password is invalid" });
                   }else{
@@ -450,10 +446,7 @@
                   }
               }
           });
-
-      });
-      //end admin login
-
+      }); //end admin login
       //secure admin page
       api.use(function(req, res, next){
           console.log("Login Admin.");
@@ -462,7 +455,6 @@
           //check if token is true.
           if(token){
               jsonwebtoken.verify(token, secretKey, function(err, decoded){
-
                   if(err){
                       res.status(403).send({ success:false, message: "Token dont match" });
                   }else{

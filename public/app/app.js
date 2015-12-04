@@ -1,5 +1,8 @@
 (function(){
     'use strict';
 
-    angular.module('guia', ['appRoutes', 'locationSrvc', 'userSrvc', 'locationController', 'preferenceController', 'preferenceSrvc', 'rewardSrvc', 'guideSrvc', 'authSrvc']);
+    angular.module('guia', ['appRoutes', 'adminController', 'authSrvc'])
+        .config(function($httpProvider){
+            $httpProvider.interceptors.push('AuthInterceptor');
+        });
 })();
