@@ -252,6 +252,7 @@
               tour = new file.Tour({
                   name  : req.body.name,
                   duration : req.body.duration,
+                  duration_format: req.body.duration_format,
                   details  : req.body.details,
                   tour_preference : req.body.tour_preference,
                   tour_guide_id : req.body.tour_guide_id,

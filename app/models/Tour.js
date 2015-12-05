@@ -5,6 +5,7 @@ var imageSchema = new Schema({ image: String });
 var TourSchema = new Schema({
   name: String,
   duration: Number,
+  duration_format: { type: String, strict: false },
   details: String,
   points: { type: Number, default: 0 },
   rate: { type: Number, required: false },

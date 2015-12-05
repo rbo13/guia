@@ -7,32 +7,50 @@
                 .when('/dashboard', {
                     templateUrl: '/app/views/admin/statistics.html',
                     controller: 'DashboardController',
-                    controllerAs: 'dashboard'
+                    controllerAs: 'dashboard',
+                    access: {
+                        requiresLogin: true
+                    }
                 })
                 .when('/dashboard/guides', {
                     templateUrl: '/app/views/admin/guide.html',
                     controller: 'UserController',
-                    controllerAs: 'user'
+                    controllerAs: 'user',
+                    access: {
+                        requiresLogin: true
+                    }
                 })
                 .when('/dashboard/rewards', {
                     templateUrl: '/app/views/admin/add_rewards.html',
                     controller: 'RewardController',
-                    controllerAs: 'reward'
+                    controllerAs: 'reward',
+                    access: {
+                        requiresLogin: true
+                    }
                 })
                 .when('/dashboard/location', {
                     templateUrl: '/app/views/admin/add_location.html',
                     controller: 'LocationController',
-                    controllerAs: '_location'
+                    controllerAs: '_location',
+                    access: {
+                        requiresLogin: true
+                    }
                 })
                 .when('/dashboard/preference', {
                     templateUrl: '/app/views/admin/add_preference.html',
                     controller: 'PreferenceController',
-                    controllerAs: '_preference'
+                    controllerAs: '_preference',
+                    access: {
+                        requiresLogin: true
+                    }
                 })
                 .when('/dashboard/statistics', {
                     templateUrl: '/app/views/admin/statistics.html',
                     controller: 'StatisticsController',
-                    controllerAs: 'stat'
+                    controllerAs: 'stat',
+                    access: {
+                        requiresLogin: true
+                    }
                 })
                 .otherwise({
                     redirectTo: '/'
