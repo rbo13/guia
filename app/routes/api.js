@@ -249,16 +249,18 @@
       //start POST-tour endpoint
       api.route('/tour')
          .post(function(req, res){
-          tour = new file.Tour;
-          tour.name = req.body.name;
-          tour.duration = req.body.duration;
-          tour.details = req.body.details;
-          tour.tour_preference = req.body.tour_preference;
-          tour.rate = req.body.rate;
-          tour.negotiable = req.body.negotiable;
-          tour.tour_guide_id = req.body.tour_guide_id;
-          tour.img.data = req.body.data;
-          tour.img.contentType = 'img/bmp';
+              tour = new file.Tour({
+                  name  : req.body.name,
+                  duration : req.body.duration,
+                  details  : req.body.details,
+                  tour_preference : req.body.tour_preference,
+                  tour_guide_id : req.body.tour_guide_id,
+                  rate : req.body.rate,
+                  negotiable : req.body.negotiable,
+                  additional_image: [{
+                      image: req.body.additional_image.image
+                  }]
+              });
           //save to mongodb
            tour.save(function(err){
              if(err)  res.send(err);
@@ -269,8 +271,10 @@
                      .populate('details')
                      .populate('tour_preference')
                      .populate('rate')
-                     .populate('tour_guide_id');
-                 res.json(tour);
+                     .populate('negotiable')
+                     .populate('tour_guide_id')
+                     .populate('additional_image.image');
+                 res.json(tour)
              }
            });
          });//end POST-tour endpoint

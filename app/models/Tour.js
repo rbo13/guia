@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-
+var imageSchema = new Schema({ image: String });
 //create guide Schema
 var TourSchema = new Schema({
   name: String,
@@ -11,7 +11,7 @@ var TourSchema = new Schema({
   negotiable: { type: Boolean },
   tour_preference: String,
   tour_guide_id: { type: String },
-  img: { data: Buffer, contentType: String }
+  additional_image : [ imageSchema ]
 });
 //end creating guide Schema
 module.exports = mongoose.model('Tour', TourSchema);
