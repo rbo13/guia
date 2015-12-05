@@ -12,6 +12,7 @@ var TourSchema = new Schema({
   negotiable: { type: Boolean },
   tour_preference: String,
   tour_guide_id: { type: String },
+  main_image: { type: String },
   additional_image : [ imageSchema ]
 });
 //end creating guide Schema

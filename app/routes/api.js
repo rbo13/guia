@@ -258,6 +258,7 @@
                   tour_guide_id : req.body.tour_guide_id,
                   rate : req.body.rate,
                   negotiable : req.body.negotiable,
+                  main_image: req.body.main_image,
                   additional_image: [{
                       image: req.body.additional_image.image
                   }]
