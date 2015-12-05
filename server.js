@@ -110,6 +110,9 @@ app.get('/images/parallax2-min.jpg', function(req, res){
 app.get('/images/guia.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/guia.png');
 });
+app.get('/images/default-user-img.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/images/default-user-img.png');
+});
 //angular files
 app.get('/public/app/app.js', function(req, res){
     res.sendFile(__dirname + '/public/app/app.js');

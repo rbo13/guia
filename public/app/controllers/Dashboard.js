@@ -9,6 +9,8 @@
     function DashboardController($rootScope, $location, $window, Auth){
         var vm = this;
 
+        vm.adminLoggedIn = Auth.adminIsLoggedIn();
+
         vm.guide = function(){
             if($location.path() == '/dashboard/guides'){
                 return true;

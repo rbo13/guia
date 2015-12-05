@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('authSrvc', [])
-        .factory('Auth', function($http, $q, AuthToken){
+        .factory('Auth', function($http, $q, AuthToken, $window){
 
             var adminLogin = function(username, password){
                 return $http.post('/api/v1/admin/login', {
