@@ -48,6 +48,9 @@
                     console.log('FAIL');
                 });
         };
+        socketio.on('update_location', function(data){
+            vm.locations.push(data);
+        });
         //activateLocation
         vm.setActiveLocation = function(id, value){
             console.log('Location Activated');

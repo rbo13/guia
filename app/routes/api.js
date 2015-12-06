@@ -160,7 +160,21 @@
       api.use('/location/:locationId', endpoints.getLocationById); //getLocationById
       api.route('/location/:locationId')
           .get(endpoints.getLocationByIdRoute)
-          .patch(endpoints.patchLocation); //register getLocationById route
+          .patch(function(req, res){
+              if(req.body._id){
+                  delete req.body._id;
+              }
+              for(var l in req.body){
+                  req.getLocation[l] = req.body[l];
+              }
+              req.getLocation.save(function(err){
+                  if(err)
+                      res.status(500).send(err);
+                  else
+                      io.emit('update_location', req.getLocation);
+                  res.json(req.getLocation);
+              });
+          }); //register getLocationById route
       //start POST-preference endpoint
       api.route('/preference')
              .post(function(req, res){

@@ -1,47 +1,57 @@
 <div class="dashboard-card" ng-controller="PreferenceController as _preference">
-    <h5>Add Preference</h5>
-
-    <form ng-submit="_preference.addPreference()">
-        <div class="input-field">
-            <input type="text" id="preference" class="validate" ng-model="_preference.preferenceData.preference">
-            <label for="preference">Preference</label>
-        </div>
-        <button id='set_preference' class="waves-effect waves-light btn green white-text" disabled>Set preference</button>
-    </form>
+    <div class="dashboard-card-header green">
+        <h6 class="white-text bold">Add New Preference</h6>
+    </div>
+    <div class="dashboard-card-body">
+        <form ng-submit="_preference.addPreference()">
+            <div class="input-field">
+                <input type="text" id="preference" class="validate" ng-model="_preference.preferenceData.preference">
+                <label for="preference">Preference</label>
+            </div>
+            <button id='set_preference' class="waves-effect waves-light btn green white-text" disabled>Set preference</button>
+        </form>
+    </div>
 </div>
 
-<div class="dashboard-card" ng-controller="PreferenceController as _preference" >
-    <table class="striped responsive-table">
-        <thead>
-        <tr>
-            <th data-field="preference">Preference</th>
-            <th data-field="action">Action </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="preference in _preference.preferences | reverse" >
-            <td>
-                <a class="black-text" onclick="update_pref();" ng-click="_preference.getPreferenceInfo(preference._id,preference.preference)" >{{ preference.preference }}</a>
-            </td>
-            <td>
-                <button ng-if="preference.isActivated == true" class="waves-effect waves-light btn green" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Activated</button>
-                <button ng-if="preference.isActivated == false" class="waves-effect waves-light btn red" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Deactivated</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<div class="dashboard-card">
+    <div class="dashboard-card-header green">
+        <h6 class="white-text bold">Preference List</h6>
+    </div>
+    <div class="dashboard-card-body">
+        <div class="dashboard-card" ng-controller="PreferenceController as _preference" >
+            <table class="striped responsive-table">
+                <thead>
+                <tr>
+                    <th data-field="preference">Preference</th>
+                    <th data-field="action">Action </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="preference in _preference.preferences | reverse" >
+                    <td>
+                        <a class="black-text" onclick="update_pref();" ng-click="_preference.getPreferenceInfo(preference._id,preference.preference)" >{{ preference.preference }}</a>
+                    </td>
+                    <td>
+                        <button ng-if="preference.isActivated == true" class="waves-effect waves-light btn green" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Activated</button>
+                        <button ng-if="preference.isActivated == false" class="waves-effect waves-light btn red" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Deactivated</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
-    <div id="myModal" class="modal hide fade" style="padding: 20px;">
-        <div class="modal-header">
-            <h5 id="myModalLabel">Update Preference</h5>
-        </div>
-        <div class="modal-body">
-            <input type='text' id='id'  value='' ng-model="_preference.preferenceData._id" hidden>
-            <input type="text" ng-model="_preference.preferenceData.preference" >
-        </div>
-        <div class="modal-footer">
-            <button class="btn green" onClick="closeModal();" >Close</button>
-            <button class="btn green btn-primary" onClick="closeModal();" ng-click="_preference.updatePreference(_preference.preferenceData._id, _preference.preferenceData.preference);" style="margin-right: 20px;" >Save changes</button>
+            <div id="myModal" class="modal hide fade" style="padding: 20px;">
+                <div class="modal-header">
+                    <h5 id="myModalLabel">Update Preference</h5>
+                </div>
+                <div class="modal-body">
+                    <input type='text' id='id'  value='' ng-model="_preference.preferenceData._id" hidden>
+                    <input type="text" ng-model="_preference.preferenceData.preference" >
+                </div>
+                <div class="modal-footer">
+                    <button class="btn green" onClick="closeModal();" >Close</button>
+                    <button class="btn green btn-primary" onClick="closeModal();" ng-click="_preference.updatePreference(_preference.preferenceData._id, _preference.preferenceData.preference);" style="margin-right: 20px;" >Save changes</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

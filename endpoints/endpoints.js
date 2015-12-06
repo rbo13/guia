@@ -11,7 +11,7 @@
   var Tour = require('../app/models/Tour');
   var Note = require('../app/models/Note');
 
-  var endpoints = function(){
+  var endpoints = function(io){
 //user
       var getById = function(req, res, next){
           User.findById(req.params.userId, function(err, user){
@@ -127,21 +127,6 @@
                   return;
               }
               res.json(locations);
-          });
-      };
-
-      var patchLocation = function(req, res){
-          if(req.body._id){
-              delete req.body._id;
-          }
-          for(var l in req.body){
-              req.getLocation[l] = req.body[l];
-          }
-          req.getLocation.save(function(err){
-              if(err)
-                  res.status(500).send(err);
-              else
-                  res.json(req.getLocation);
           });
       };
 //end location
@@ -308,7 +293,6 @@
           getLocationByIdRoute: getLocationByIdRoute,
           getLocation: getLocation,
           getGuide: getGuide,
-          patchLocation: patchLocation,
           getGuideById: getGuideById,
           getGuideByIdRoute: getGuideByIdRoute,
           patchGuide: patchGuide,
