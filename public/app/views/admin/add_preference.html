@@ -1,10 +1,13 @@
 <div class="dashboard-card" ng-controller="PreferenceController as _preference">
     <h5>Add Preference</h5>
-    <div class="input-field">
-        <input type="text" id="preference" class="validate" ng-model="_preference.preferenceData.preference">
-        <label for="preference">Preference</label>
-    </div>
-    <button id='set_preference' class="waves-effect waves-light btn green white-text" ng-click="_preference.addPreference()" disabled>Set preference</button>
+
+    <form ng-submit="_preference.addPreference()">
+        <div class="input-field">
+            <input type="text" id="preference" class="validate" ng-model="_preference.preferenceData.preference">
+            <label for="preference">Preference</label>
+        </div>
+        <button id='set_preference' class="waves-effect waves-light btn green white-text" disabled>Set preference</button>
+    </form>
 </div>
 
 <div class="dashboard-card" ng-controller="PreferenceController as _preference" >
@@ -16,7 +19,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="preference in _preference.preferences | orderBy:'preference'" >
+        <tr ng-repeat="preference in _preference.preferences | reverse" >
             <td>
                 <a class="black-text" onclick="update_pref();" ng-click="_preference.getPreferenceInfo(preference._id,preference.preference)" >{{ preference.preference }}</a>
             </td>

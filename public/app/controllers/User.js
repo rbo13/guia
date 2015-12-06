@@ -4,11 +4,12 @@
     angular.module('userController', [])
         .controller('UserController', UserController);
 
-    UserController.$inject = ['$location', '$window', 'User', 'Guide'];
+    UserController.$inject = ['$location', '$window', 'User', 'Guide', 'socketio'];
 
-    function UserController($location, $window, User, Guide){
+    function UserController($location, $window, User, Guide, socketio){
         var vm = this;
 
+        vm.guides = [];
         //getAllGuides
         User.getAllGuides()
             .success(function(data){
@@ -33,7 +34,11 @@
                 }).error(function(){
                     console.log('FAIL');
                 });
-        }
+        };
+
+        socketio.on('guide', function(data){
+            vm.guides.push(data);
+        });
 
     }
 })();

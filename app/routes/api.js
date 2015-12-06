@@ -21,7 +21,7 @@
         return token;
     }
 
-  module.exports = function(app, express){
+  module.exports = function(app, express, io){
       var api = express.Router();
       var endpoints = require('../../endpoints/endpoints.js')();
 //begin endpoints
@@ -89,17 +89,19 @@
                 city: req.body.city
             });
             //save to MongoDB
-            location.save(function(err){
+            location.save(function(err, newLocation){
                 if(err){
                     res.send(err);
+                    return;
                 }
+                io.emit('location', newLocation);
                 file.Location.find({})
-                    .populate('location.country')
-                    .populate('location.city')
+                    .populate('country')
+                    .populate('city')
                     .exec(function(error, locations) {
                         console.log(JSON.stringify(locations, null, "\t"));
                     });
-                res.json(location);
+                res.json(newLocation);
             })
         });//end of location POST endpoint.
 
@@ -126,11 +128,11 @@
                       guide_user_id: loggedInUser
                   });
               }
-
               //save to MongoDB
-              guide.save(function(err){
+              guide.save(function(err, newGuide){
                   if(err){
                       res.send(err);
+                      return;
                   }else if(!err){
                       file.Guide.find({})
                           .populate('location.country')
@@ -139,6 +141,8 @@
                           .populate('email_address')
                           .populate('type')
                           .populate('guide_user_id');
+
+                      io.emit('new_guide', newGuide); //socket for adding new guide
                       res.json({
                           success: true,
                           message: "Guide Activated!"
@@ -164,9 +168,10 @@
                    preference: req.body.preference
                });
                 //save to mongodb
-                preference.save(function(err){
+                preference.save(function(err, newPreference){
                   if(err) res.send(err);
                   else if(!err){
+                      io.emit('preference', newPreference);
                       file.Preference.find({})
                           .populate('preference');
                       res.json(preference);

@@ -24,5 +24,4 @@
                 patchGuide: patchGuide
             }
         });
-
 })();

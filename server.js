@@ -6,6 +6,7 @@ var express = require('express'),
 var config = require('./config');
 var app = express();
 var http = require('http').Server(app);
+var io = require('socket.io')(http);
 //connect to mongodb
 mongoose.connect(config.database, function(err){
   if(err) console.log(err);
@@ -19,7 +20,7 @@ app.use(morgan('dev'));
 
 app.use(express.static(__dirname + '/public'));
 //load the api
-var api = require('./app/routes/api')(app, express);
+var api = require('./app/routes/api')(app, express, io);
 app.use('/api/v1', api);
 
 
@@ -165,6 +166,9 @@ app.get('/public/app/controllers/Preference.js', function(req, res){
 app.get('/public/app/controllers/Statistics.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Statistics.js');
 });
+app.get('/public/app/directives/reverse.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/directives/reverse.js');
+});
 //bower files
 app.get('/bower_components/angular-chart.js/dist/angular-chart.min.js', function(req, res){
     res.sendFile(__dirname + '/bower_components/angular-chart.js/dist/angular-chart.min.js');
@@ -174,4 +178,7 @@ app.get('/bower_components/Chart.js/Chart.min.js', function(req, res){
 });
 app.get('/bower_components/c3/c3.min.js', function(req, res){
     res.sendFile(__dirname + '/bower_components/c3/c3.min.js');
+});
+app.get('/socket.io/socket.io.js', function(req, res){
+    res.sendFile(__dirname + '/socket.io/socket.io.js');
 });

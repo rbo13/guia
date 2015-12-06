@@ -4,9 +4,9 @@
     angular.module('preferenceController', [])
         .controller('PreferenceController', PreferenceController);
 
-    PreferenceController.$inject = ['$location', '$window', 'Preference'];
+    PreferenceController.$inject = ['$location', '$window', 'Preference', 'socketio'];
 
-    function PreferenceController($location, $window, Preference){
+    function PreferenceController($location, $window, Preference, socketio){
         var vm = this;
 
         //getAllPreference
@@ -24,6 +24,9 @@
                     console.log(data);
                 });
         };
+        socketio.on('preference', function(data){
+            vm.preferences.push(data);
+        });
         //activatePreference
         vm.activatePreference = function(id,value){
             console.log('Preference Activated');

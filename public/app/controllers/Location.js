@@ -4,9 +4,9 @@
     angular.module('locationController', [])
         .controller('LocationController', LocationController);
 
-    LocationController.$inject = ['$location', '$window', 'Location'];
+    LocationController.$inject = ['$location', '$window', 'Location', 'socketio'];
 
-    function LocationController($location, $window, Location){
+    function LocationController($location, $window, Location, socketio){
         var vm = this;
 
         //getAllLocations
@@ -15,14 +15,6 @@
                 vm.locations = data;
                 console.log(data);
             });
-        //get values of every locations
-        vm.getValues = function(id,country,city){
-            vm.locationData = {
-                _id: id,
-                country: country,
-                city: city
-            };
-        };
         //addLocation
         vm.addLocation = function(){
             console.log('Added New Location');
@@ -31,6 +23,18 @@
                     vm.locationData = '';
                     console.log(data);
                 });
+        };
+        socketio.on('location', function(data){
+            vm.locations.push(data);
+        });
+
+        //get values of every locations
+        vm.getValues = function(id,country,city){
+            vm.locationData = {
+                _id: id,
+                country: country,
+                city: city
+            };
         };
         //updateLocation
         vm.updateLocation = function(){
