@@ -27,9 +27,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="preference in _preference.preferences | reverse" >
+                <tr ng-repeat="preference in _preference.preferences | reverse" onclick="update_pref();" ng-click="_preference.getPreferenceInfo(preference._id,preference.preference)">
                     <td>
-                        <a class="black-text" onclick="update_pref();" ng-click="_preference.getPreferenceInfo(preference._id,preference.preference)" >{{ preference.preference }}</a>
+                        {{ preference.preference }}
                     </td>
                     <td>
                         <button ng-if="preference.isActivated == true" class="waves-effect waves-light btn green" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Activated</button>
