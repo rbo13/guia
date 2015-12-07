@@ -124,6 +124,9 @@ app.get('/public/app/app.dashboard.js', function(req, res){
 app.get('/public/app/app.route.js', function(req, res){
     res.sendFile(__dirname + '/public/app/app.route.js');
 });
+app.get('/public/app/admin.security.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/admin.security.js');
+});
 app.get('/public/app/dashboard.route.js', function(req, res){
     res.sendFile(__dirname + '/public/app/dashboard.route.js');
 });

@@ -7,7 +7,12 @@
                 .when('/admin', {
                     templateUrl: '/app/views/admin/admin.html',
                     controller: 'AdminController',
-                    controllerAs: 'admin'
+                    controllerAs: 'admin',
+                    access: {
+                        requiresLogin: true,
+                        requiredPermissions: ['Admin', 'AdminUser'],
+                        permissionType: 'AtLeastOne'
+                    }
                 })
                 .otherwise({
                     redirectTo: '/'

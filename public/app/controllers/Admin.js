@@ -21,8 +21,11 @@
         });
 
         vm.doLogin = function(){
+            vm.loader = true;
+            vm.errorMessage = false;
             Auth.adminLogin(vm.loginData.username, vm.loginData.password)
                 .success(function(data){
+                    vm.loader = false;
                     Auth.getAdmin()
                         .then(function(data){
                             vm.admin = data.data;
@@ -31,6 +34,7 @@
                         $window.location.href = '/dashboard';
                     }else{
                         console.log(data.message);
+                        vm.errorMessage = true;
                         vm.error = data.message;
                     }
                 });

@@ -456,7 +456,7 @@
               }else if(admin){
                   var validPassword = admin.comparePassword(req.body.password);
                   if(!validPassword){
-                      res.send({ message: "Password is invalid" });
+                      res.send({ message: "Invalid Password!" });
                   }else{
                       //create token
                       var token = createToken(admin);
