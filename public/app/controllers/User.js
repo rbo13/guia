@@ -4,17 +4,22 @@
     angular.module('userController', [])
         .controller('UserController', UserController);
 
-    UserController.$inject = ['$location', '$window', 'User', 'Guide', 'socketio'];
+    UserController.$inject = ['$location', '$window', 'User', 'Guide', 'socketio', 'Toast'];
 
-    function UserController($location, $window, User, Guide, socketio){
+    function UserController($location, $window, User, Guide, socketio, Toast){
         var vm = this;
-
+        vm.guiaPreloader = true;
+        vm.userTable = false;
         vm.guides = [];
         //getAllGuides
         User.getAllGuides()
             .success(function(data){
+                vm.guiaPreloader = true;
                 vm.guides = data;
                 console.log(data);
+                vm.guiaPreloader = false;
+                vm.userTable = true;
+                Toast.success(vm.guides);
             });
         //updateGuide
         vm.activateGuide = function(guide_user_id, id, value){
@@ -39,6 +44,5 @@
         socketio.on('guide', function(data){
             vm.guides.push(data);
         });
-
     }
 })();

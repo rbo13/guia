@@ -52,6 +52,9 @@
                         requiresLogin: true
                     }
                 })
+                .when('/admin', {
+                    templateUrl: '/app/views/admin/admin.html'
+                })
                 .otherwise({
                     redirectTo: '/'
                 });

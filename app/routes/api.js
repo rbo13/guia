@@ -297,6 +297,24 @@
            });
          });//end POST-tour endpoint
       api.get('/tours', endpoints.getAllTours); //end GET-tour endpoint
+      api.route('/tourByPreference')
+          .post(function(req, res){
+            var searchQuery = req.body.tour_preference;
+                file.Tour.find({
+                  tour_preference: new RegExp('^'+searchQuery+'$', "i")
+              })
+                .select('name duration duration_format details tour_preference rate').exec(function(err, tour){
+                    if(err) throw err;
+
+                        if(!tour){
+                            res.json({
+                                success: false,
+                                message: "Tour not found"
+                            });
+                        }
+            res.json(tour);
+        })
+      }); //end GET-tourByPreference endpoint
       //start: POST - reward endpoint
       api.route('/reward')
           .post(function(req, res){
@@ -452,7 +470,7 @@
               if(err) throw err;
 
               if(!admin){
-                  res.send({ message: "Admin doesnt exist"});
+                  res.send({ message: "No admin found"});
               }else if(admin){
                   var validPassword = admin.comparePassword(req.body.password);
                   if(!validPassword){

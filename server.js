@@ -70,6 +70,9 @@ app.get('/add_preference.html', function(req, res){
 app.get('/statistics.html', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/statistics.html');
 });
+app.get('/admin.html', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/admin.html');
+});
 app.get('/admin', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/admin.html');
 });
@@ -114,6 +117,9 @@ app.get('/images/guia.png', function(req, res){
 app.get('/images/default-user-img.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/default-user-img.png');
 });
+app.get('/views/images/guia-loader.gif', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/images/guia-loader.gif');
+});
 //angular files
 app.get('/public/app/app.js', function(req, res){
     res.sendFile(__dirname + '/public/app/app.js');
@@ -148,6 +154,9 @@ app.get('/public/app/services/guideService.js', function(req, res){
 app.get('/public/app/services/authService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/services/authService.js');
 });
+app.get('/public/app/services/toastService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/toastService.js');
+});
 app.get('/public/app/controllers/Dashboard.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Dashboard.js');
 });
@@ -181,6 +190,18 @@ app.get('/bower_components/Chart.js/Chart.min.js', function(req, res){
 });
 app.get('/bower_components/c3/c3.min.js', function(req, res){
     res.sendFile(__dirname + '/bower_components/c3/c3.min.js');
+});
+app.get('/bower_components/angular-sanitize/angular-sanitize.min.js', function(req, res){
+    res.sendFile(__dirname + '/bower_components/angular-sanitize/angular-sanitize.min.js');
+});
+app.get('/bower_components/angular-toastr/dist/angular-toastr.tpls.js', function(req, res){
+    res.sendFile(__dirname + '/bower_components/angular-toastr/dist/angular-toastr.tpls.js');
+});
+app.get('/bower_components/angular-toastr/dist/angular-toastr.css', function(req, res){
+    res.sendFile(__dirname + '//bower_components/angular-toastr/dist/angular-toastr.css');
+});
+app.get('/bower_components/angular-animate/angular-animate.js', function(req, res){
+    res.sendFile(__dirname + '/bower_components/angular-animate/angular-animate.js');
 });
 app.get('/socket.io/socket.io.js', function(req, res){
     res.sendFile(__dirname + '/socket.io/socket.io.js');

@@ -4,16 +4,20 @@
     angular.module('preferenceController', [])
         .controller('PreferenceController', PreferenceController);
 
-    PreferenceController.$inject = ['$location', '$window', 'Preference', 'socketio'];
+    PreferenceController.$inject = ['$location', '$window', 'Preference', 'socketio', 'Toast'];
 
-    function PreferenceController($location, $window, Preference, socketio){
+    function PreferenceController($location, $window, Preference, socketio, Toast){
         var vm = this;
-
+        vm.guiaPreloader = true;
+        vm.preferenceTable = false;
         //getAllPreference
         Preference.getAllPreferences()
             .success(function(data){
                 vm.preferences = data;
                 console.log(data);
+                vm.guiaPreloader = false;
+                vm.preferenceTable = true;
+                Toast.success();
             });
         //addPreference
         vm.addPreference = function(){

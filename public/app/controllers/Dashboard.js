@@ -4,11 +4,11 @@
     angular.module('dashboardController', [])
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$rootScope', '$location', '$window', 'Auth'];
+    DashboardController.$inject = ['$rootScope', '$location', '$window', 'Auth', 'Toast'];
 
-    function DashboardController($rootScope, $location, $window, Auth){
+    function DashboardController($rootScope, $location, $window, Auth, Toast){
         var vm = this;
-
+        vm.guiaPreloader = true;
         vm.adminLoggedIn = Auth.adminIsLoggedIn();
 
         vm.guide = function(){

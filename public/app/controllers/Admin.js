@@ -4,11 +4,11 @@
     angular.module('adminController', [])
         .controller('AdminController', AdminController);
 
-    AdminController.$inject = ['Auth', '$rootScope', '$location', '$window'];
+    AdminController.$inject = ['Auth', '$rootScope', '$location', '$route', '$window', 'Toast'];
 
-    function AdminController(Auth, $rootScope, $location, $window){
+    function AdminController(Auth, $rootScope, $location, $route, $window, Toast){
         var vm = this;
-
+        vm.submitButton = true;
         vm.loggedIn = Auth.adminIsLoggedIn();
 
         $rootScope.$on('$routeChangeStart', function(){
@@ -22,6 +22,7 @@
 
         vm.doLogin = function(){
             vm.loader = true;
+            vm.submitButton = false;
             vm.errorMessage = false;
             Auth.adminLogin(vm.loginData.username, vm.loginData.password)
                 .success(function(data){
@@ -36,6 +37,9 @@
                         console.log(data.message);
                         vm.errorMessage = true;
                         vm.error = data.message;
+                        Toast.error(vm.error);
+                        vm.loginData.password = "";
+                        vm.submitButton = true;
                     }
                 });
         }

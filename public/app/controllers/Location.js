@@ -4,16 +4,20 @@
     angular.module('locationController', [])
         .controller('LocationController', LocationController);
 
-    LocationController.$inject = ['$location', '$window', 'Location', 'socketio'];
+    LocationController.$inject = ['$location', '$window', 'Location', 'socketio', 'Toast'];
 
-    function LocationController($location, $window, Location, socketio){
+    function LocationController($location, $window, Location, socketio, Toast){
         var vm = this;
-
+        vm.guiaPreloader = true;
+        vm.locationTable = false;
         //getAllLocations
         Location.getAllLocations()
             .success(function(data){
                 vm.locations = data;
                 console.log(data);
+                vm.guiaPreloader = false;
+                vm.locationTable = true;
+                Toast.success();
             });
         //addLocation
         vm.addLocation = function(){

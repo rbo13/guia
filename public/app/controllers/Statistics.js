@@ -4,10 +4,12 @@
     angular.module('statisticsController', [])
         .controller('StatisticsController', StatisticsController);
 
-    StatisticsController.$inject = [];
+    StatisticsController.$inject = ['Toast'];
 
-    function StatisticsController(){
+    function StatisticsController(Toast){
         var vm = this;
+
+        Toast.success();
 
         vm.report = "Monthly";
 
