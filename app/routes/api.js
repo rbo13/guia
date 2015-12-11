@@ -39,8 +39,7 @@
               birthday: req.body.birthday,
               age: req.body.age,
               gender: req.body.gender,
-              profImage: req.body.profImage,
-              guide_id: req.body.guide_id
+              profImage: req.body.profImage
           });
           if(!req.body.facebook_id){
               res.status(400).send('User not available!');
@@ -133,21 +132,20 @@
                   if(err){
                       res.send(err);
                       return;
-                  }else if(!err){
-                      file.Guide.find({})
-                          .populate('location.country')
-                          .populate('location.city')
-                          .populate('contact_number')
-                          .populate('email_address')
-                          .populate('type')
-                          .populate('guide_user_id');
-
-                      io.emit('new_guide', newGuide); //socket for adding new guide
-                      res.json({
-                          success: true,
-                          message: "Guide Activated!"
-                      });
                   }
+                  io.emit('new_guide', newGuide); //socket for adding new guide
+                  file.Guide.find({})
+                      .populate('country')
+                      .populate('city')
+                      .populate('contact_number')
+                      .populate('email_address')
+                      .populate('type')
+                      .populate('guide_user_id');
+
+                  res.json({
+                      success: true,
+                      message: "Guide Activated!"
+                  });
               });
           });//end POST
       api.route('/guides').get(endpoints.getGuide); //end /GET guide endpoint
@@ -270,6 +268,7 @@
          .post(function(req, res){
               tour = new file.Tour({
                   name  : req.body.name,
+                  tour_location : req.body.tour_location,
                   duration : req.body.duration,
                   duration_format: req.body.duration_format,
                   details  : req.body.details,
@@ -285,6 +284,7 @@
              else if(!err){
                  file.Tour.find({})
                      .populate('name')
+                     .populate('tour_location')
                      .populate('duration')
                      .populate('details')
                      .populate('tour_preference')
@@ -301,9 +301,10 @@
           .post(function(req, res){
             var searchQuery = req.body.tour_preference;
                 file.Tour.find({
-                  tour_preference: new RegExp('^'+searchQuery+'$', "i")
+                  tour_preference: new RegExp('^'+searchQuery+'$', "i"),
+                  tour_location: req.body.tour_location
               })
-                .select('name duration duration_format details tour_preference rate').exec(function(err, tour){
+                .select('name tour_location duration duration_format details tour_preference rate').exec(function(err, tour){
                     if(err) throw err;
 
                         if(!tour){

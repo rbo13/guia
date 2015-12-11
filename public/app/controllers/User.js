@@ -41,7 +41,7 @@
                 });
         };
 
-        socketio.on('guide', function(data){
+        socketio.on('new_guide', function(data){
             vm.guides.push(data);
         });
     }

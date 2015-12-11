@@ -18,7 +18,7 @@
                 </thead>
 
                 <tbody>
-                <tr ng-repeat="guide in user.guides">
+                <tr ng-repeat="guide in user.guides | reverse">
                     <td>
                         <div class="input-field">
                             {{guide.email_address}}
@@ -63,7 +63,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="guide in user.guides">
+                <tr ng-repeat="guide in user.guides | reverse">
 
                     <td>
                         <div class="input-field">
@@ -78,8 +78,10 @@
                     </td>
 
                     <td>
-                        <button ng-if="guide.isActivated == true" ng-click="user.activateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn green">Activated</button>
-                        <button ng-if="guide.isActivated == false" ng-click="user.activateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn red">Deactivated</button>
+                        <div class="input-field">
+                            <button ng-if="guide.isActivated == false" ng-click="user.activateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn green">Activate</button>
+                            <button ng-if="guide.isActivated == true" ng-click="user.activateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn red">Deactivate</button>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
