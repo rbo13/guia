@@ -1,5 +1,8 @@
 <div ng-controller="RewardController as reward">
-    <div class="dashboard-card">
+    <div class="loader-container" align="center" ng-if="reward.guiaPreloader">
+        <img src="views/images/guia-loader.gif" alt="Loader"/>
+    </div>
+    <div class="dashboard-card" ng-show="reward.rewardTable">
         <div class="dashboard-card-header green">
             <h6 class="white-text bold">Add Reward</h6>
         </div>
@@ -21,7 +24,7 @@
         </div>
     </div>
 
-    <div class="dashboard-card">
+    <div class="dashboard-card" ng-show="reward.rewardTable">
         <div class="dashboard-card-header green">
             <h6 class="white-text bold">Available Rewards</h6>
         </div>
@@ -35,7 +38,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="r in reward.rewards" ng-click="reward.getValues(r._id,r.redeem_points)">
+                <tr ng-repeat="r in reward.rewards | filter:search" ng-click="reward.getValues(r._id,r.redeem_points)">
                     <td>{{reward.getTour(r.reward_tour_id)}}</td><!---->
                     <td>{{r.redeem_points}}</td>
                     <td>

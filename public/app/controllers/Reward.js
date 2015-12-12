@@ -8,6 +8,7 @@
 
     function RewardController($location, $window, Reward, Toast){
         var vm = this;
+        vm.guiaPreloader = true;
 
         Reward.getAllTours()
             .success(function(data){
@@ -62,7 +63,6 @@
                     console.log('FAIL');
                 });
         };
-
 
         vm.addReward = function(){
             console.log('Added New Reward');
