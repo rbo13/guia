@@ -403,13 +403,25 @@
           });
       });//end
 
+      //start: getAllBookingByGuideId
+      api.post('/bookings', function(req, res){
+          file.Booking.find({booking_guide_id: req.body.booking_guide_id}, function(err, getBookings){
+              if(err){
+                  res.send(err);
+                  return;
+              }
+              res.json(getBookings);
+          });
+      });//end
+
       //start: POST - booking endpoint
       api.route('/book')
          .post(function(req, res){
            booking = new file.Booking({
              schedule: req.body.schedule,
              booking_tour_id: req.body.booking_tour_id,
-             booking_user_id: req.body.booking_user_id
+             booking_user_id: req.body.booking_user_id,
+             booking_guide_id: req.body.booking_guide_id
            });
            //save to mongoDB
            booking.save(function(err){
@@ -418,6 +430,7 @@
                  file.Booking.find({})
                      .populate('booking_tour_id')
                      .populate('booking_user_id')
+                     .populate('booking_guide_id')
                      .populate('schedule')
                      .populate('status');
                  res.json(booking);

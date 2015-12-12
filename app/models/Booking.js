@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
 var BookingSchema = new Schema({
   booking_tour_id: { type: String, default: "" },
   booking_user_id: { type: String, default: "" },
+  booking_guide_id: { type: String, default: "" },
   schedule: Date,
   status: { type: String, default: "pending" }
 });
