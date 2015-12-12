@@ -19,19 +19,26 @@
 </head>
 <body class="parallax-demo">
 <!--  Parallax Section  -->
-<div class="parallax-container header-parallax-top" ng-app="guia">
+<div class="parallax-container header-parallax-top">
     <div class="row container">
         <center class="center-wrapper">
             <img class="header-parallax-logo" src="http://res.cloudinary.com/whaangbuu/image/upload/v1447916146/logo_qphfgf.png">
 
             <h4 class="header">
-                It is a social discovery app that connects travelers to locals for an authentic local experience.
+                A social discovery app that connects travelers to locals for an authentic local experience.
             </h4>
-            <a href="https://docs.google.com/forms/d/1Bl9nNnTO5l_27DEJORL7dVE0ywmzZN_Rr3OrwIwgm04/viewform">
-                <button class="btn waves-effect waves-light btn-large" type="submit" name="action">
-                    <h5>Join Now</h5>
-                </button>
-            </a>
+            <div class="row" ng-app="index" ng-controller="SubscriberController as _subscriber">
+                <form class="col s12 signup-container">
+                    <div class="row">
+                        <input id="email" type="email" class="email-input" placeholder="Enter your email here" ng-model="_subscriber.email">
+                    </div>
+                    <div class="row">
+                        <button class="btn waves-effect waves-light btn-large" ng-click="_subscriber.addSubscriber()">
+                            <h5>Join Now</h5>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </center>
     </div>
     <div class="parallax"><img src="images/parallax1-min.jpg"></div>
@@ -48,7 +55,7 @@
         <div class="col s4">
             <i class="large material-icons feature-icon">lock</i>
             <h3 class="header-feature-section"><small>Safety</small></h3>
-            <h5 class="grey-text darken-3 lighten-3"><small>All local guides go through a background check to ensure the safety of travelers.</small></h5>
+            <h5 class="grey-text darken-3 lighten-3"><small>All locals are screened to ensure the safety of travelers.</small></h5>
         </div>
         <div class="col s4">
             <i class="large material-icons feature-icon">visibility</i>
@@ -67,7 +74,7 @@
             <iframe src="https://player.vimeo.com/video/146074245" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         </div>
         <div class="col s6">
-            <h3><small>We simply match yours and the locals preferences to create a unique tour experience.</small></h3>
+            <h3><small>We match your preferences to find the best local to create a unique tour experience.</small></h3>
         </div>
     </div>
 </div>
@@ -104,6 +111,10 @@
 <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/js/prism.js"></script>
 <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/bin/materialize.js"></script>
 <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/js/init.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script src="/public/app/app.index.js"></script>
+<script src="/public/app/controllers/Subscriber.js"></script>
+<script src="/public/app/services/subscriberService.js"></script>
 <!-- Twitter Button -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 

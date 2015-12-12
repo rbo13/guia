@@ -10,6 +10,8 @@
   var Trip = require('../app/models/Trip');
   var Tour = require('../app/models/Tour');
   var Note = require('../app/models/Note');
+  var Reward = require('../app/models/Reward');
+  var Subscriber = require('../app/models/Subscriber');
 
   var endpoints = function(io){
 //user
@@ -277,6 +279,24 @@
       };
 //end tours
 
+      //reward
+      var getRewardById = function(req, res, next){
+          Reward.findById(req.params.rewardId, function(err, getReward){
+              if(err) res.status(500).send(err);
+              else if(getReward){
+                  req.getReward = getReward;
+                  next();
+              }else{
+                  res.status(404).send('No Reward found');
+              }
+          });
+      };
+
+      var getRewardByIdRoute = function(req, res){
+          res.json(req.getReward);
+      };
+//end reward
+
 //start note
       var getAllNotes = function(req, res){
           Note.find({}, function(err, getNotes){
@@ -304,6 +324,18 @@
           res.json(req.note)
       };
 //end note
+
+      //subscriber
+      var getAllSubscribers = function(req,res){
+          Subscriber.find({}, function(err, getSubscribers){
+              if(err){
+                  res.send(err);
+                  return;
+              }
+              res.json(getSubscribers);
+          });
+      };
+      //end
       return{
           getLocationById: getLocationById,
           getLocationByIdRoute: getLocationByIdRoute,
@@ -326,6 +358,8 @@
           getAllTours: getAllTours,
           getTourById: getTourById,
           getTourByIdRoute: getTourByIdRoute,
+          getRewardById: getRewardById,
+          getRewardByIdRoute: getRewardByIdRoute,
           getAllNotes: getAllNotes,
           getNoteById: getNoteById,
           getNoteByIdRoute: getNoteByIdRoute,
@@ -333,7 +367,8 @@
           getAllUsers: getAllUsers,
           get: get,
           patch: patch,
-          deleteUser: deleteUser
+          deleteUser: deleteUser,
+          getAllSubscribers: getAllSubscribers
       }
   };
 

@@ -15,6 +15,7 @@
         Reward: require('./Reward.js'),
         Tour: require('./Tour.js'),
         Trip: require('./Trip.js'),
-        Admin: require('./Admin.js')
+        Admin: require('./Admin.js'),
+        Subscriber: require('./Subscriber.js')
     };
 })();

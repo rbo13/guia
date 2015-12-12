@@ -8,7 +8,7 @@
   var loggedInUser, guide_id;
   var user, location, preference, guide, rating,
     review, trip, tour, reward,
-    redeem, booking, note, negotiate, admin;
+    redeem, booking, note, negotiate, admin, subscribe;
 
     function createToken(admin){
         var token = jsonwebtoken.sign({
@@ -323,7 +323,7 @@
       api.route('/reward')
           .post(function(req, res){
             reward = new file.Reward({
-              reward_tour_id: tour._id,
+              reward_tour_id: req.body.reward_tour_id,
               redeem_points: req.body.redeem_points
             });
             //save to mongoDB
@@ -347,6 +347,23 @@
               res.json(getRewards);
           });
       });//end GET-reward endpoint
+      api.use('/reward/:rewardId', endpoints.getRewardById); //getLocationById
+      api.route('/reward/:rewardId')
+          .get(endpoints.getRewardByIdRoute)
+          .patch(function(req, res){
+              if(req.body._id){
+                  delete req.body._id;
+              }
+              for(var r in req.body){
+                  req.getReward[r] = req.body[r];
+              }
+              req.getReward.save(function(err){
+                  if(err)
+                      res.status(500).send(err);
+                  else
+                      res.json(req.getReward);
+              });
+          });
       //start: POST - redeem endpoint
       api.route('/redeem')
           .post(function(req, res){
@@ -455,6 +472,22 @@
                   }
               })
           }); //end
+      api.post('/subscribe', function(req, res){
+          subscribe = new file.Subscriber({
+              email: req.body.email
+          });
+          subscribe.save(function(err){
+              if(err){
+                  res.send(err);
+                  return;
+              }
+              res.json({
+                  success: true,
+                  message: 'Success'
+              });
+          });
+      });
+      api.get('/subscribers', endpoints.getAllSubscribers); //end GET-tour endpoint
 
       //signup admin
       api.post('/admin/signup', function(req, res){

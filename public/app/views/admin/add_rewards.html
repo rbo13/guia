@@ -1,47 +1,76 @@
-<div class="dashboard-card" ng-controller="RewardController as reward">
-    <div class="dashboard-card-header green">
-        <h6 class="white-text bold">Add Reward</h6>
-    </div>
-
-    <div class="dashboard-card-body">
-        <div class="input-field">
-            <input type="text" id="reward" class="validate"/>
-            <label for="reward">Reward</label>
+<div ng-controller="RewardController as reward">
+    <div class="dashboard-card">
+        <div class="dashboard-card-header green">
+            <h6 class="white-text bold">Add Reward</h6>
         </div>
-        <button class="waves-effect waves-light btn green">{{reward.setReward}}</button>
-    </div>
-</div>
 
-<div class="dashboard-card">
-    <div class="dashboard-card-header green">
-        <h6 class="white-text bold">Available Reward</h6>
+        <div class="dashboard-card-body">
+            <form ng-submit="reward.addReward()">
+                <div class="input-field">
+                    <select id="country" class="validate browser-default" name="tour" ng-model="reward.rewardData.reward_tour_id">
+                        <option value="" disabled selected>Select a Tour</option>
+                        <option ng-repeat="tour in reward.tours | orderBy:'name':true" value="{{tour._id}}">{{tour.name}}</option>
+                    </select>
+                </div>
+                <div class="input-field">
+                    <input type="number" id="points" class="validate" ng-model="reward.rewardData.redeem_points"/>
+                    <label for="reward">Points</label>
+                </div>
+                <button class="waves-effect waves-light btn green">{{reward.setReward}}</button>
+            </form>
+        </div>
     </div>
-    <div class="dashboard-card-body">
-        <table class="striped responsive-table">
-            <thead>
-            <tr>
-                <th data-field="city">City</th>
-                <th data-field="activity">Activity</th>
-                <th data-field="action">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Bohol</td>
-                <td>Trek</td>
-                <td><button class="waves-effect waves-light btn green">Activated</button></td>
-            </tr>
-            <tr>
-                <td>Palawan</td>
-                <td>Underground River</td>
-                <td><button class="waves-effect waves-light btn red">Deactivated</button></td>
-            </tr>
-            <tr>
-                <td>Lapu Lapu</td>
-                <td>Cycling</td>
-                <td><button class="waves-effect waves-light btn green">Activated</button></td>
-            </tr>
-            </tbody>
-        </table>
+
+    <div class="dashboard-card">
+        <div class="dashboard-card-header green">
+            <h6 class="white-text bold">Available Rewards</h6>
+        </div>
+        <div class="dashboard-card-body">
+            <table class="striped responsive-table centered" id="rewards">
+                <thead>
+                <tr>
+                    <th data-field="city">Tour</th>
+                    <th data-field="activity">Points</th>
+                    <th data-field="action">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="r in reward.rewards" ng-click="reward.getValues(r._id,r.redeem_points)">
+                    <td>{{reward.getTour(r.reward_tour_id)}}</td><!---->
+                    <td>{{r.redeem_points}}</td>
+                    <td>
+                        <button ng-if="r.isActivated == true" class="waves-effect waves-light btn green" ng-click="reward.setActiveReward(r._id, !r.isActivated); r.isActivated = !r.isActivated; $event.stopPropagation()">Activated</button>
+                        <button ng-if="r.isActivated == false" class="waves-effect waves-light btn red" ng-click="reward.setActiveReward(r._id, !r.isActivated); r.isActivated = !r.isActivated; $event.stopPropagation()">Deactivated</button>
+                    </td>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h4 class="green-text">Edit Reward</h4>
+                <form ng-submit="reward.updateReward()">
+                    <div class="input-field">
+                        <input type="number" id="modalpoints" class="validate" ng-model="reward.rewardData.redeem_points">
+                        <label for="reward">Points</label>
+                    </div>
+                    <div class="modal-footer">
+                        <a ng-click="reward.updateReward()" class=" modal-action modal-close waves-effect waves-light btn-flat green white-text">Save Changes</a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select').material_select();
+            $('#rewards').on("click",function(){
+                console.log($('span').html());
+                $('.modal').openModal();
+                $('#modalpoints').focus();
+            });
+        });
+    </script>
 </div>

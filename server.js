@@ -127,6 +127,9 @@ app.get('/public/app/app.js', function(req, res){
 app.get('/public/app/app.dashboard.js', function(req, res){
     res.sendFile(__dirname + '/public/app/app.dashboard.js');
 });
+app.get('/public/app/app.index.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/app.index.js');
+});
 app.get('/public/app/app.route.js', function(req, res){
     res.sendFile(__dirname + '/public/app/app.route.js');
 });
@@ -157,6 +160,9 @@ app.get('/public/app/services/authService.js', function(req, res){
 app.get('/public/app/services/toastService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/services/toastService.js');
 });
+app.get('/public/app/services/subscriberService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/subscriberService.js');
+});
 app.get('/public/app/controllers/Dashboard.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Dashboard.js');
 });
@@ -177,6 +183,9 @@ app.get('/public/app/controllers/Preference.js', function(req, res){
 });
 app.get('/public/app/controllers/Statistics.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Statistics.js');
+});
+app.get('/public/app/controllers/Subscriber.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/controllers/Subscriber.js');
 });
 app.get('/public/app/directives/reverse.js', function(req, res){
     res.sendFile(__dirname + '/public/app/directives/reverse.js');
