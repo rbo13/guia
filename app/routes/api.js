@@ -390,8 +390,7 @@
       api.route('/book')
          .post(function(req, res){
            booking = new file.Booking({
-             schedule: req.body.schedule,
-             rate: req.body.rate
+             schedule: req.body.schedule
            });
            //save to mongoDB
            booking.save(function(err){
@@ -399,8 +398,8 @@
              else if(!err){
                  file.Booking.find({})
                      .populate('booking_tour_id')
+                     .populate('booking_user_id')
                      .populate('schedule')
-                     .populate('rate')
                      .populate('status');
                  res.json(booking);
              }
