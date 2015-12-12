@@ -1,5 +1,5 @@
 <div ng-controller="UserController as user">
-    <div align="center" ng-if="user.guiaPreloader">
+    <div class="loader-container" align="center" ng-if="user.guiaPreloader">
         <img src="views/images/guia-loader.gif" alt="Loader"/>
     </div>
     <div class="dashboard-card" ng-if="user.userTable">
@@ -18,7 +18,7 @@
                 </thead>
 
                 <tbody>
-                <tr ng-repeat="guide in user.guides | reverse">
+                <tr ng-repeat="guide in user.guides">
                     <td>
                         <div class="input-field">
                             {{guide.email_address}}
@@ -63,7 +63,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="guide in user.guides | reverse">
+                <tr ng-repeat="guide in user.guides">
 
                     <td>
                         <div class="input-field">
@@ -78,10 +78,8 @@
                     </td>
 
                     <td>
-                        <div class="input-field">
-                            <button ng-if="guide.isActivated == false" ng-click="user.activateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn green">Activate</button>
-                            <button ng-if="guide.isActivated == true" ng-click="user.activateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn red">Deactivate</button>
-                        </div>
+                        <button ng-if="guide.isActivated == true" ng-click="user.activateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn red">Deactivate</button>
+                        <button ng-if="guide.isActivated == false" ng-click="user.activateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn green">Activate</button>
                     </td>
                 </tr>
                 </tbody>

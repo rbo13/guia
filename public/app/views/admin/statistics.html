@@ -1,46 +1,48 @@
-<div class="dashboard-card">
-    <div class="dashboard-card-header green">
-        <h6 class="white-text bold">User Statistics</h6>
-    </div>
+<div ng-controller="StatisticsController as stat">
+    <div class="dashboard-card">
+        <div class="dashboard-card-header green">
+            <h6 class="white-text bold">User</h6>
+        </div>
 
-    <div class="dashboard-card-body">
-        <div ng-controller="StatisticsController as stat">
-            <canvas id="line" class="chart chart-line" chart-data="stat.data"
-                    chart-labels="stat.labels" chart-legend="true" chart-series="stat.series"
-                    chart-click="stat.onClick" >
-            </canvas>
+        <div class="dashboard-card-body">
+            <div>
+                <canvas id="line" class="chart chart-line" chart-data="stat.data"
+                        chart-labels="stat.labels" chart-legend="true" chart-series="stat.series"
+                        chart-click="stat.onClick" >
+                </canvas>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="dashboard-card">
-    <div class="dashboard-card-header green">
-        <h6 class="white-text bold">Tours Statistics</h6>
-    </div>
-    <div class="dashboard-card-body">
-        <div id="tours" ng-controller="StatisticsController as stat">
-            <canvas id="bar" class="chart chart-bar"
-                    chart-data="stat.data" chart-labels="stat.labels">
-            </canvas>
+    <div class="dashboard-card">
+        <div class="dashboard-card-header green">
+            <h6 class="white-text bold">Tours</h6>
+        </div>
+        <div class="dashboard-card-body">
+            <div id="tours">
+                <canvas id="bar" class="chart chart-bar"
+                        chart-data="stat.data" chart-labels="stat.labels">
+                </canvas>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="dashboard-card">
-    <div class="dashboard-card-header green">
-        <h6 class="white-text bold">Places Statistics</h6>
-    </div>
-    <div class="dashboard-card-body">
-        <div id="places" ng-controller="StatisticsController as stat">
-            <canvas id="radar" class="chart chart-radar"
-                    chart-data="stat.data" chart-labels="stat.labels">
-            </canvas>
+    <div class="dashboard-card">
+        <div class="dashboard-card-header green">
+            <h6 class="white-text bold">Places</h6>
+        </div>
+        <div class="dashboard-card-body">
+            <div id="places">
+                <canvas id="radar" class="chart chart-radar"
+                        chart-data="stat.data" chart-labels="stat.labels">
+                </canvas>
+            </div>
         </div>
     </div>
-</div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('select').material_select();
-    });
-</script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+    </script>
+</div>

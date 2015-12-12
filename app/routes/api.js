@@ -297,12 +297,15 @@
            });
          });//end POST-tour endpoint
       api.get('/tours', endpoints.getAllTours); //end GET-tour endpoint
+      api.use('/tour/:tourId', endpoints.getTourById);
+      api.route('/tour/:tourId')
+          .get(endpoints.getTourByIdRoute);
+
       api.route('/tourByPreference')
           .post(function(req, res){
             var searchQuery = req.body.tour_preference;
                 file.Tour.find({
-                  tour_preference: new RegExp('^'+searchQuery+'$', "i"),
-                  tour_location: req.body.tour_location
+                  tour_preference: new RegExp('^'+searchQuery+'$', "i")
               })
                 .select('name tour_location duration duration_format details tour_preference rate').exec(function(err, tour){
                     if(err) throw err;

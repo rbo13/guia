@@ -37,8 +37,8 @@
 
         <li class="hide-on-large-only">
             <div class="user-header-container center-align">
-                <img src="images/default-user-img.png" class="responsive-img circle">
-                <h6 class="bold black-text">Admin User</h6>
+                <img src="images/default-user-img.png" class="responsive-img circle user-img">
+                <h6 class="bold black-text">Welcome Admin</h6>
             </div>
         </li>
 
@@ -80,17 +80,28 @@
 </header>
 
 <main>
-    <div>
+    <div class="hide-on-small-only hide-on-med-only">
+        <nav class="nav-wrapper user-header">
+            <div class="user-header-container right-align">
+                <img src="images/default-user-img.png" class="responsive-img circle user-img"/>
+                <h6 class="white-text bold">Welcome Admin</h6>
+            </div>
+        </nav>
+    </div>
+
+    <div class="navbar-fixed hide-on-large-only">
         <nav class="nav-wrapper user-header">
             <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="mdi-navigation-menu"></i></a>
             </div>
-            <ul id="nav-mobile" class="right hide-on-med-and-up">
+            <ul id="nav-mobile" class="right hide-on-large-only">
                 <li  class="waves-effect waves-light logout-button right">
                     <a class="white-text" href="/admin" ng-click="dashboard.doLogout()"><i class="material-icons white-text">power_settings_new</i></a>
                 </li>
             </ul>
         </nav>
     </div>
+
+
     <div ng-if="dashboard.statistics()" ng-include src="'statistics.html'"></div>
     <div ng-if="dashboard.guide()" ng-include src="'guide.html'"></div>
     <div ng-if="dashboard.reward()" ng-include src="'add_rewards.html'"></div>

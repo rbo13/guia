@@ -259,6 +259,22 @@
               res.json(getTours);
           });
       };
+
+      var getTourById = function(req, res, next){
+          Tour.findById(req.params.tourId, function(err, tour){
+              if(err) res.status(500).send(err);
+              else if(tour){
+                  req.tour = tour;
+                  next();
+              }else{
+                  res.status(404).send('No tour found!');
+              }
+          });
+      };
+
+      var getTourByIdRoute = function(req, res){
+          res.json(req.tour)
+      };
 //end tours
 
 //start note
@@ -308,6 +324,8 @@
           getReviews: getReviews,
           getTrips: getTrips,
           getAllTours: getAllTours,
+          getTourById: getTourById,
+          getTourByIdRoute: getTourByIdRoute,
           getAllNotes: getAllNotes,
           getNoteById: getNoteById,
           getNoteByIdRoute: getNoteByIdRoute,

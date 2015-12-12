@@ -1,5 +1,8 @@
 <div ng-controller="LocationController as _location">
-    <div class="dashboard-card">
+    <div class="loader-container" align="center" ng-if="_location.guiaPreloader">
+        <img src="views/images/guia-loader.gif" alt="Loader"/>
+    </div>
+    <div class="dashboard-card" ng-if="_location.locationTable">
         <div class="dashboard-card-header green">
             <h6 class="white-text bold">Add Location</h6>
         </div>
@@ -65,7 +68,7 @@
         </div>
     </div>
 
-    <div class="dashboard-card">
+    <div class="dashboard-card" ng-if="_location.locationTable">
         <div class="dashboard-card-header green">
             <h6 class="white-text bold">Location List</h6>
         </div>
@@ -84,8 +87,10 @@
                     <td><span>{{location.country}}</span></td>
                     <td>{{location.city}}</td>
                     <td colspan="2">
-                        <button ng-if="location.isActivated == true" class="waves-effect waves-light btn green" ng-click="_location.setActiveLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Activated</button>
-                        <button ng-if="location.isActivated == false" class="waves-effect waves-light btn red" ng-click="_location.setActiveLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Deactivated</button>
+                        <div>
+                            <button ng-if="location.isActivated == true" class="waves-effect waves-light btn red" ng-click="_location.setActiveLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Deactivate</button>
+                            <button ng-if="location.isActivated == false" class="waves-effect waves-light btn green" ng-click="_location.setActiveLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Activate</button>
+                        </div>
                     </td>
                     <!--<td><span id="loc" style="visibility:hidden">{{location._id}}</span></td>-->
                 </tr>
@@ -156,7 +161,7 @@
                 </div>
             </div>
         </div>
-    </div>
+</div>
 
     <script type="text/javascript">
         $(document).ready(function() {

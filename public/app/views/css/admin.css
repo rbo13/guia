@@ -2,6 +2,13 @@ body{
     background: #f4f7f3;
 }
 
+.loader-container{
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 20%;
+    margin-bottom: 20%;
+}
+
 .user-img{
     height: 30px !important;
     width:  30px !important;
@@ -9,7 +16,7 @@ body{
 
 .breadcrumb{
     padding-left: 10px;
-    color: #fff;    
+    color: #fff;
 }
 
 .breadcrumb i{

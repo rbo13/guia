@@ -1,5 +1,5 @@
 <div ng-controller="PreferenceController as _preference">
-    <div align="center" ng-if="_preference.guiaPreloader">
+    <div class="loader-container" align="center" ng-if="_preference.guiaPreloader">
         <img src="views/images/guia-loader.gif" alt="Loader"/>
     </div>
     <div class="dashboard-card" ng-if="_preference.preferenceTable">
@@ -12,7 +12,7 @@
                     <input type="text" id="preference" class="validate" ng-model="_preference.preferenceData.preference">
                     <label for="preference">Preference</label>
                 </div>
-                <button id='set_preference' class="waves-effect waves-light btn green white-text" disabled>Set preference</button>
+                <button id='set_preference' class="waves-effect waves-light btn green white-text">Set preference</button>
             </form>
         </div>
     </div>
@@ -36,8 +36,10 @@
                             {{ preference.preference }}
                         </td>
                         <td>
-                            <button ng-if="preference.isActivated == true" class="waves-effect waves-light btn green" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Activated</button>
-                            <button ng-if="preference.isActivated == false" class="waves-effect waves-light btn red" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Deactivated</button>
+                            <div>
+                                <button ng-if="preference.isActivated == false" class="waves-effect waves-light btn green" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Activate</button>
+                                <button ng-if="preference.isActivated == true" class="waves-effect waves-light btn red" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Deactivate</button>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
