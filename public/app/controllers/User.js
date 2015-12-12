@@ -44,5 +44,25 @@
         socketio.on('new_guide', function(data){
             vm.guides.push(data);
         });
+
+        vm.deactivateGuide = function(guide_user_id, id, value){
+            vm.user = function(){
+                User.deactivate(guide_user_id)
+                    .success(function(data){
+                        console.log(data);
+                        console.log('Deactivated');
+                    }).error(function(){
+                        console.log('FAIL');
+                    });
+            };
+            console.log('Guide Activated');
+            Guide.patchGuide(id, value)
+                .success(function(data){
+                    vm.user();
+                    console.log(data);
+                }).error(function(){
+                    console.log('FAIL');
+                });
+        };
     }
 })();

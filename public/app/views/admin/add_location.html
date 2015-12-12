@@ -85,8 +85,8 @@
                 <td><span>{{location.country}}</span></td>
                 <td>{{location.city}}</td>
                 <td colspan="2">
-                    <button ng-if="location.isActivated == true" class="waves-effect waves-light btn green" ng-click="_location.setActiveLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Activated</button>
-                    <button ng-if="location.isActivated == false" class="waves-effect waves-light btn red" ng-click="_location.setActiveLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Deactivated</button>
+                    <button ng-if="location.isActivated == true" class="waves-effect waves-light btn red" ng-click="_location.setActiveLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Deactivate</button>
+                    <button ng-if="location.isActivated == false" class="waves-effect waves-light btn green" ng-click="_location.setActiveLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Activate</button>
                 </td>
                 <!--<td><span id="loc" style="visibility:hidden">{{location._id}}</span></td>-->
             </tr>

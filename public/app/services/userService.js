@@ -13,6 +13,11 @@
                 return $http.patch('/api/v1/user/'+guide_user_id, obj);
             }
 
+            var deactivate = function(guide_user_id){
+                var obj = { guide_id: "" };
+                return $http.patch('/api/v1/user/'+guide_user_id, obj);
+            }
+
             //var patchUser = function(id, updateValue){
             //    var obj = { guide_id: updateValue };
             //    return $http.patch('/api/v1/user/'+id, obj);
@@ -26,7 +31,8 @@
 
             return {
                 getAllGuides: getAllGuides,
-                patchUser: patchUser
+                patchUser: patchUser,
+                deactivate: deactivate
             }
         });
 })();
