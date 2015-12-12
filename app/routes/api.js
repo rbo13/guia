@@ -390,7 +390,9 @@
       api.route('/book')
          .post(function(req, res){
            booking = new file.Booking({
-             schedule: req.body.schedule
+             schedule: req.body.schedule,
+             booking_tour_id: req.body.booking_tour_id,
+             booking_user_id: req.body.user_id
            });
            //save to mongoDB
            booking.save(function(err){
