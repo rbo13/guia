@@ -306,7 +306,7 @@
             var searchQuery = req.body.tour_preference;
                 file.Tour.find({
                   tour_preference: new RegExp('^'+searchQuery+'$', "i")
-              })
+                })
                 .select('name tour_location duration duration_format details tour_preference rate').exec(function(err, tour){
                     if(err) throw err;
 
@@ -374,17 +374,24 @@
               res.json(getRedeems);
           });
       });//end GET-redeem endpoint
+
+      //start: getAllBooking
+      api.get('/bookings', function(req, res){
+          file.Booking.find({}, function(err, getBookings){
+              if(err){
+                  res.send(err);
+                  return;
+              }
+              res.json(getBookings);
+          });
+      });//end
+
       //start: POST - booking endpoint
       api.route('/book')
          .post(function(req, res){
            booking = new file.Booking({
-             booking_tour_id: tour._id,
-             //booking_traveler_id: traveler._id,
              schedule: req.body.schedule,
-             rate: req.body.rate,
-             status: req.body.status,
-             booking_review_id: review._id,
-             booking_rating_id: rating._id
+             rate: req.body.rate
            });
            //save to mongoDB
            booking.save(function(err){
@@ -394,13 +401,20 @@
                      .populate('booking_tour_id')
                      .populate('schedule')
                      .populate('rate')
-                     .populate('status')
-                     .populate('booking_review_id')
-                     .populate('booking_rating_id');
+                     .populate('status');
                  res.json(booking);
              }
            });
          });//end: POST - booking endpoint
+
+      api.route('/acceptBooking')
+          .post(function(req, res){
+          file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'accept' }, function(err, booking){
+            if(err) throw err;
+
+              res.json(booking);
+          })
+      });//end: POST - booking endpoint
       //start: POST - note endpoint
       api.route('/note')
           .post(function(req, res){

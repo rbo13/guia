@@ -2,7 +2,7 @@
     <div class="loader-container" align="center" ng-if="_location.guiaPreloader">
         <img src="views/images/guia-loader.gif" alt="Loader"/>
     </div>
-    <div class="dashboard-card" ng-if="_location.locationTable">
+    <div class="dashboard-card" ng-show="_location.locationTable">
         <div class="dashboard-card-header green">
             <h6 class="white-text bold">Add Location</h6>
         </div>
@@ -68,100 +68,94 @@
         </div>
     </div>
 
-    <div class="dashboard-card" ng-if="_location.locationTable">
+    <div class="dashboard-card" ng-show="_location.locationTable">
         <div class="dashboard-card-header green">
-            <h6 class="white-text bold">Location List</h6>
+            <h6 class="white-text bold">Locations</h6>
         </div>
+        <table class="striped responsive-table centered" id="loc">
+            <thead>
+            <tr>
+                <th class="green-text" data-field="country">Country</th>
+                <th class="green-text" data-field="city">City</th>
+                <th class="green-text" data-field="action">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="location in _location.locations | reverse" ng-click="_location.getValues(location._id,location.country,location.city)">
+                <td><span>{{location.country}}</span></td>
+                <td>{{location.city}}</td>
+                <td colspan="2">
+                    <button ng-if="location.isActivated == true" class="waves-effect waves-light btn green" ng-click="_location.setActiveLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Activated</button>
+                    <button ng-if="location.isActivated == false" class="waves-effect waves-light btn red" ng-click="_location.setActiveLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Deactivated</button>
+                </td>
+                <!--<td><span id="loc" style="visibility:hidden">{{location._id}}</span></td>-->
+            </tr>
+            </tbody>
+        </table>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h4 class="green-text">Edit location</h4>
+                <div class="input-field">
+                    <select id="editcountry" class="validate browser-default" name="country" ng-model="_location.locationData.country">
 
-        <div class="dashboard-card-body">
-            <table class="striped responsive-table centered" id="loc">
-                <thead>
-                <tr>
-                    <th class="green-text" data-field="country">Country</th>
-                    <th class="green-text" data-field="city">City</th>
-                    <th class="green-text" data-field="action">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="location in _location.locations | reverse" ng-click="_location.getValues(location._id,location.country,location.city)">
-                    <td><span>{{location.country}}</span></td>
-                    <td>{{location.city}}</td>
-                    <td colspan="2">
-                        <div>
-                            <button ng-if="location.isActivated == true" class="waves-effect waves-light btn red" ng-click="_location.setActiveLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Deactivate</button>
-                            <button ng-if="location.isActivated == false" class="waves-effect waves-light btn green" ng-click="_location.setActiveLocation(location._id, !location.isActivated); location.isActivated = !location.isActivated; $event.stopPropagation()">Activate</button>
-                        </div>
-                    </td>
-                    <!--<td><span id="loc" style="visibility:hidden">{{location._id}}</span></td>-->
-                </tr>
-                </tbody>
-            </table>
-            <div id="modal" class="modal">
-                <div class="modal-content">
-                    <h4 class="green-text">Edit location</h4>
-                    <form ng-submit="_location.updateLocation()">
-                        <div class="input-field">
-                            <select id="editcountry" class="validate browser-default" name="country" ng-model="_location.locationData.country">
-
-                                <option>Argentina</option>
-                                <option>Armenia</option>
-                                <option>Bahamas</option>
-                                <option>Belgium</option>
-                                <option>Brazil</option>
-                                <option>Caribbean</option>
-                                <option>Cayman Islands</option>
-                                <option>Chile</option>
-                                <option>China</option>
-                                <option>Denmark</option>
-                                <option>Ecuador</option>
-                                <option>Ethiopia</option>
-                                <option>Finland</option>
-                                <option>France</option>
-                                <option>Germany</option>
-                                <option>Greece</option>
-                                <option>Hong Kong</option>
-                                <option>Indonesia</option>
-                                <option>Korea (south)</option>
-                                <option>Macao</option>
-                                <option>Malaysia</option>
-                                <option>Maldives</option>
-                                <option>Malta</option>
-                                <option>Monaco</option>
-                                <option>Netherlands</option>
-                                <option>North America</option>
-                                <option>Norway</option>
-                                <option>Palau</option>
-                                <option>Peru</option>
-                                <option>Philippines</option>
-                                <option>Poland</option>
-                                <option>Saudi Arabia</option>
-                                <option>Singapore</option>
-                                <option>Spain</option>
-                                <option>Sri Lanka</option>
-                                <option>Sweden</option>
-                                <option>Switzerland</option>
-                                <option>Taiwan</option>
-                                <option>Thailand</option>
-                                <option>United Arab Emirates</option>
-                                <option>United Kingdom</option>
-                                <option>United States</option>
-                                <option>Vatican</option>
-                                <option>Venezuela</option>
-                                <option>Vietnam</option>
-                                <option>Virgin Islands</option>
-                            </select>
-                        </div>
-                        <div class="input-field">
-                            <input id="editcity" type="text" class="validate" ng-model="_location.locationData.city">
-                        </div>
-                    </form>
-                    <div class="modal-footer">
-                        <a href="#!" class=" modal-action modal-close waves-effect waves-light btn-flat green white-text">Save Changes</a>
-                    </div>
+                        <option>Argentina</option>
+                        <option>Armenia</option>
+                        <option>Bahamas</option>
+                        <option>Belgium</option>
+                        <option>Brazil</option>
+                        <option>Caribbean</option>
+                        <option>Cayman Islands</option>
+                        <option>Chile</option>
+                        <option>China</option>
+                        <option>Denmark</option>
+                        <option>Ecuador</option>
+                        <option>Ethiopia</option>
+                        <option>Finland</option>
+                        <option>France</option>
+                        <option>Germany</option>
+                        <option>Greece</option>
+                        <option>Hong Kong</option>
+                        <option>Indonesia</option>
+                        <option>Korea (south)</option>
+                        <option>Macao</option>
+                        <option>Malaysia</option>
+                        <option>Maldives</option>
+                        <option>Malta</option>
+                        <option>Monaco</option>
+                        <option>Netherlands</option>
+                        <option>North America</option>
+                        <option>Norway</option>
+                        <option>Palau</option>
+                        <option>Peru</option>
+                        <option>Philippines</option>
+                        <option>Poland</option>
+                        <option>Saudi Arabia</option>
+                        <option>Singapore</option>
+                        <option>Spain</option>
+                        <option>Sri Lanka</option>
+                        <option>Sweden</option>
+                        <option>Switzerland</option>
+                        <option>Taiwan</option>
+                        <option>Thailand</option>
+                        <option>United Arab Emirates</option>
+                        <option>United Kingdom</option>
+                        <option>United States</option>
+                        <option>Vatican</option>
+                        <option>Venezuela</option>
+                        <option>Vietnam</option>
+                        <option>Virgin Islands</option>
+                    </select>
+                </div>
+                <div class="input-field">
+                    <input id="editcity" type="text" class="validate" ng-model="_location.locationData.city">
+                    <label for="city">City</label>
                 </div>
             </div>
+            <div class="modal-footer">
+                <a href="#!" ng-click="_location.updateLocation()" class=" modal-action modal-close waves-effect waves-light btn-flat green white-text">Save Changes</a>
+            </div>
         </div>
-</div>
+    </div>
 
     <script type="text/javascript">
         $(document).ready(function() {

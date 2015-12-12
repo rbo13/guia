@@ -31,6 +31,16 @@
         socketio.on('location', function(data){
             vm.locations.push(data);
         });
+        vm.setActiveLocation = function(id, value){
+            console.log('Location Activated');
+            Location.activateLocation(id, value)
+                .success(function(data){
+                    console.log('Updated Location');
+                    console.log(data);
+                }).error(function(){
+                    console.log('FAIL');
+                });
+        };
 
         //get values of every locations
         vm.getValues = function(id,country,city){
