@@ -9,7 +9,7 @@ var GuideSchema = new Schema({
     type: String,
     email_address: String,
     isActivated: { type: Boolean, default: false },
-    guide_user_id: { type: Schema.Types.ObjectId, ref: 'User' }
+    guide_user_id: { type: String }
 });
 //end creating guide Schema
 module.exports = mongoose.model('Guide', GuideSchema);

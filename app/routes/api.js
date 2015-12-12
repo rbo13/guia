@@ -115,7 +115,7 @@
                       contact_number: req.body.contact_number,
                       email_address: req.body.email_address,
                       type: req.body.type,
-                      guide_user_id: user._id
+                      guide_user_id: req.body.guide_user_id
                   });
               }else if(loggedInUser){
                   guide = new file.Guide({
@@ -124,7 +124,7 @@
                       contact_number: req.body.contact_number,
                       email_address: req.body.email_address,
                       type: req.body.type,
-                      guide_user_id: loggedInUser
+                      guide_user_id: req.body.guide_user_id
                   });
               }
               //save to MongoDB
