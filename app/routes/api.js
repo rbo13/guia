@@ -169,8 +169,7 @@
                   if(err)
                       res.status(500).send(err);
                   else
-                      io.emit('update_location', req.getLocation);
-                  res.json(req.getLocation);
+                      res.json(req.getLocation);
               });
           }); //register getLocationById route
       //start POST-preference endpoint
