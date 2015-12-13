@@ -12,7 +12,7 @@
         vm.adminLoggedIn = Auth.adminIsLoggedIn();
 
         vm.guide = function(){
-            if($location.path() == '/dashboard/guides'){
+            if($location.path() == '/dashboard/guides' || $location.path() == '/dashboard'){
                 return true;
             }else{
                 return false;
@@ -20,7 +20,7 @@
         };
 
         vm.reward = function(){
-            if($location.path() == '/dashboard/rewards'){
+            if($location.path() == '/dashboard/rewards' || $location.path() == '/dashboard'){
                 return true;
             }else{
                 return false;
@@ -28,7 +28,7 @@
         };
 
         vm.location = function(){
-            if($location.path() == '/dashboard/location'){
+            if($location.path() == '/dashboard/location' || $location.path() == '/dashboard'){
                 return true;
             }else{
                 return false;
@@ -36,7 +36,7 @@
         };
 
         vm.preference = function(){
-            if($location.path() == '/dashboard/preference'){
+            if($location.path() == '/dashboard/preference' || $location.path() == '/dashboard'){
                 return true;
             }else{
                 return false;

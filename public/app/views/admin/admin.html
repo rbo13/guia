@@ -40,8 +40,10 @@
             <input type="password" id="password" class="validate" ng-model="admin.loginData.password">
             <label for="password">Password</label>
         </div>
-        <button class="waves-effect waves-light btn green" ng-disabled="loginForm.$invalid">Login</button>
-        <img ng-show="admin.loader" style="margin-left: 50%; margin-right: 30%" src="https://abs.twimg.com/a/1449191867/img/t1/spinner-rosetta-gray-32x32.gif" alt="Loader"/>
+        <div class="center-align">
+            <button class="waves-effect waves-light btn green" ng-disabled="loginForm.$invalid">Login</button>
+            <img class="login-loader" ng-show="admin.loader" align="center" src="https://abs.twimg.com/a/1449191867/img/t1/spinner-rosetta-gray-32x32.gif" alt="Loader"/>
+        </div>
     </form>
 </div>
 
@@ -59,8 +61,10 @@
             <input type="password" id="password" class="validate" ng-model="admin.loginData.password" required>
             <label for="password">Password</label>
         </div>
-        <button ng-if="admin.submitButton" class="waves-effect waves-light btn green" ng-disabled="loginForm.$invalid">Login</button>
-        <img ng-if="admin.loader" style="margin-left: 50%; margin-right: 30%" src="https://abs.twimg.com/a/1449191867/img/t1/spinner-rosetta-gray-32x32.gif" alt="Loader"/>
+        <div class="center-align">
+            <button ng-if="admin.submitButton" class="waves-effect waves-light btn green" ng-disabled="loginForm.$invalid">Login</button>
+            <img ng-if="admin.loader" src="https://abs.twimg.com/a/1449191867/img/t1/spinner-rosetta-gray-32x32.gif" alt="Loader"/>
+        </div>
     </form>
 </div>
 
