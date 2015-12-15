@@ -163,6 +163,9 @@ app.get('/public/app/services/toastService.js', function(req, res){
 app.get('/public/app/services/subscriberService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/services/subscriberService.js');
 });
+app.get('/public/app/services/statisticService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/statisticService.js');
+});
 app.get('/public/app/controllers/Dashboard.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Dashboard.js');
 });
@@ -193,6 +196,9 @@ app.get('/public/app/directives/reverse.js', function(req, res){
 //bower files
 app.get('/bower_components/angular-chart.js/dist/angular-chart.min.js', function(req, res){
     res.sendFile(__dirname + '/bower_components/angular-chart.js/dist/angular-chart.min.js');
+});
+app.get('/bower_components/angular-chart.js/dist/angular-chart.css', function(req, res){
+    res.sendFile(__dirname + '/bower_components/angular-chart.js/dist/angular-chart.css');
 });
 app.get('/bower_components/Chart.js/Chart.min.js', function(req, res){
     res.sendFile(__dirname + '/bower_components/Chart.js/Chart.min.js');

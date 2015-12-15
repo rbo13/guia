@@ -5,9 +5,29 @@
         </div>
 
         <div class="dashboard-card-body">
+            <div class="col s12 right">
+                <select class="select-statistics browser-default" ng-model="stat.userYear">
+                    <option selected="selected">2015</option>
+                    <option>2016</option>
+                    <option>2017</option>
+                    <option>2018</option>
+                    <option>2019</option>
+                </select>
+            </div>
+            <!-- <div class="col s12 right">
+                <select class="select-statistics browser-default" ng-model="stat.userQuarter">
+                  <option value="1" selected="selected">1st Quarter</option>
+                  <option value="2">2nd Quarter</option>
+                  <option value="3">3rd Quarter</option>
+                  <option value="4">4th Quarter</option>
+                </select>
+            </div> -->
+
+
+
             <div>
-                <canvas id="line" class="chart chart-line" chart-data="stat.data"
-                        chart-labels="stat.labels" chart-legend="true" chart-series="stat.series"
+                <canvas id="line" class="chart chart-line" chart-data="stat.userData"
+                        chart-labels="stat.userLabels" chart-legend="true" chart-series="stat.userSeries"
                         chart-click="stat.onClick" >
                 </canvas>
             </div>
@@ -21,7 +41,8 @@
         <div class="dashboard-card-body">
             <div id="tours">
                 <canvas id="bar" class="chart chart-bar"
-                        chart-data="stat.data" chart-labels="stat.labels">
+                        chart-data="stat.bookingData" chart-labels="stat.userLabels"
+                        chart-legend="true" chart-series="stat.bookingSeries">
                 </canvas>
             </div>
         </div>
