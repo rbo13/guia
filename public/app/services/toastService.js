@@ -31,7 +31,7 @@
             }
 
             var info = function(text){
-                toastr.info(text, "Info");
+                toastr.info(text);
             }
 
             return {

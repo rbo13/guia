@@ -43,6 +43,7 @@
 
         socketio.on('new_guide', function(data){
             vm.guides.push(data);
+            Toast.info("New Guide Applicant");
         });
 
         vm.deactivateGuide = function(guide_user_id, id, value){
