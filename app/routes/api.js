@@ -4,11 +4,12 @@
   var config = require('../../config');
   var file = require('../models/Files');
   var jsonwebtoken = require('jsonwebtoken');
+  var async = require('async');
   var secretKey = config.secretKey;
   var loggedInUser, guide_id;
   var user, location, preference, guide, rating,
     review, trip, tour, reward,
-    redeem, booking, note, negotiate, admin, subscribe;
+    redeem, booking, note, negotiate, admin, subscribe, log;
 
     function createToken(admin){
         var token = jsonwebtoken.sign({
@@ -286,7 +287,6 @@
                      .populate('tour_location')
                      .populate('duration')
                      .populate('details')
-                     .populate('tour_preference')
                      .populate('rate')
                      .populate('negotiable')
                      .populate('tour_guide_id')
@@ -317,7 +317,7 @@
                         }
             res.json(tour);
         })
-      }); //end GET-tourByPreference endpoint
+      }); //end POSt - tourByPreference endpoint
       //start: POST - reward endpoint
       api.route('/reward')
           .post(function(req, res){
@@ -499,7 +499,25 @@
               });
           });
       });
-      api.get('/subscribers', endpoints.getAllSubscribers); //end GET-tour endpoint
+      api.get('/subscribers', endpoints.getAllSubscribers); //end GET-subscriber endpoint
+      //logs
+      api.post('/log', function(req, res){
+          log = new file.Log({
+              activity: req.body.activity
+          });
+          log.save(function(err, newLog){
+              if(err){
+                  res.send(err);
+                  return;
+              }
+              io.emit('new_log', newLog); //socket for adding new guide
+              res.json({
+                  success: true,
+                  message: 'Success'
+              });
+          });
+      });
+      api.get('/logs', endpoints.getAllLogs); //end GET-log endpoint
 
       //signup admin
       api.post('/admin/signup', function(req, res){

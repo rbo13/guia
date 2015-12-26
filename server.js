@@ -52,6 +52,9 @@ app.get('/dashboard/location', function(req, res){
 app.get('/dashboard/preference', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });
+app.get('/dashboard/logs', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/logs.html');
+});
 app.get('/dashboard/statistics', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });
@@ -67,6 +70,9 @@ app.get('/add_location.html', function(req, res){
 app.get('/add_preference.html', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/add_preference.html');
 });
+app.get('/logs.html', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/logs.html');
+});
 app.get('/statistics.html', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/statistics.html');
 });
@@ -75,6 +81,19 @@ app.get('/admin.html', function(req, res){
 });
 app.get('/admin', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/admin.html');
+});
+//album
+app.get('/album', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/album/album.html');
+});
+app.get('/album.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/album/album.js');
+});
+app.get('/styles.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/album/styles.css');
+});
+app.get('/bootstrap.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/album/bootstrap.css');
 });
 //add libraries: js, css
 app.get('/css/inconsolata.css', function(req, res){
@@ -166,6 +185,9 @@ app.get('/public/app/services/subscriberService.js', function(req, res){
 app.get('/public/app/services/statisticService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/services/statisticService.js');
 });
+app.get('/public/app/services/logService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/logService.js');
+});
 app.get('/public/app/controllers/Dashboard.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Dashboard.js');
 });
@@ -189,6 +211,9 @@ app.get('/public/app/controllers/Statistics.js', function(req, res){
 });
 app.get('/public/app/controllers/Subscriber.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Subscriber.js');
+});
+app.get('/public/app/controllers/Logs.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/controllers/Logs.js');
 });
 app.get('/public/app/directives/reverse.js', function(req, res){
     res.sendFile(__dirname + '/public/app/directives/reverse.js');
@@ -217,6 +242,15 @@ app.get('/bower_components/angular-toastr/dist/angular-toastr.css', function(req
 });
 app.get('/bower_components/angular-animate/angular-animate.js', function(req, res){
     res.sendFile(__dirname + '/bower_components/angular-animate/angular-animate.js');
+});
+app.get('/bower_components/angular-confirm-modal/angular-confirm.min.js', function(req, res){
+    res.sendFile(__dirname + '/bower_components/angular-confirm-modal/angular-confirm.min.js');
+});
+app.get('/bower_components/ngConfirmDialog/src/css/ngConfirmDialog.css', function(req, res){
+    res.sendFile(__dirname + '/bower_components/ngConfirmDialog/src/css/ngConfirmDialog.css');
+});
+app.get('/bower_components/ngConfirmDialog/src/js/ngConfirmDialog.js', function(req, res){
+    res.sendFile(__dirname + '/bower_components/ngConfirmDialog/src/js/ngConfirmDialog.js');
 });
 app.get('/socket.io/socket.io.js', function(req, res){
     res.sendFile(__dirname + '/socket.io/socket.io.js');

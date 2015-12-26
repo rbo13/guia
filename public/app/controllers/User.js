@@ -4,13 +4,14 @@
     angular.module('userController', [])
         .controller('UserController', UserController);
 
-    UserController.$inject = ['$location', '$window', 'User', 'Guide', 'socketio', 'Toast'];
+    UserController.$inject = ['$location', '$window', 'User', 'Guide', 'socketio', 'Toast', 'Log'];
 
-    function UserController($location, $window, User, Guide, socketio, Toast){
+    function UserController($location, $window, User, Guide, socketio, Toast, Log){
         var vm = this;
         vm.guiaPreloader = true;
         vm.userTable = false;
         vm.guides = [];
+
         //getAllGuides
         User.getAllGuides()
             .success(function(data){
@@ -52,6 +53,10 @@
                     .success(function(data){
                         console.log(data);
                         console.log('Deactivated');
+                        Log.createLog(vm.logData)
+                            .success(function(data){
+                                console.log(vm.logData);
+                        });
                     }).error(function(){
                         console.log('FAIL');
                     });

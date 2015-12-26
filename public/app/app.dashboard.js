@@ -1,8 +1,8 @@
 (function(){
     'use strict';
 
-    angular.module('dashboard', ['ngAnimate', 'toastr', 'dashboardRoute', 'dashboardController', 'userController', 'rewardController',
-        'locationController', 'preferenceController', 'statisticsController',
+    angular.module('dashboard', ['ngAnimate', 'jkuri.confirmdialog', 'ngMaterial', 'ui.bootstrap', 'toastr', 'dashboardRoute', 'dashboardController', 'userController', 'rewardController',
+        'locationController', 'preferenceController', 'statisticsController', 'logsController',
         'authSrvc', 'userSrvc', 'rewardSrvc', 'locationSrvc', 'toastSrvc', 'statisticSrvc',
-        'preferenceSrvc', 'guideSrvc', 'chart.js', 'googlechart', 'reverseDirective']);
+        'preferenceSrvc', 'guideSrvc', 'logSrvc', 'chart.js', 'googlechart', 'reverseDirective']);
 })();

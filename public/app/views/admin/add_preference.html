@@ -19,7 +19,7 @@
 
     <div class="dashboard-card" ng-if="_preference.preferenceTable">
         <div class="dashboard-card-header green">
-            <h6 class="white-text bold">Preference List</h6>
+            <h6 class="white-text bold">Preferences</h6>
         </div>
         <div class="dashboard-card-body">
             <div class="dashboard-card">
@@ -36,9 +36,12 @@
                             {{ preference.preference }}
                         </td>
                         <td>
+                            <input type="hidden" value="Deactivated a Preference"/>
+                        </td>
+                        <td>
                             <div>
                                 <button ng-if="preference.isActivated == false" class="waves-effect waves-light btn green" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Activate</button>
-                                <button ng-if="preference.isActivated == true" class="waves-effect waves-light btn red" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Deactivate</button>
+                                <button ng-if="preference.isActivated == true" class="waves-effect waves-light btn red" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated" ng-confirm-dialog content="Are you sure you want to deactivate?">Deactivate</button>
                             </div>
                         </td>
                     </tr>

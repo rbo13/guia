@@ -10,6 +10,7 @@
             <table class="striped responsive-table" >
                 <thead>
                 <tr>
+                    <th class="green-text" data-field="availguideID">Profile Image</th>
                     <th class="green-text" data-field="availguideID">Email Address</th>
                     <th class="green-text" data-field="availguideID">Contact Number</th>
                     <th class="green-text" data-field="availguideID">Type</th>
@@ -19,6 +20,10 @@
 
                 <tbody>
                 <tr ng-repeat="guide in user.guides | reverse | filter:search">
+                    <td>
+
+                    </td>
+
                     <td>
                         <div class="input-field">
                             {{guide.email_address}}
@@ -53,17 +58,22 @@
         <div class="dashboard-card-header green">
             <h6 class="white-text bold">Guide Applicants</h6>
         </div>
+
         <div class="dashboard-card-body">
-            <table class="striped centered responsive-table">
+            <table class="striped centered responsive-table" id="guideModal">
                 <thead>
                 <tr>
-                    <th class="green-text" data-field="guideid">Email</th>
+                    <th class="green-text" data-field="availguideID">Profile Image</th>
+                    <th class="green-text" data-field="guideid">Email Address</th>
                     <th class="green-text" data-field="guideid">Contact Number</th>
                     <th class="green-text" data-field="action">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="guide in user.guides | reverse | filter:search">
+                    <td>
+
+                    </td>
 
                     <td>
                         <div class="input-field">
@@ -78,14 +88,14 @@
                     </td>
 
                     <td>
-                        <button ng-if="guide.isActivated == true" ng-click="user.deactivateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn red">Deactivate</button>
+                        <button ng-if="guide.isActivated == true" ng-click="user.deactivateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" ng-confirm-dialog content="Are you sure you want to deactivate?" class="waves-effect waves-light btn red">Deactivate</button>
                         <button ng-if="guide.isActivated == false" ng-click="user.activateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn green">Activate</button>
                     </td>
                 </tr>
                 </tbody>
             </table>
-        </div>
     </div>
+</div>
 
     <script type="text/javascript">
         $(document).ready(function() {

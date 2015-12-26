@@ -16,6 +16,7 @@
         Tour: require('./Tour.js'),
         Trip: require('./Trip.js'),
         Admin: require('./Admin.js'),
-        Subscriber: require('./Subscriber.js')
+        Subscriber: require('./Subscriber.js'),
+        Log: require('./Log.js')
     };
 })();

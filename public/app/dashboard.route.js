@@ -4,6 +4,14 @@
     angular.module('dashboardRoute', ['ngRoute'])
         .config(function($routeProvider, $locationProvider, $httpProvider){
             $routeProvider
+                .when('/admin', {
+                    templateUrl: '/app/views/admin/admin.html',
+                    controller: 'AdminController',
+                    controllerAs: 'admin',
+                    access: {
+                        requiresLogin: true
+                    }
+                })
                 .when('/dashboard', {
                     templateUrl: '/app/views/admin/statistics.html',
                     controller: 'DashboardController',
@@ -40,6 +48,14 @@
                     templateUrl: '/app/views/admin/add_preference.html',
                     controller: 'PreferenceController',
                     controllerAs: '_preference',
+                    access: {
+                        requiresLogin: true
+                    }
+                })
+                .when('/dashboard/logs', {
+                    templateUrl: '/app/views/admin/logs.html',
+                    controller: 'LogsController',
+                    controllerAs: '_logs',
                     access: {
                         requiresLogin: true
                     }

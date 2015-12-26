@@ -1,0 +1,33 @@
+{
+  "name": "ngConfirmDialog",
+  "homepage": "https://github.com/jkuri/ngConfirmDialog",
+  "authors": [
+    "Jan Kuri <jkuri88@gmail.com>"
+  ],
+  "description": "Directive prevents original ng-click directive with styled confirm dialog and fires the original event when (if) confirmed.",
+  "main": "src/js/ngConfirmDialog.js",
+  "keywords": [
+    "AngularJS",
+    "directive",
+    "dialog",
+    "confirm"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "d1222af17b",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "d1222af17b1b29e6761a68a3a0ab32f0f65a1cc3"
+  },
+  "_source": "git://github.com/jkuri/ngConfirmDialog.git",
+  "_target": "*",
+  "_originalSource": "ngConfirmDialog",
+  "_direct": true
+}

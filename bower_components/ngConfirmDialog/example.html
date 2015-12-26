@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<title>AngularJS Confirm Dialog</title>
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="src/css/ngConfirmDialog.css">
+</head>
+<body ng-controller="Ctrl as ctrl">
+
+<div>
+	<button ng-click="ctrl.shout()" 
+			ng-confirm-dialog>
+		Action
+	</button>
+</div>
+
+<div>
+	<a href="javascript:;"
+	   ng-click="ctrl.foo()" 
+	   ng-confirm-dialog 
+	   header-text="Ali ste prepričani?" 
+	   content="Ali ste prepričani, da to res želite? :-)" 
+	   yes-text="Da" 
+	   no-text="Ne">
+		Akcija
+	</a>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+<script type="text/javascript" src="https://code.angularjs.org/1.4.6/angular-animate.min.js"></script>
+<script type="text/javascript" src="src/js/ngConfirmDialog.js"></script>
+<script type="text/javascript">
+var app = angular.module('app', ['ngAnimate', 'jkuri.confirmdialog']);
+
+app.controller('Ctrl', [function() {
+	var self = this;
+
+	self.shout = function () {
+		console.log('DA YES!');
+	};
+
+	self.foo = function () {
+		alert('Dobro!');
+	};
+}]);
+</script>
+</body>
+</html>

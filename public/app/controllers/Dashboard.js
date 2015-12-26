@@ -42,6 +42,13 @@
                 return false;
             }
         };
+        vm.logs = function(){
+            if($location.path() == '/dashboard/logs' || $location.path() == '/dashboard'){
+                return true;
+            }else{
+                return false;
+            }
+        };
 
         vm.statistics = function(){
             if($location.path() == '/dashboard/statistics' || $location.path() == '/dashboard'){

@@ -1,0 +1,23 @@
+<div ng-controller="LogsController as _logs">
+    <div class="loader-container" align="center" ng-if="logs.guiaPreloader">
+        <img src="views/images/guia-loader.gif" alt="Loader"/>
+    </div>
+
+    <div class="dashboard-card" ng-if="_logs.logTable">
+        <div class="dashboard-card-header green">
+            <h6 class="white-text bold">Activity Logs</h6>
+        </div>
+        <div class="dashboard-card-body">
+            <table class="striped responsive-table">
+                <tr ng-repeat="log in _logs.logs | reverse">
+                    <td>
+                        <div>
+                            <strong>{{log.activity}}</strong> on <u>{{log.activity_date}}</u>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+

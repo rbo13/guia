@@ -12,6 +12,7 @@
   var Note = require('../app/models/Note');
   var Reward = require('../app/models/Reward');
   var Subscriber = require('../app/models/Subscriber');
+  var Log = require('../app/models/Log');
 
   var endpoints = function(io){
 //user
@@ -334,8 +335,18 @@
               }
               res.json(getSubscribers);
           });
-      };
-      //end
+      };//end
+      //logs
+      var getAllLogs = function(req, res){
+          Log.find({}, function(err, getLogs){
+              if(err){
+                  res.send(err);
+                  return;
+              }
+              res.json(getLogs);
+          });
+      };//end
+
       return{
           getLocationById: getLocationById,
           getLocationByIdRoute: getLocationByIdRoute,
@@ -368,7 +379,8 @@
           get: get,
           patch: patch,
           deleteUser: deleteUser,
-          getAllSubscribers: getAllSubscribers
+          getAllSubscribers: getAllSubscribers,
+          getAllLogs: getAllLogs
       }
   };
 
