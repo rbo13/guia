@@ -20,6 +20,9 @@ nav{
 .email-input:focus{
 	border: 2px solid #61e24c !important;
 }
+.email-error-input{
+	border: 2px solid #E91013 !important;
+}
 
 
 .header-brand-logo{

@@ -488,16 +488,21 @@
           subscribe = new file.Subscriber({
               email: req.body.email
           });
-          subscribe.save(function(err){
-              if(err){
-                  res.send(err);
-                  return;
-              }
-              res.json({
-                  success: true,
-                  message: 'Success'
+          if(!req.body.email){
+              res.status(400);
+              res.send({ message: 'Email is Required', success: false });
+          }else{
+              subscribe.save(function(err){
+                  if(err){
+                      res.send(err);
+                      return;
+                  }
+                  res.json({
+                      success: true,
+                      message: 'Success'
+                  });
               });
-          });
+          }
       });
       api.get('/subscribers', endpoints.getAllSubscribers); //end GET-subscriber endpoint
       //logs

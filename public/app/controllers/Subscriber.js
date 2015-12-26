@@ -8,13 +8,26 @@
 
     function SubscriberController(Subscriber){
         var vm = this;
+        vm.errorMessage = false;
+
         vm.addSubscriber = function(){
-        	console.log("Added new subscriber");
-        	Subscriber.addSubscriber(vm.email)
-        		.success(function(data){
-                    vm.email = '';
-                    console.log(data);
-                });
+            if(!vm.email){
+                console.log('Email is required');
+            }else{
+                console.log('Added new Subscriber');
+                Subscriber.addSubscriber(vm.email)
+                    .success(function(data){
+                        if(data.success){
+                            vm.email = '';
+                            console.log(data.message);
+                        }else{
+                            vm.errorMessage = true;
+                            vm.errorMessage = data.message;
+                            console.log(data.message);
+                        }
+
+                    });
+            }
         }
     }
 })();
