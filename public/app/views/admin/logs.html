@@ -12,7 +12,7 @@
                 <tr ng-repeat="log in _logs.logs | reverse">
                     <td>
                         <div>
-                            <strong>{{log.activity}}</strong> on <u>{{log.activity_date}}</u>
+                            <strong>{{log.activity}}</strong> on <u>{{log.activity_date | date}}</u>
                         </div>
                     </td>
                 </tr>
