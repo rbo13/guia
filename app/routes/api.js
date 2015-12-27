@@ -463,7 +463,15 @@
           });//end: POST - note endpoint
       api.get('/notes', endpoints.getAllNotes); //end: GET - note endpoint
       api.use('/note/:noteId', endpoints.getNoteById); //end getByPreferenceId endpoint
-      api.route('/note/:noteId').get(endpoints.getNoteByIdRoute); //end: getById - note endpoint
+      api.route('/note/:noteId')
+          .get(endpoints.getNoteByIdRoute)
+          .post(function(req, res){
+              file.Note.findByIdAndUpdate(req.params.noteId, { notes: req.body.notes }, function(err, note){
+                 if(err) throw err;
+                  res.json(note);
+              });
+          })
+          .delete(endpoints.deleteNote);
       //negotiation endpoint
       api.route('/negotiate')
           .post(function(req, res){

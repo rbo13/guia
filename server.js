@@ -136,6 +136,9 @@ app.get('/images/guia.png', function(req, res){
 app.get('/images/default-user-img.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/default-user-img.png');
 });
+app.get('/images/guia-inline.png', function(req, res){
+   res.sendFile(__dirname + '/public/app/views/images/guia-inline.png');
+});
 app.get('/views/images/guia-loader.gif', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/guia-loader.gif');
 });

@@ -14,7 +14,6 @@
             if(!vm.email){
                 console.log('Email is required');
             }else{
-                console.log('Added new Subscriber');
                 Subscriber.addSubscriber(vm.email)
                     .success(function(data){
                         if(data.success){

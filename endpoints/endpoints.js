@@ -347,6 +347,15 @@
           });
       };//end
 
+      var deleteNote = function(req, res){
+          req.note.remove(function(err){
+              if(err)
+                  res.status(500).send(err);
+              else
+                  res.status(204).json({ message: "Note has been removed successfully!" });
+          });
+      };
+
       return{
           getLocationById: getLocationById,
           getLocationByIdRoute: getLocationByIdRoute,
@@ -380,7 +389,8 @@
           patch: patch,
           deleteUser: deleteUser,
           getAllSubscribers: getAllSubscribers,
-          getAllLogs: getAllLogs
+          getAllLogs: getAllLogs,
+          deleteNote: deleteNote
       }
   };
 
