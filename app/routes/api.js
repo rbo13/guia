@@ -239,11 +239,8 @@
       api.route('/trip')
          .post(function(req, res){
            trip = new file.Trip({
-               //trip_traveler_id: traveler._id,
-               location: {
-                   country: req.body.country,
-                   city: req.body.city
-               },
+               trip_traveler_id: req.body.trip_traveler_id,
+               location: req.body.location,
                destination: req.body.destination,
                date_from: req.body.date_from,
                date_to: req.body.date_to
@@ -253,8 +250,8 @@
              if(err)  res.send(err);
              else if(!err){
                  file.Trip.find({})
-                     .populate('location.country')
-                     .populate('location.city')
+                     .populate('location')
+                     .populate('trip_traveler_id')
                      .populate('destination')
                      .populate('date_from')
                      .populate('date_to');
@@ -326,9 +323,10 @@
               redeem_points: req.body.redeem_points
             });
             //save to mongoDB
-            reward.save(function(err){
+            reward.save(function(err, newReward){
               if(err) res.send(err);
               else if(!err){
+                  io.emit('reward', newReward);
                   file.Reward.find({})
                       .populate('reward_tour_id')
                       .populate('redeem_points');
@@ -439,12 +437,24 @@
 
       api.route('/acceptBooking')
           .post(function(req, res){
-          file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'accept' }, function(err, booking){
-            if(err) throw err;
+          if(!(booking_user_id && booking_tour_id)){
+              file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'accepted' }, function(err, booking){
+                  if(err) throw err;
 
+                  res.json(booking);
+              })
+          }else{
               res.json(booking);
-          })
+          }
       });//end: POST - booking endpoint
+      api.route('/declineBooking')
+          .post(function(req, res){
+              file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'declined' }, function(err, booking){
+                  if(err) throw err;
+
+                  res.json(booking);
+              })
+          });//end: POST - booking endpoint
       //start: POST - note endpoint
       api.route('/note')
           .post(function(req, res){

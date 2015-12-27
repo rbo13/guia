@@ -3,10 +3,8 @@ var mongoose = require('mongoose'),
 
 //create user Schema
 var TripSchema = new Schema({
-  location: {
-        country: String,
-        city: String
-  },
+  trip_traveler_id: String,
+  location: String,
   destination: String,
   date_from: Date,
   date_to: Date

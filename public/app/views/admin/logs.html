@@ -9,7 +9,7 @@
         </div>
         <div class="dashboard-card-body">
             <table class="striped responsive-table">
-                <tr ng-repeat="log in _logs.logs; | reverse">
+                <tr ng-repeat="log in _logs.logs | reverse">
                     <td>
                         <div>
                             <h6><strong>{{log.activity}}</strong> on <u>{{log.activity_date}}</u></h6>

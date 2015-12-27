@@ -4,11 +4,13 @@
     angular.module('rewardController', [])
         .controller('RewardController', RewardController);
 
-    RewardController.$inject = ['$location', '$window', 'Reward', 'Toast'];
+    RewardController.$inject = ['$location', '$window', 'Reward', 'Toast', 'socketio'];
 
-    function RewardController($location, $window, Reward, Toast){
+    function RewardController($location, $window, Reward, Toast, socketio){
         var vm = this;
         vm.guiaPreloader = true;
+        vm.tours = [];
+        vm.rewards = [];
 
         Reward.getAllTours()
             .success(function(data){
@@ -28,6 +30,10 @@
                 Toast.success();
             });
 
+        socketio.on('reward', function(data){
+           vm.rewards.push(data);
+        });
+
         vm.getValues = function(id,points){
             vm.rewardData = {
                 _id: id,
@@ -38,7 +44,7 @@
         vm.getTour = function(id){
             for(var i=0; i<vm.tours.length;i++){
                 if(vm.tours[i]._id == id){
-                    return vm.tours[i].name;
+                    return vm.tours[i];
                 }
             }
         };
@@ -65,6 +71,7 @@
         };
 
         vm.addReward = function(){
+            vm.rewardData.redeem_points = vm.getTour(vm.rewardData.reward_tour_id).rate;
             console.log('Added New Reward');
             Reward.reward(vm.rewardData)
                 .success(function(data){

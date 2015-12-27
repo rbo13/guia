@@ -10,15 +10,18 @@
         <div class="dashboard-card-body">
             <form ng-submit="reward.addReward()">
                 <div class="input-field">
-                    <select id="country" class="validate browser-default" name="tour" ng-model="reward.rewardData.reward_tour_id">
+                    <select id="country" class="validate browser-default" name="tour" ng-model="reward.rewardData.reward_tour_id" style="margin-bottom:15px">
                         <option value="" disabled selected>Select a Tour</option>
                         <option ng-repeat="tour in reward.tours | orderBy:'name':true" value="{{tour._id}}">{{tour.name}}</option>
                     </select>
+                    <!-- <input type="hidden" value="{{tour.rate}}" ng-model="reward.rewardData.redeem_points" /> -->
                 </div>
+                <!--
                 <div class="input-field">
                     <input type="number" id="points" class="validate" ng-model="reward.rewardData.redeem_points"/>
                     <label for="reward">Points</label>
                 </div>
+                -->
                 <button class="waves-effect waves-light btn green">{{reward.setReward}}</button>
             </form>
         </div>
@@ -38,8 +41,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="r in reward.rewards | filter:search" ng-click="reward.getValues(r._id,r.redeem_points)">
-                    <td>{{reward.getTour(r.reward_tour_id)}}</td><!---->
+                <tr ng-repeat="r in reward.rewards | reverse | filter:search" ng-click="reward.getValues(r._id,r.redeem_points)">
+                    <td>{{reward.getTour(r.reward_tour_id).name}}</td><!---->
                     <td>{{r.redeem_points}}</td>
                     <td>
                         <button ng-if="r.isActivated == true" class="waves-effect waves-light btn green" ng-click="reward.setActiveReward(r._id, !r.isActivated); r.isActivated = !r.isActivated; $event.stopPropagation()">Activated</button>

@@ -3,8 +3,9 @@ var mongoose = require('mongoose'),
 
 //create reward Schema
 var RewardSchema = new Schema({
-  reward_tour_id: { type: String },
-  redeem_points: Number
+    reward_tour_id: { type: String },
+    redeem_points: Number,
+    isActivated: {type: Boolean, default: false}
 });
 //end creating reward Schema
 module.exports = mongoose.model('Reward', RewardSchema);
