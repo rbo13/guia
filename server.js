@@ -83,17 +83,14 @@ app.get('/admin', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/admin.html');
 });
 //album
-app.get('/album', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/album/album.html');
-});
 app.get('/album.js', function(req, res){
     res.sendFile(__dirname + '/public/app/views/album/album.js');
 });
+app.get('/album', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/album/album.html');
+});
 app.get('/albumService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/views/album/albumService.js');
-});
-app.get('/styles.css', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/album/styles.css');
 });
 app.get('/bootstrap.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/album/bootstrap.css');
@@ -114,11 +111,23 @@ app.get('/public/app/views/css/ghpages-materialize.css', function(req, res){
 app.get('/css/admin.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/admin.css');
 });
+app.get('/album/mobile.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/album/mobile.css');
+});
+app.get('/album/desktop.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/album/desktop.css');
+});
+app.get('/album/jquery.nailthumb.1.1.min.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/album/jquery.nailthumb.1.1.min.css');
+});
 app.get('/jade/search.js', function(req, res){
     res.sendFile(__dirname + '/public/app/views/jade/search.js');
 });
 app.get('/jade/lunr.min.js', function(req, res){
     res.sendFile(__dirname + '/public/app/views/jade/lunr.min.js');
+});
+app.get('/album/jquery.nailthumb.1.1.min.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/album/jquery.nailthumb.1.1.min.js');
 });
 //fonts
 app.get('/font/roboto/Roboto-Regular.ttf', function(req, res){
@@ -135,6 +144,9 @@ app.get('/images/parallax2-min.jpg', function(req, res){
 });
 app.get('/images/guia.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/guia.png');
+});
+app.get('/images/pp.jpg', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/images/pp.jpg');
 });
 app.get('/images/default-user-img.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/default-user-img.png');

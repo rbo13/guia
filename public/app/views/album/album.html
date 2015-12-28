@@ -2,6 +2,7 @@
 <html ng-app="album">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width = 320" id="mobileviewport">
     <title>Guia Photo Sharing</title>
     <link rel="icon" href="http://res.cloudinary.com/whaangbuu/image/upload/v1447916187/favicon_qs9fj0.ico"/>
     <!--  Android 5 Chrome Color-->
@@ -9,120 +10,46 @@
     <!-- CSS-->
     <link href="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/css/prism.css" rel="stylesheet"/>
     <link href="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" media="only screen and (min-width: 320px) and (max-width: 640px)" href="album/mobile.css">
+    <link rel="stylesheet" media="only screen and (min-width: 641px) and (max-width: 1366px)" href="album/desktop.css">
 </head>
 
 <body ng-controller="AlbumController">
 
-
-
-<div id="modal" class="modal">
-    <div class="container slider">
-        <img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage"
-             ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
-             ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
-
-        <a class="arrow prev" href="#" ng-click="nextSlide()"></a>
-        <a class="arrow next" href="#" ng-click="prevSlide()"></a>
-    </div>
-</div>
-
-<nav class="center-align">
-    <img src="images/guia-inline.png" class="responsive-img">
-</nav>
-
-<div class="center-align">
-    <h5>User's album taken on <span class="time-stamp">Jan 1, 2016</span><h5>
-</div>
-
-<div class="container-grid">
-    <div class="row">
-        <div class="col s 4">
-            <div class="image-grid">
-                <div class="thumbnail">
-                    <img id="loc" src="http://wallpaperlayer.com/img/2015/7/spring-scenery-6392-6668-hd-wallpapers.jpg" alt="Image">
-                </div>
-            </div>
-        </div>
-        <div class="col s 4">
-            <div class="image-grid" id="loc">
-                <div class="thumbnail">
-                    <img src="http://www.hdwallpapersnew.net/wp-content/uploads/2015/04/awesome-scenery-widescreen-high-resolution-for-desktop-background-wallpaper-pictures-free.jpg" alt="Image">
-                </div>
-            </div>
-        </div>
-        <div class="col s 4">
-            <div class="image-grid">
-                <div class="thumbnail">
-                    <img id="loc" src="http://wallpaperlayer.com/img/2015/7/spring-scenery-6392-6668-hd-wallpapers.jpg" alt="Image">
-                </div>
-            </div>
-        </div>
-        <div class="col s 4">
-            <div class="image-grid" id="loc">
-                <div class="thumbnail">
-                    <img src="http://www.hdwallpapersnew.net/wp-content/uploads/2015/04/awesome-scenery-widescreen-high-resolution-for-desktop-background-wallpaper-pictures-free.jpg" alt="Image">
-                </div>
-            </div>
-        </div>
-        <div class="col s 4">
-            <div class="image-grid">
-                <div class="thumbnail">
-                    <img id="loc" src="http://wallpaperlayer.com/img/2015/7/spring-scenery-6392-6668-hd-wallpapers.jpg" alt="Image">
-                </div>
-            </div>
-        </div>
-        <div class="col s 4">
-            <div class="image-grid" id="loc">
-                <div class="thumbnail">
-                    <img src="http://www.hdwallpapersnew.net/wp-content/uploads/2015/04/awesome-scenery-widescreen-high-resolution-for-desktop-background-wallpaper-pictures-free.jpg" alt="Image">
-                </div>
-            </div>
-        </div>
-        <div class="col s 4">
-            <div class="image-grid">
-                <div class="thumbnail">
-                    <img id="loc" src="http://wallpaperlayer.com/img/2015/7/spring-scenery-6392-6668-hd-wallpapers.jpg" alt="Image">
-                </div>
-            </div>
-        </div>
-        <div class="col s 4">
-            <div class="image-grid" id="loc">
-                <div class="thumbnail">
-                    <img src="http://www.hdwallpapersnew.net/wp-content/uploads/2015/04/awesome-scenery-widescreen-high-resolution-for-desktop-background-wallpaper-pictures-free.jpg" alt="Image">
-                </div>
-            </div>
-        </div>
-        <div class="col s 4">
-            <div class="image-grid">
-                <div class="thumbnail">
-                    <img id="loc" src="http://wallpaperlayer.com/img/2015/7/spring-scenery-6392-6668-hd-wallpapers.jpg" alt="Image">
-                </div>
-            </div>
-        </div>
-        <div class="col s 4">
-            <div class="image-grid" id="loc">
-                <div class="thumbnail">
-                    <img src="http://www.hdwallpapersnew.net/wp-content/uploads/2015/04/awesome-scenery-widescreen-high-resolution-for-desktop-background-wallpaper-pictures-free.jpg" alt="Image">
-                </div>
-            </div>
-        </div>
-        <div class="col s 4">
-            <div class="image-grid">
-                <div class="thumbnail">
-                    <img id="loc" src="http://wallpaperlayer.com/img/2015/7/spring-scenery-6392-6668-hd-wallpapers.jpg" alt="Image">
-                </div>
-            </div>
-        </div>
-        <div class="col s 4">
-            <div class="image-grid" id="loc">
-                <div class="thumbnail">
-                    <img src="http://www.hdwallpapersnew.net/wp-content/uploads/2015/04/awesome-scenery-widescreen-high-resolution-for-desktop-background-wallpaper-pictures-free.jpg" alt="Image">
-                </div>
-            </div>
+<div class="header-logo-card">
+    <div class="valign-wrapper row">
+        <div class="col">
+            <img src="images/guia-inline.png" class="responsive-img">
         </div>
     </div>
 </div>
+
+<div class="container-content">
+
+    <div class="slider">
+            <img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage"
+                 ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+                 ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}" alt="Image">
+        <a class="arrow prev" ng-click="nextSlide()"></a>
+        <a class="arrow next" ng-click="prevSlide()"></a>
+    </div>
+
+
+    <div class="user-info-card-desktop">
+        <div class="valign-wrapper row">
+            <div class="col">
+                <img class="circle" src="images/pp.jpg">
+            </div>
+            <div class="col">
+                <h5 class="guia-color">Trek in the mountains</h5>
+                <h6 class="guia-grey">watched the sunset..with her :)</h6>
+                <p>jkbicbic <span class="guia-color">Jan 1, 2016</span></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -132,16 +59,22 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
 <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/bin/materialize.js"></script>
 <script src="albumService.js"></script>
-
 <script src="album.js"></script>
-
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#loc').on("click",function(){
-            console.log('Show Modal');
-            $('.modal').openModal();
-        });
+    $(".slider img").each(function(){
+        var thisWidth = $(this).width();
+        var thisHeight = $(this).height();
+
+        if(thisWidth > thisHeight) {
+            $(this).css("width", "auto");
+            $(this).css("height", "100%");
+        } else if(thisHeight > thisWidth) {
+            $(this).css("width", "100%");
+            $(this).css("height", "auto");
+        }
+
     });
 </script>
+
 </body>
 </html>
