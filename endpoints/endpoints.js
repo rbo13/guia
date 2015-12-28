@@ -311,7 +311,7 @@
       };
 
       var getNoteById = function(req, res, next){
-          Note.findById(req.params.guideId, function(err, note){
+          Note.find({ note_guide_id: req.params.note_guide_id }, function(err, note){
               if(err) res.status(500).send(err);
               else if(note){
                   req.note = note;

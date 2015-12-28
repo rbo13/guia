@@ -381,6 +381,8 @@
               res.json(getBookings);
           });
       });//end
+
+
       //start: getAllBookingByGuideId
       api.post('/bookings', function(req, res){
           file.Booking.find({booking_guide_id: req.body.booking_guide_id}, function(err, getBookings){
@@ -413,6 +415,27 @@
              }
            });
          });//end: POST - booking endpoint
+      api.route('/booking/:userId')
+          .post(function(req, res){
+              booking = new file.Booking({
+                  schedule: req.body.schedule,
+                  booking_tour_id: req.body.booking_tour_id,
+                  booking_user_id: req.body.booking_user_id,
+                  booking_guide_id: req.body.booking_guide_id
+              });
+              booking.save(function(err){
+                  if(err)  res.send(err);
+                  else if(!err){
+                      file.Booking.find({ booking_user_id: req.params.userId })
+                          .populate('booking_tour_id')
+                          .populate('booking_user_id')
+                          .populate('booking_guide_id')
+                          .populate('schedule')
+                          .populate('status');
+                      res.json(booking);
+                  }
+              });
+          })
       api.route('/acceptBooking')
           .post(function(req, res){
           if(req.body._id){
@@ -464,7 +487,7 @@
           .delete(endpoints.deleteNote);
       api.route('/note/:noteId')
          .post(function(req, res){
-          file.Note.findByIdAndUpdate(req.params.noteId, { notes: req.body.notes }, function(err, note){
+          file.Note.findByIdAndUpdate(req.params.noteId, { notes: req.body.notes, note_guide_id: req.body.note_guide_id, note_date: req.body.note_date }, function(err, note){
               if(err) throw err;
               res.json(note);
           });
