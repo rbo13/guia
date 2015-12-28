@@ -442,27 +442,33 @@
       api.route('/note')
           .post(function(req, res){
               note = new file.Note({
-                  notes: req.body.notes
+                  notes: req.body.notes,
+                  note_guide_id: req.body.note_guide_id,
+                  note_date: req.body.note_date
               });
               note.save(function(err){
                   if(err)  res.send(err);
                   else if(!err){
                       file.Note.find({})
-                          .populate('notes');
+                          .populate('notes')
+                          .populate('note_guide_id')
+                          .populate('note_date');
                       res.json(note);
                   }
               });
           });//end: POST - note endpoint
       api.get('/notes', endpoints.getAllNotes); //end: GET - note endpoint
-      api.use('/note/:noteId', endpoints.getNoteById); //end getByPreferenceId endpoint
-      api.route('/note/:noteId')
+      api.use('/note/:guideId', endpoints.getNoteById); //end getByPreferenceId endpoint
+      api.route('/note/:guideId')
           .get(endpoints.getNoteByIdRoute)
-          .post(function(req, res){
-              file.Note.findByIdAndUpdate(req.params.noteId, { notes: req.body.notes }, function(err, note){
-                 if(err) throw err;
-                  res.json(note);
-              });
-          }).delete(endpoints.deleteNote);
+          .delete(endpoints.deleteNote);
+      api.route('/note/:noteId')
+         .post(function(req, res){
+          file.Note.findByIdAndUpdate(req.params.noteId, { notes: req.body.notes }, function(err, note){
+              if(err) throw err;
+              res.json(note);
+          });
+      })
       api.route('/negotiate')
           .post(function(req, res){
             negotiate = new file.Negotiate({
