@@ -89,6 +89,9 @@ app.get('/album', function(req, res){
 app.get('/album.js', function(req, res){
     res.sendFile(__dirname + '/public/app/views/album/album.js');
 });
+app.get('/albumService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/album/albumService.js');
+});
 app.get('/styles.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/album/styles.css');
 });

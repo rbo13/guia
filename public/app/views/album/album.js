@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    angular.module('album', ['ngAnimate', 'ngTouch'])
+    angular.module('album', ['ngAnimate', 'ngTouch', 'albumSrvc'])
         .controller('AlbumController', function ($scope) {
             $scope.slides = [
                 {image: 'http://wallpaperlayer.com/img/2015/7/spring-scenery-6392-6668-hd-wallpapers.jpg', description: 'Image 00'},
