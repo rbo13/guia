@@ -5,10 +5,10 @@
         .controller('AlbumController', function ($scope) {
             $scope.slides = [
                 {image: 'http://wallpaperlayer.com/img/2015/7/spring-scenery-6392-6668-hd-wallpapers.jpg', description: 'Image 00'},
-                {image: 'http://entertainment.inquirer.net/files/2014/12/1222ellen2.jpg', description: 'Image 01'},
-                {image: 'http://onehungrymind.com/demos/slider/images/img02.jpg', description: 'Image 02'},
-                {image: 'http://onehungrymind.com/demos/slider/images/img03.jpg', description: 'Image 03'},
-                {image: 'http://onehungrymind.com/demos/slider/images/img04.jpg', description: 'Image 04'}
+                {image: 'http://attracttour.com/wp-content/uploads/2013/04/kawasan-falls.jpg', description: 'Image 01'},
+                {image: 'http://www.saferidecarrental.com/wp-content/uploads/2015/10/4-canyoneers.jpg', description: 'Image 02'},
+                {image: 'http://thebudgettraveler.org/wp-content/uploads/2014/09/loqal-cebu-pungko-pungko2_ss.jpg', description: 'Image 03'},
+                {image: 'http://aphs.worldnomads.com/loriejoy/16415/Cebu_01.jpg', description: 'Image 04'}
             ];
 
             $scope.direction = 'left';

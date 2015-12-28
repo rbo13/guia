@@ -581,6 +581,7 @@
               res.json(newAlbum);
           });
       });
+      api.get('/albums', endpoints.getAllAlbums);
       api.use('/album/:albumId', endpoints.getAlbumById); //end getById endpoint
       api.route('/album/:albumId')
           .get(endpoints.getAlbumByIdRoute);

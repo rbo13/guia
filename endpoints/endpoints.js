@@ -372,6 +372,16 @@
           res.json(req.album);
       };
 
+      var getAllAlbums = function(req, res){
+          Album.find({}, function(err, albums){
+              if(err){
+                  res.send(err);
+                  return;
+              }
+              res.json(albums);
+          });
+      };
+
       return{
           getLocationById: getLocationById,
           getLocationByIdRoute: getLocationByIdRoute,
@@ -408,7 +418,8 @@
           getAllLogs: getAllLogs,
           deleteNote: deleteNote,
           getAlbumById: getAlbumById,
-          getAlbumByIdRoute: getAlbumByIdRoute
+          getAlbumByIdRoute: getAlbumByIdRoute,
+          getAllAlbums: getAllAlbums
       }
   };
 
