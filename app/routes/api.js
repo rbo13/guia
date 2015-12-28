@@ -305,7 +305,7 @@
                 file.Tour.find({
                   tour_location: req.body.tour_location
                 })
-                .select('name tour_location duration duration_format details tour_preference rate').exec(function(err, tour){
+                .select('name tour_location duration duration_format details tour_guide_id tour_preference rate').exec(function(err, tour){
                     if(err) throw err;
 
                         if(!tour){
