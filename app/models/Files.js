@@ -17,6 +17,7 @@
         Trip: require('./Trip.js'),
         Admin: require('./Admin.js'),
         Subscriber: require('./Subscriber.js'),
-        Log: require('./Log.js')
+        Log: require('./Log.js'),
+        Album: require('./Album.js')
     };
 })();

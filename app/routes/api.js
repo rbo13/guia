@@ -9,7 +9,8 @@
   var loggedInUser, guide_id;
   var user, location, preference, guide, rating,
     review, trip, tour, reward,
-    redeem, booking, note, negotiate, admin, subscribe, log;
+    redeem, booking, note, negotiate, admin, subscribe, log,
+    album;
 
     function createToken(admin){
         var token = jsonwebtoken.sign({
@@ -271,6 +272,7 @@
                   details  : req.body.details,
                   tour_preference : req.body.tour_preference,
                   tour_guide_id : req.body.tour_guide_id,
+                  points: req.body.rate * .05,
                   rate : req.body.rate,
                   negotiable : req.body.negotiable,
                   main_image: req.body.main_image
@@ -301,7 +303,7 @@
           .post(function(req, res){
             var searchQuery = req.body.tour_preference;
                 file.Tour.find({
-                  tour_preference: new RegExp('^'+searchQuery+'$', "i")
+                  tour_location: req.body.tour_location
                 })
                 .select('name tour_location duration duration_format details tour_preference rate').exec(function(err, tour){
                     if(err) throw err;
@@ -455,6 +457,14 @@
                   res.json(booking);
               })
           });//end: POST - booking endpoint
+      api.route('/completeTour')
+          .post(function(req, res){
+              file.Booking.findOneAndUpdate({ status: 'accept', _id: req.body._id }, { status: 'completed' }, function(err, booking){
+                  if(err) throw err;
+
+                  res.json(booking);
+              })
+          });//end: POST - booking endpoint
       //start: POST - note endpoint
       api.route('/note')
           .post(function(req, res){
@@ -542,6 +552,41 @@
       });
       api.get('/logs', endpoints.getAllLogs); //end GET-log endpoint
 
+      api.post('/album', function(req, res){
+          album = new file.Album({
+              album_name: req.body.album_name,
+              description: req.body.description,
+              created: req.body.created,
+              images: req.body.images,
+              album_tour_id: req.body.album_tour_id,
+              user: {
+                  id: req.body.user.id,
+                  facebook_id: req.body.user.facebook_id,
+                  name: req.body.user.name,
+                  profImage: req.body.user.profImage
+              }
+          });
+          album.save(function(err, newAlbum){
+              if(err){
+                  res.send(err);
+                  return;
+              }
+              file.Location.find({})
+                  .populate('album_name')
+                  .populate('description')
+                  .populate('created')
+                  .populate('images')
+                  .populate('album_tour_id')
+                  .populate('user.id')
+                  .populate('user.facebook_id')
+                  .populate('user.name')
+                  .populate('user.profImage');
+              res.json(newAlbum);
+          });
+      });
+      api.use('/album/:albumId', endpoints.getAlbumById); //end getById endpoint
+      api.route('/album/:albumId')
+          .get(endpoints.getAlbumByIdRoute);
       //signup admin
       api.post('/admin/signup', function(req, res){
           //create instance of user object...

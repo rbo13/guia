@@ -10,7 +10,7 @@ var TourSchema = new Schema({
   points: { type: Number, default: 0 },
   rate: { type: Number, required: false },
   negotiable: { type: Boolean },
-  tour_preference: { type: Array, "default": [] },
+  tour_preference: String,
   tour_guide_id: { type: String },
   main_image: { type: String },
   additional_image : [

@@ -13,6 +13,7 @@
   var Reward = require('../app/models/Reward');
   var Subscriber = require('../app/models/Subscriber');
   var Log = require('../app/models/Log');
+  var Album = require('../app/models/Album');
 
   var endpoints = function(io){
 //user
@@ -322,7 +323,7 @@
       };
 
       var getNoteByIdRoute = function(req, res){
-          res.json(req.note)
+          res.json(req.note);
       };
 //end note
 
@@ -354,6 +355,21 @@
               else
                   res.status(204).json({ message: "Note has been removed successfully!" });
           });
+      };
+      var getAlbumById = function(req, res, next){
+          Album.findById(req.params.albumId, function(err, album){
+              if(err) res.status(500).send(err);
+              else if(album){
+                  req.album = album;
+                  next();
+              }else{
+                  res.status(404).send('No album found!');
+              }
+          });
+      };
+
+      var getAlbumByIdRoute = function(req, res){
+          res.json(req.album);
       };
 
       return{
@@ -390,7 +406,9 @@
           deleteUser: deleteUser,
           getAllSubscribers: getAllSubscribers,
           getAllLogs: getAllLogs,
-          deleteNote: deleteNote
+          deleteNote: deleteNote,
+          getAlbumById: getAlbumById,
+          getAlbumByIdRoute: getAlbumByIdRoute
       }
   };
 
