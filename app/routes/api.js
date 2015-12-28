@@ -32,7 +32,6 @@
          .get(endpoints.get)
          .patch(endpoints.patch)
          .delete(endpoints.deleteUser);
-
   //createUser
       var createUser = function(req, res){
           user = new file.User({
@@ -64,11 +63,9 @@
               }); //end user.save()
           }
       }; //end createUser
-
     //start: login endpoint
     api.post('/login', function(req, res){
       file.User.findOne({
-        //guide_id: req.body.guide_id,
         facebook_id: req.body.facebook_id
       }).select('guide_id facebook_id').exec(function(err, user){
           if(err) throw err;
@@ -89,7 +86,6 @@
                 country: req.body.country,
                 city: req.body.city
             });
-            //save to MongoDB
             location.save(function(err, newLocation){
                 if(err){
                     res.send(err);
@@ -105,7 +101,6 @@
                 res.json(newLocation);
             })
         });//end of location POST endpoint.
-
     api.route('/locations').get(endpoints.getLocation); //end GET location endpoint
       //POST/GET guide endpoint
       api.route('/guide')
@@ -129,7 +124,6 @@
                       guide_user_id: req.body.guide_user_id
                   });
               }
-              //save to MongoDB
               guide.save(function(err, newGuide){
                   if(err){
                       res.send(err);
@@ -143,7 +137,6 @@
                       .populate('email_address')
                       .populate('type')
                       .populate('guide_user_id');
-
                   res.json({
                       success: true,
                       message: "Guide Activated!"
@@ -156,7 +149,6 @@
       api.route('/guide/:userId')
          .get(endpoints.getGuideByIdRoute)
          .patch(endpoints.patchGuide);//end
-
       api.use('/location/:locationId', endpoints.getLocationById); //getLocationById
       api.route('/location/:locationId')
           .get(endpoints.getLocationByIdRoute)
@@ -180,7 +172,6 @@
                preference = new file.Preference({
                    preference: req.body.preference
                });
-                //save to mongodb
                 preference.save(function(err, newPreference){
                   if(err) res.send(err);
                   else if(!err){
@@ -203,7 +194,6 @@
                    GuideID: guide._id,
                    rating: req.body.rating
                });
-                //save to mongodb
                 rating.save(function(err){
                   if(err) res.send(err);
                   else if(!err){
@@ -213,8 +203,7 @@
                       res.json(rating);
                   }
                 });
-             });
-      //end POST-rating endpoint
+             });//end POST-rating endpoint
        api.get('/ratings', endpoints.getRatings); //GET-rating endpoint
       //start POST-review endpoint
       api.route('/review/guide/:guideId')
@@ -234,7 +223,6 @@
               }
             });
           });
-      //end POST-review endpoint
       api.get('/reviews', endpoints.getReviews); //GET-review endpoint
       //start POST-trip endpoint
       api.route('/trip')
@@ -246,7 +234,6 @@
                date_from: req.body.date_from,
                date_to: req.body.date_to
            });
-          //save to mongodb
            trip.save(function(err){
              if(err)  res.send(err);
              else if(!err){
@@ -264,20 +251,19 @@
       //start POST-tour endpoint
       api.route('/tour')
          .post(function(req, res){
-              tour = new file.Tour({
-                  name  : req.body.name,
-                  tour_location : req.body.tour_location,
-                  duration : req.body.duration,
-                  duration_format: req.body.duration_format,
-                  details  : req.body.details,
-                  tour_preference : req.body.tour_preference,
-                  tour_guide_id : req.body.tour_guide_id,
-                  points: req.body.rate * .05,
-                  rate : req.body.rate,
-                  negotiable : req.body.negotiable,
-                  main_image: req.body.main_image
-              });
-          //save to mongodb
+          tour = new file.Tour({
+              name  : req.body.name,
+              tour_location : req.body.tour_location,
+              duration : req.body.duration,
+              duration_format: req.body.duration_format,
+              details  : req.body.details,
+              tour_preference : req.body.tour_preference,
+              tour_guide_id : req.body.tour_guide_id,
+              points: req.body.rate * .05,
+              rate : req.body.rate,
+              negotiable : req.body.negotiable,
+              main_image: req.body.main_image
+          });
            tour.save(function(err){
              if(err)  res.send(err);
              else if(!err){
@@ -296,9 +282,7 @@
          });//end POST-tour endpoint
       api.get('/tours', endpoints.getAllTours); //end GET-tour endpoint
       api.use('/tour/:tourId', endpoints.getTourById);
-      api.route('/tour/:tourId')
-          .get(endpoints.getTourByIdRoute);
-
+      api.route('/tour/:tourId').get(endpoints.getTourByIdRoute);
       api.route('/tourByPreference')
           .post(function(req, res){
             var searchQuery = req.body.tour_preference;
@@ -307,7 +291,6 @@
                 })
                 .select('name tour_location duration duration_format details tour_guide_id tour_preference rate main_image additional_image points').exec(function(err, tour){
                     if(err) throw err;
-
                         if(!tour){
                             res.json({
                                 success: false,
@@ -324,7 +307,6 @@
               reward_tour_id: req.body.reward_tour_id,
               redeem_points: req.body.redeem_points
             });
-            //save to mongoDB
             reward.save(function(err, newReward){
               if(err) res.send(err);
               else if(!err){
@@ -370,7 +352,6 @@
               //redeem_traveler_id: traveler._id,
               redeem_reward_id: reward._id
             });
-            //save to mongoDB
             redeem.save(function(err){
               if(err) res.send(err);
               else if(!err){
@@ -390,7 +371,6 @@
               res.json(getRedeems);
           });
       });//end GET-redeem endpoint
-
       //start: getAllBooking
       api.get('/bookings', function(req, res){
           file.Booking.find({}, function(err, getBookings){
@@ -401,7 +381,6 @@
               res.json(getBookings);
           });
       });//end
-
       //start: getAllBookingByGuideId
       api.post('/bookings', function(req, res){
           file.Booking.find({booking_guide_id: req.body.booking_guide_id}, function(err, getBookings){
@@ -412,7 +391,6 @@
               res.json(getBookings);
           });
       });//end
-
       //start: POST - booking endpoint
       api.route('/book')
          .post(function(req, res){
@@ -422,7 +400,6 @@
              booking_user_id: req.body.booking_user_id,
              booking_guide_id: req.body.booking_guide_id
            });
-           //save to mongoDB
            booking.save(function(err){
              if(err)  res.send(err);
              else if(!err){
@@ -436,15 +413,13 @@
              }
            });
          });//end: POST - booking endpoint
-
       api.route('/acceptBooking')
           .post(function(req, res){
-          if(!(booking_user_id && booking_tour_id)){
+          if(req.body._id){
               file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'accepted' }, function(err, booking){
                   if(err) throw err;
-
                   res.json(booking);
-              })
+              });
           }else{
               res.json(booking);
           }
@@ -453,7 +428,6 @@
           .post(function(req, res){
               file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'declined' }, function(err, booking){
                   if(err) throw err;
-
                   res.json(booking);
               })
           });//end: POST - booking endpoint
@@ -461,7 +435,6 @@
           .post(function(req, res){
               file.Booking.findOneAndUpdate({ status: 'accept', _id: req.body._id }, { status: 'completed' }, function(err, booking){
                   if(err) throw err;
-
                   res.json(booking);
               })
           });//end: POST - booking endpoint
@@ -471,7 +444,6 @@
               note = new file.Note({
                   notes: req.body.notes
               });
-              //save to mongoDB
               note.save(function(err){
                   if(err)  res.send(err);
                   else if(!err){
@@ -490,9 +462,7 @@
                  if(err) throw err;
                   res.json(note);
               });
-          })
-          .delete(endpoints.deleteNote);
-      //negotiation endpoint
+          }).delete(endpoints.deleteNote);
       api.route('/negotiate')
           .post(function(req, res){
             negotiate = new file.Negotiate({
@@ -533,7 +503,6 @@
           }
       });
       api.get('/subscribers', endpoints.getAllSubscribers); //end GET-subscriber endpoint
-      //logs
       api.post('/log', function(req, res){
           log = new file.Log({
               activity: req.body.activity
@@ -551,7 +520,6 @@
           });
       });
       api.get('/logs', endpoints.getAllLogs); //end GET-log endpoint
-
       api.post('/album', function(req, res){
           album = new file.Album({
               album_name: req.body.album_name,
@@ -589,36 +557,29 @@
           .get(endpoints.getAlbumByIdRoute);
       //signup admin
       api.post('/admin/signup', function(req, res){
-          //create instance of user object...
           admin = new file.Admin({
               username: req.body.username,
               password: req.body.password
           });
           var token = createToken(admin);
-          //save to database
           admin.save(function(err){
               if(err){
                   res.send(err);
                   return;
               }
-              //return as a json-response for the api.
               res.json({
                   success: true,
                   message: 'Success, Admin has been created',
                   token: token
               });
-
           });
-      });
-      //end
+      });//end
       //admin login
       api.post('/admin/login', function(req, res){
-          //finding specific user object
           file.Admin.findOne({
               username: req.body.username
           }).select('username password').exec(function(err, admin){
               if(err) throw err;
-
               if(!admin){
                   res.send({ message: "No admin found"});
               }else if(admin){
@@ -639,10 +600,8 @@
       }); //end admin login
       //secure admin page
       api.use(function(req, res, next){
-          console.log("Login Admin.");
           //fetch the token.
           var token = req.body.token || req.param('token') || req.headers['x-access-token'];
-          //check if token is true.
           if(token){
               jsonwebtoken.verify(token, secretKey, function(err, decoded){
                   if(err){
@@ -656,9 +615,7 @@
           }else{
               res.status(403).send({ success:false, message: "Token Mismatch" });
           }
-          //end of checking token.
       });
-      //end securing admin page
     return api;
   };
 })();
