@@ -5,7 +5,6 @@
   var Guide = require('../app/models/Guide');
   var Location = require('../app/models/Location');
   var Preference = require('../app/models/Preference');
-  var Rating = require('../app/models/Rating');
   var Review = require('../app/models/Review');
   var Trip = require('../app/models/Trip');
   var Tour = require('../app/models/Tour');

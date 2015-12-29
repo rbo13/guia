@@ -7,7 +7,7 @@
   var async = require('async');
   var secretKey = config.secretKey;
   var loggedInUser, guide_id;
-  var user, location, preference, guide, rating,
+  var user, location, preference, guide,
     review, trip, tour, reward,
     redeem, booking, note, negotiate, admin, subscribe, log,
     album;
@@ -186,42 +186,42 @@
        api.get('/preferences', endpoints.getPreference); //end get endpoint
        api.use('/preference/:preferenceId', endpoints.getPreferenceById); //end getByPreferenceId endpoint
        api.route('/preference/:preferenceId').get(endpoints.getPreferenceByIdRoute).patch(endpoints.patchPreference); //register route - GET endpoint
-      //start POST-rating endpoint
-      api.route('/rating/guide/:guideId')
-             .post(function(req, res){
-              rating = new file.Rating({
-                   //TravelerID: traveler._id,
-                   GuideID: guide._id,
-                   rating: req.body.rating
-               });
-                rating.save(function(err){
-                  if(err) res.send(err);
-                  else if(!err){
-                      file.Rating.find({})
-                          .populate('GuideID')
-                          .populate('rating');
-                      res.json(rating);
-                  }
-                });
-             });//end POST-rating endpoint
-       api.get('/ratings', endpoints.getRatings); //GET-rating endpoint
       //start POST-review endpoint
-      api.route('/review/guide/:guideId')
+      api.route('/review')
           .post(function(req, res){
-            review = new file.Review({
-              //review_traveler_id: traveler._id,
-              review_guide_id: guide._id,
-              comment: req.body.comment
-            });
-            review.save(function(err){
-              if(err) res.send(err);
-              else if(!err){
-                  file.Review.find({})
-                      .populate('review_guide_id')
-                      .populate('comment');
-                  res.json(review);
+              if(req.body.review_guide_id !== req.body.user.guide_id){
+                  review = new file.Review({
+                      review: req.body.review,
+                      rate: req.body.rate,
+                      review_guide_id: req.body.review_guide_id,
+                      user:{
+                          id: req.body.user.id,
+                          facebook_id: req.body.user.facebook_id,
+                          name: req.body.user.name,
+                          profImage: req.body.user.profImage,
+                          guide_id: req.body.user.guide_id
+                      }
+                  });
+                  review.save(function(err){
+                      if(err) res.send(err);
+                      else if(!err){
+                          file.Review.find({})
+                              .populate('review')
+                              .populate('rate')
+                              .populate('review_guide_id')
+                              .populate('user.id')
+                              .populate('facebook_id')
+                              .populate('name')
+                              .populate('profImage');
+                          res.json(review);
+                      }
+                  });
+              }else{
+                  res.json({
+                      success: false,
+                      message: "Cant review your own"
+                  });
               }
-            });
           });
       api.get('/reviews', endpoints.getReviews); //GET-review endpoint
       //start POST-trip endpoint
@@ -394,24 +394,43 @@
       //start: POST - booking endpoint
       api.route('/book')
          .post(function(req, res){
-           booking = new file.Booking({
-             schedule: req.body.schedule,
-             booking_tour_id: req.body.booking_tour_id,
-             booking_user_id: req.body.booking_user_id,
-             booking_guide_id: req.body.booking_guide_id
-           });
-           booking.save(function(err){
-             if(err)  res.send(err);
-             else if(!err){
-                 file.Booking.find({})
-                     .populate('booking_tour_id')
-                     .populate('booking_user_id')
-                     .populate('booking_guide_id')
-                     .populate('schedule')
-                     .populate('status');
-                 res.json(booking);
-             }
-           });
+              file.Tour.findById({ _id: req.body.booking_tour_id }, function(err, tour){
+                  if(err) throw err;
+                  else{
+                      file.User.findById({ _id: req.body.booking_user_id }, function(err, user){
+                          if(err) throw err;
+                          else{
+                              booking = new file.Booking({
+                                  tour: {
+                                      name: tour.name,
+                                      tour_location: tour.tour_location,
+                                      duration: tour.duration,
+                                      duration_format: tour.duration_format,
+                                      details: tour.details,
+                                      tour_guide_id: tour.tour_guide_id,
+                                      rate: tour.rate,
+                                      main_image: tour.main_image,
+                                      tour_preference: tour.tour_preference,
+                                      points: tour.points
+                                  },
+                                  user: {
+                                      name: user.name,
+                                      profImage: user.profImage,
+                                      age: user.age,
+                                      gender: user.gender
+                                  },
+                                  booking_guide_id: req.body.booking_guide_id,
+                                  start_date: req.body.start_date,
+                                  end_date: req.body.end_date
+                              });
+                              booking.save(function(err){
+                                  if(err) res.send(err);
+                                  res.json(booking);
+                              });
+                          }
+                      })
+                  }
+              });
          });//end: POST - booking endpoint
       api.post('/booking', function(req, res){
           file.Booking.find({booking_user_id: req.body.booking_user_id}, function(err, booking){
@@ -473,7 +492,7 @@
           .delete(endpoints.deleteNote);
       api.route('/note/:noteId')
          .post(function(req, res){
-          file.Note.findByIdAndUpdate(req.params.noteId, { notes: req.body.notes, note_guide_id: req.body.note_guide_id, note_date: req.body.note_date }, function(err, note){
+              file.Note.findByIdAndUpdate(req.params.noteId, { notes: req.body.notes, note_guide_id: req.body.note_guide_id, note_date: req.body.note_date }, function(err, note){
               if(err) throw err;
               res.json(note);
           });

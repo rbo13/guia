@@ -11,7 +11,7 @@ var AlbumSchema = new Schema({
     album_tour_id: String,
     user: {
         id: String,
-        facebook_id: { type: String, select: false },
+        facebook_id: { type: String, select: true },
         name: String,
         profImage: String
     }

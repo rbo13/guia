@@ -2,10 +2,28 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var BookingSchema = new Schema({
-  booking_tour_id: { type: String, default: "" },
-  booking_user_id: { type: String, default: "" },
+  tour: {
+      name: String,
+      tour_location: String,
+      duration: Number,
+      duration_format: String,
+      details: String,
+      tour_guide_id: String,
+      rate: Number,
+      main_image: String,
+      tour_preference: String,
+      additional_image: { type: Array, default: [] },
+      points: Number
+  },
+  user: {
+        name: String,
+        profImage: String,
+        age: Number,
+        gender: String
+  },
   booking_guide_id: { type: String, default: "" },
-  schedule: String,
+  start_date: String,
+  end_date: String,
   status: { type: String, default: "pending" }
 });
 //end creating booking schema.

@@ -9,7 +9,6 @@
         Negotiate: require('./Negotiate.js'),
         Note: require('./Note.js'),
         Preference: require('./Preference.js'),
-        Rating: require('./Rating.js'),
         Redeemed: require('./Redeemed.js'),
         Review: require('./Review.js'),
         Reward: require('./Reward.js'),

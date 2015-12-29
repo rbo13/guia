@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 
 //create user Schema
 var UserSchema = new Schema({
-  facebook_id: { type: String, select: false },
+  facebook_id: { type: String, select: true },
   name: String,
   birthday: String,
   age: Number,
