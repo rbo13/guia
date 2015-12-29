@@ -187,42 +187,10 @@
        api.use('/preference/:preferenceId', endpoints.getPreferenceById); //end getByPreferenceId endpoint
        api.route('/preference/:preferenceId').get(endpoints.getPreferenceByIdRoute).patch(endpoints.patchPreference); //register route - GET endpoint
       //start POST-review endpoint
-      api.route('/review')
-          .post(function(req, res){
-              if(req.body.review_guide_id !== req.body.user.guide_id){
-                  review = new file.Review({
-                      review: req.body.review,
-                      rate: req.body.rate,
-                      review_guide_id: req.body.review_guide_id,
-                      user:{
-                          id: req.body.user.id,
-                          facebook_id: req.body.user.facebook_id,
-                          name: req.body.user.name,
-                          profImage: req.body.user.profImage,
-                          guide_id: req.body.user.guide_id
-                      }
-                  });
-                  review.save(function(err){
-                      if(err) res.send(err);
-                      else if(!err){
-                          file.Review.find({})
-                              .populate('review')
-                              .populate('rate')
-                              .populate('review_guide_id')
-                              .populate('user.id')
-                              .populate('facebook_id')
-                              .populate('name')
-                              .populate('profImage');
-                          res.json(review);
-                      }
-                  });
-              }else{
-                  res.json({
-                      success: false,
-                      message: "Cant review your own"
-                  });
-              }
-          });
+      //api.route('/review')
+      //    .post(function(req, res){
+      //
+      //    });
       api.get('/reviews', endpoints.getReviews); //GET-review endpoint
       //start POST-trip endpoint
       api.route('/trip')
@@ -402,6 +370,7 @@
                           else{
                               booking = new file.Booking({
                                   tour: {
+                                      id: tour._id,
                                       name: tour.name,
                                       tour_location: tour.tour_location,
                                       duration: tour.duration,

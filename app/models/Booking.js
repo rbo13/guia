@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 
 var BookingSchema = new Schema({
   tour: {
+      id: String,
       name: String,
       tour_location: String,
       duration: Number,

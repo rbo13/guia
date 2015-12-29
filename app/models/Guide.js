@@ -10,6 +10,7 @@ var GuideSchema = new Schema({
     email_address: String,
     isActivated: { type: Boolean, default: false },
     guide_user_id: { type: String },
+    rating: { type: Number, default: 0 },
     created: { type: Date, default: Date.now }
 });
 //end creating guide Schema
