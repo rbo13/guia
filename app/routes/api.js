@@ -187,10 +187,55 @@
        api.use('/preference/:preferenceId', endpoints.getPreferenceById); //end getByPreferenceId endpoint
        api.route('/preference/:preferenceId').get(endpoints.getPreferenceByIdRoute).patch(endpoints.patchPreference); //register route - GET endpoint
       //start POST-review endpoint
-      //api.route('/review')
-      //    .post(function(req, res){
-      //
-      //    });
+      api.route('/review')
+          .post(function(req, res){
+            file.Guide.findById({ _id: req.body.review_guide_id }, function(err, guide){
+                var count = guide.reviewCount + 1;
+                var ave = (guide.rating + req.body.rating) / count;
+                    file.Guide.findByIdAndUpdate({ _id: req.body.review_guide_id }, { reviewCount: count, rating: ave }, function(err, updatedguide){
+                        if(err) throw err;
+                        file.User.findById({_id: req.body.user.id},function(err, user){
+                                var newpoint = user.points + req.body.points;
+                                file.User.findByIdAndUpdate({ _id: req.body.user.id }, { points: req.body.points}, function(err, newUser){
+                                    if(err) throw err;
+                                });
+                        });
+                });
+            });
+              if(req.body.review_guide_id !== req.body.user.guide_id){
+                  review = new file.Review({
+                      review: req.body.review,
+                      rate: req.body.rate,
+                      review_guide_id: req.body.review_guide_id,
+                      user:{
+                          id: req.body.user.id,
+                          facebook_id: req.body.user.facebook_id,
+                          name: req.body.user.name,
+                          profImage: req.body.user.profImage,
+                          guide_id: req.body.user.guide_id
+                      }
+                  });
+                  review.save(function(err){
+                      if(err) res.send(err);
+                      else if(!err){
+                          file.Review.find({})
+                              .populate('review')
+                              .populate('rate')
+                              .populate('review_guide_id')
+                              .populate('user.id')
+                              .populate('facebook_id')
+                              .populate('name')
+                              .populate('profImage');
+                          res.json(review);
+                      }
+                  });
+              }else{
+                  res.json({
+                      success: false,
+                      message: "Cant review your own"
+                  });
+              }
+          });
       api.get('/reviews', endpoints.getReviews); //GET-review endpoint
       //start POST-trip endpoint
       api.route('/trip')
@@ -388,6 +433,7 @@
                                       age: user.age,
                                       gender: user.gender
                                   },
+                                  booking_user_id: req.body.booking_user_id,
                                   booking_guide_id: req.body.booking_guide_id,
                                   start_date: req.body.start_date,
                                   end_date: req.body.end_date
@@ -402,7 +448,7 @@
               });
          });//end: POST - booking endpoint
       api.post('/booking', function(req, res){
-          file.Booking.find({booking_user_id: req.body.booking_user_id}, function(err, booking){
+          file.Booking.find({ booking_user_id: req.body.booking_user_id }, function(err, booking){
               if(err){
                   res.send(err);
                   return;

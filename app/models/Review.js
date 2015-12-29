@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 //create guide Schema
 var ReviewSchema = new Schema({
     review: { type: String, required: true },
-    rate: { type: Number, required: true },
+    rating: { type: Number, required: true },
     review_guide_id: String,
     user: {
         id: String,
@@ -12,7 +12,9 @@ var ReviewSchema = new Schema({
         name: String,
         profImage: String,
         guide_id: String
-    }
+    },
+    created: { type: Date, default: Date.now },
+    points: Number,
 });
 //end creating guide Schema
 module.exports = mongoose.model('Review', ReviewSchema);
