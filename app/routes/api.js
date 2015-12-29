@@ -205,7 +205,7 @@
               if(req.body.review_guide_id !== req.body.user.guide_id){
                   review = new file.Review({
                       review: req.body.review,
-                      rate: req.body.rate,
+                      rating: req.body.rating,
                       review_guide_id: req.body.review_guide_id,
                       user:{
                           id: req.body.user.id,
