@@ -459,12 +459,12 @@
                   res.json(booking);
               })
           });//end: POST - booking endpoint
-      api.route('/completeTour')
+      api.route('/completeBooking')
           .post(function(req, res){
-              file.Booking.findOneAndUpdate({ status: 'accept', _id: req.body._id }, { status: 'completed' }, function(err, booking){
+              file.Booking.findOneAndUpdate({ status: 'accepted', _id: req.body._id }, { status: 'completed' }, function(err, booking){
                   if(err) throw err;
                   res.json(booking);
-              })
+              });
           });//end: POST - booking endpoint
       //start: POST - note endpoint
       api.route('/note')
