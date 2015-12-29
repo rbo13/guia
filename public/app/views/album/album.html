@@ -12,6 +12,7 @@
     <link href="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link rel="stylesheet" media="only screen and (min-width: 320px) and (max-width: 640px)" href="album/mobile.css">
     <link rel="stylesheet" media="only screen and (min-width: 641px) and (max-width: 1366px)" href="album/desktop.css">
+    <base href="/">
 </head>
 
 <body ng-controller="AlbumController">
@@ -27,9 +28,9 @@
 <div class="container-content">
 
     <div class="slider">
-            <img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage"
+            <img ng-repeat="slide in album.images track by $index" class="slide slide-animation nonDraggableImage"
                  ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
-                 ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}" alt="Image">
+                 ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide}}" alt="Image">
         <a class="arrow prev" ng-click="nextSlide()"></a>
         <a class="arrow next" ng-click="prevSlide()"></a>
     </div>
@@ -38,12 +39,12 @@
     <div class="user-info-card-desktop">
         <div class="valign-wrapper row">
             <div class="col">
-                <img class="circle" src="images/pp.jpg">
+                <img class="circle" ng-src="{{album.user.profImage}}">
             </div>
             <div class="col">
-                <h5 class="guia-color">Trek in the mountains</h5>
-                <h6 class="guia-grey">watched the sunset..with her :)</h6>
-                <p>jkbicbic <span class="guia-color">Jan 1, 2016</span></p>
+                <h5 class="guia-color">{{album.album_name}}</h5>
+                <h6 class="guia-grey">{{album.description}}</h6>
+                <p>{{album.user.name}} <span class="guia-color">{{album.created | date:'MM-dd-yyyy HH:mm:ss'}}</span></p>
             </div>
         </div>
     </div>
@@ -53,13 +54,15 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-touch.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
 <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/bin/materialize.js"></script>
-<script src="albumService.js"></script>
+<script src="albumService.js"></script> 
 <script src="album.js"></script>
+
+
 <script type="text/javascript">
     $(".slider img").each(function(){
         var thisWidth = $(this).width();
