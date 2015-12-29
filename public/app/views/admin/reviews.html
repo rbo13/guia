@@ -1,0 +1,74 @@
+<div ng-controller="ReviewController as review">
+    <div class="row">
+        <div class="loader-container" align="center" ng-if="review.guiaPreloader">
+            <img src="views/images/guia-loader.gif" alt="Loader"/>
+        </div>
+        <div class="col m6">
+            <div class="dashboard-card fixed">
+                <div class="dashboard-card-header green">
+                    <h6 class="white-text bold">Search Guide</h6>
+                </div>
+
+                <div class="dashboard-card-body">
+                    <form ng-submit="review.viewGuide()">
+                        <div class="input-field">
+                            <select id="country" class="validate browser-default" name="tour" ng-model="review.reviewData.id" style="margin-bottom:15px">
+                                <option value="" disabled selected>Select Guide</option>
+                                <option ng-repeat="guide in review.guides | orderBy:'name':true" value="{{guide._id}}">{{guide.email_address}}</option>
+                            </select>
+                        </div>
+                        <button class="waves-effect waves-light btn green">View guide</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col m6" ng-show="review.guide!=null">
+            <div class="dashboard-card fixed">
+                <div class="dashboard-card-header green">
+                    <h6 class="white-text bold">Guide</h6>
+                </div>
+                <div class="dashboard-card-body card-override" style="padding: 10% !important;">
+                    <div class="valign-wrapper row">
+                        <div class="col">
+                            <img class="circle" src="images/parallax1-min.jpg">
+                        </div>
+                        <div class="col">
+                            <h5 class="guia-color">{{review.guide.email_address}}</h5>
+                            <h5 class="guia-grey"><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row override">
+        <div class="col m4"  ng-repeat="rev in review.reviews">
+            <div class="dashboard-card">
+                <div class="dashboard-card-header green">
+                    <h6 class="white-text bold">Review</h6>
+                </div>
+                <div class="dashboard-card-body card-override">
+                    <div class="center-align row">
+                        <div class="col valign-wrapper">
+                            <img class="circle" ng-src="{{rev.user.profImage}}">
+                            <span class="left-align">
+                                <small>
+                            <h6 class="guia-color">{{rev.user.name}}</h6></small>
+                                <small><h5 class="guia-grey">☆☆☆☆☆</h5></small>
+                                <small><h6 class="guia-color">Jan 19, 2015</h6></small>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <p class="override">{{rev.review}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-card-footer white">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</div>

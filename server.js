@@ -53,9 +53,12 @@ app.get('/dashboard/preference', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });
 app.get('/dashboard/logs', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/admin/logs.html');
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });
 app.get('/dashboard/statistics', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
+});
+app.get('/dashboard/reviews', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
 });
 app.get('/guide.html', function(req, res){
@@ -72,6 +75,9 @@ app.get('/add_preference.html', function(req, res){
 });
 app.get('/logs.html', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/logs.html');
+});
+app.get('/reviews.html', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/admin/reviews.html');
 });
 app.get('/statistics.html', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/statistics.html');
@@ -203,6 +209,9 @@ app.get('/public/app/services/subscriberService.js', function(req, res){
 app.get('/public/app/services/statisticService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/services/statisticService.js');
 });
+app.get('/public/app/services/reviewService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/reviewService.js');
+});
 app.get('/public/app/services/logService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/services/logService.js');
 });
@@ -217,6 +226,9 @@ app.get('/public/app/controllers/User.js', function(req, res){
 });
 app.get('/public/app/controllers/Reward.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Reward.js');
+});
+app.get('/public/app/controllers/Review.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/controllers/Review.js');
 });
 app.get('/public/app/controllers/Location.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Location.js');

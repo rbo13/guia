@@ -68,6 +68,14 @@
                         requiresLogin: true
                     }
                 })
+                .when('/dashboard/reviews', {
+                    templateUrl: '/app/views/admin/reviews.html',
+                    controller: 'ReviewController',
+                    controllerAs: 'review',
+                    access: {
+                        requiresLogin: true
+                    }
+                })
                 .when('/admin', {
                     templateUrl: '/app/views/admin/admin.html'
                 })

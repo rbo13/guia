@@ -58,6 +58,14 @@
             }
         };
 
+        vm.reviews = function(){
+            if($location.path() == '/dashboard/reviews' || $location.path() == '/dashboard'){
+                return true;
+            }else{
+                return false;
+            }
+        };
+
         vm.doLogout = function(){
             Auth.adminLogout();
             $window.location.href = '/admin';

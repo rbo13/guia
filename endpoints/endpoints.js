@@ -381,6 +381,22 @@
           });
       };
 
+      var getReviewByGuideId = function(req, res, next){
+          Review.find({'review_guide_id': req.params.guide_id}, function(err, reviews){
+              if(err) res.status(500).send(err);
+              else if(reviews){
+                  req.reviews = reviews;
+                  next();
+              }else{
+                  //res.status(404).send('No Reviews Found');
+                  res.json(reviews);
+              }
+          });
+      };
+      var getReviewByGuideIdRoute = function(req, res){
+          res.json(req.reviews);
+      };
+
       return{
           getLocationById: getLocationById,
           getLocationByIdRoute: getLocationByIdRoute,
@@ -418,7 +434,9 @@
           deleteNote: deleteNote,
           getAlbumById: getAlbumById,
           getAlbumByIdRoute: getAlbumByIdRoute,
-          getAllAlbums: getAllAlbums
+          getAllAlbums: getAllAlbums,
+          getReviewByGuideId: getReviewByGuideId,
+          getReviewByGuideIdRoute: getReviewByGuideIdRoute
       }
   };
 

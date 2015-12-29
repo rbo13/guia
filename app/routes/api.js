@@ -237,6 +237,8 @@
               }
           });
       api.get('/reviews', endpoints.getReviews); //GET-review endpoint
+      api.get('/review/:guide_id', endpoints.getReviewByGuideId); //GET-review endpoint
+      api.use('/review/:guide_id', endpoints.getReviewByGuideIdRoute);
       //start POST-trip endpoint
       api.route('/trip')
          .post(function(req, res){

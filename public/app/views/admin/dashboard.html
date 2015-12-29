@@ -76,6 +76,7 @@
                 <li class="bold"><a href="/dashboard/location" class="collapsible-header waves-effect waves-green">Location</a>
                 <li class="bold"><a href="/dashboard/preference" class="collapsible-header waves-effect waves-green">Preferences</a>
                 <li class="bold"><a href="/dashboard/logs" class="collapsible-header waves-effect waves-green">Activity Logs</a>
+                <li class="bold"><a href="/dashboard/reviews" class="collapsible-header waves-effect waves-green">Reviews and Ratings</a>
                 <li class="hide-on-small-only hide-on-med-only bold">
                     <a href="/admin" ng-click="dashboard.doLogout()" class="collapsible-header waves-effect waves-green">Logout</a>
                 </li>
@@ -113,6 +114,7 @@
     <div ng-if="dashboard.location()" ng-include src="'add_location.html'"></div>
     <div ng-if="dashboard.preference()" ng-include src="'add_preference.html'"></div>
     <div ng-if="dashboard.logs()" ng-include src="'logs.html'"></div>
+    <div ng-if="dashboard.reviews()" ng-include src="'reviews.html'"></div>
 </main>
 
 <!--  Scripts-->
@@ -156,6 +158,7 @@
 <script type="text/javascript" src="/public/app/services/toastService.js"></script>
 <script type="text/javascript" src="/public/app/services/statisticService.js"></script>
 <script type="text/javascript" src="/public/app/services/logService.js"></script>
+<script type="text/javascript" src="/public/app/services/reviewService.js"></script>
 <!--Angular Scripts: Controllers-->
 <!--<script type="text/javascript" src="/public/app/controllers/Dashboard.js"></script>-->
 <script type="text/javascript" src="/public/app/controllers/Admin.js"></script>
@@ -166,6 +169,7 @@
 <script type="text/javascript" src="/public/app/controllers/Preference.js"></script>
 <script type="text/javascript" src="/public/app/controllers/Statistics.js"></script>
 <script type="text/javascript" src="/public/app/controllers/Logs.js"></script>
+<script type="text/javascript" src="/public/app/controllers/Review.js"></script>
 <!-- Angular Scripts: Directives -->
 <script type="text/javascript" src="/public/app/directives/reverse.js"></script>
 </body>
