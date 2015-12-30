@@ -23,6 +23,7 @@
 
         socketio.on('review', function(data){
             vm.reviews.push(data);
+            vm.viewGuide();
             Toast.info('Guide Rating Added');
         });
 
