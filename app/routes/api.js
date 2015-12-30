@@ -416,42 +416,35 @@
                       file.User.findById({ _id: req.body.booking_user_id }, function(err, user){
                           if(err) throw err;
                           else{
-                                if(req.body.booking_guide_id !== tour.tour_guide_id){
-                                    booking = new file.Booking({
-                                        tour: {
-                                            id: tour._id,
-                                            name: tour.name,
-                                            tour_location: tour.tour_location,
-                                            duration: tour.duration,
-                                            duration_format: tour.duration_format,
-                                            details: tour.details,
-                                            tour_guide_id: tour.tour_guide_id,
-                                            rate: tour.rate,
-                                            main_image: tour.main_image,
-                                            tour_preference: tour.tour_preference,
-                                            points: tour.points
-                                        },
-                                        user: {
-                                            name: user.name,
-                                            profImage: user.profImage,
-                                            age: user.age,
-                                            gender: user.gender
-                                        },
-                                        booking_user_id: req.body.booking_user_id,
-                                        booking_guide_id: req.body.booking_guide_id,
-                                        start_date: req.body.start_date,
-                                        end_date: req.body.end_date
-                                    });
-                                    booking.save(function(err){
-                                        if(err) res.send(err);
-                                        res.json(booking);
-                                    });
-                                }else{
-                                    res.json({
-                                        success: false,
-                                        message: "Cant book your own"
-                                    });
-                                }
+                                booking = new file.Booking({
+                                    tour: {
+                                        id: tour._id,
+                                        name: tour.name,
+                                        tour_location: tour.tour_location,
+                                        duration: tour.duration,
+                                        duration_format: tour.duration_format,
+                                        details: tour.details,
+                                        tour_guide_id: tour.tour_guide_id,
+                                        rate: tour.rate,
+                                        main_image: tour.main_image,
+                                        tour_preference: tour.tour_preference,
+                                        points: tour.points
+                                    },
+                                    user: {
+                                        name: user.name,
+                                        profImage: user.profImage,
+                                        age: user.age,
+                                        gender: user.gender
+                                    },
+                                    booking_user_id: req.body.booking_user_id,
+                                    booking_guide_id: req.body.booking_guide_id,
+                                    start_date: req.body.start_date,
+                                    end_date: req.body.end_date
+                                });
+                                booking.save(function(err){
+                                    if(err) res.send(err);
+                                    res.json(booking);
+                                });
                           }
                       });
                   }
