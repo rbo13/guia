@@ -12,8 +12,10 @@
     redeem, booking, note, negotiate, admin, subscribe, log,
     album;
 
+    var token;
+
     function createToken(admin){
-        var token = jsonwebtoken.sign({
+        token = jsonwebtoken.sign({
             id: admin._id,
             username: admin.username
         }, secretKey, {
@@ -191,7 +193,7 @@
           .post(function(req, res){
             file.Guide.findById({ _id: req.body.review_guide_id }, function(err, guide){
                 var count = guide.reviewCount + 1;
-                var ave = (guide.rating + req.body.rating) / count;
+                var ave = ((guide.rating * guide.reviewCount) + req.body.rating) / count;
                     file.Guide.findByIdAndUpdate({ _id: req.body.review_guide_id }, { reviewCount: count, rating: ave }, function(err, updatedguide){
                         if(err) throw err;
                         file.User.findById({_id: req.body.user.id},function(err, user){
@@ -215,19 +217,18 @@
                           guide_id: req.body.user.guide_id
                       }
                   });
-                  review.save(function(err){
+                  review.save(function(err, newReview){
                       if(err) res.send(err);
-                      else if(!err){
-                          file.Review.find({})
-                              .populate('review')
-                              .populate('rate')
-                              .populate('review_guide_id')
-                              .populate('user.id')
-                              .populate('facebook_id')
-                              .populate('name')
-                              .populate('profImage');
-                          res.json(review);
-                      }
+                      io.emit('review', newReview);
+                      file.Review.find({})
+                          .populate('review')
+                          .populate('rate')
+                          .populate('review_guide_id')
+                          .populate('user.id')
+                          .populate('facebook_id')
+                          .populate('name')
+                          .populate('profImage');
+                      res.json(review);
                   });
               }else{
                   res.json({
@@ -415,37 +416,44 @@
                       file.User.findById({ _id: req.body.booking_user_id }, function(err, user){
                           if(err) throw err;
                           else{
-                              booking = new file.Booking({
-                                  tour: {
-                                      id: tour._id,
-                                      name: tour.name,
-                                      tour_location: tour.tour_location,
-                                      duration: tour.duration,
-                                      duration_format: tour.duration_format,
-                                      details: tour.details,
-                                      tour_guide_id: tour.tour_guide_id,
-                                      rate: tour.rate,
-                                      main_image: tour.main_image,
-                                      tour_preference: tour.tour_preference,
-                                      points: tour.points
-                                  },
-                                  user: {
-                                      name: user.name,
-                                      profImage: user.profImage,
-                                      age: user.age,
-                                      gender: user.gender
-                                  },
-                                  booking_user_id: req.body.booking_user_id,
-                                  booking_guide_id: req.body.booking_guide_id,
-                                  start_date: req.body.start_date,
-                                  end_date: req.body.end_date
-                              });
-                              booking.save(function(err){
-                                  if(err) res.send(err);
-                                  res.json(booking);
-                              });
+                                if(req.body.booking_guide_id !== tour.tour_guide_id){
+                                    booking = new file.Booking({
+                                        tour: {
+                                            id: tour._id,
+                                            name: tour.name,
+                                            tour_location: tour.tour_location,
+                                            duration: tour.duration,
+                                            duration_format: tour.duration_format,
+                                            details: tour.details,
+                                            tour_guide_id: tour.tour_guide_id,
+                                            rate: tour.rate,
+                                            main_image: tour.main_image,
+                                            tour_preference: tour.tour_preference,
+                                            points: tour.points
+                                        },
+                                        user: {
+                                            name: user.name,
+                                            profImage: user.profImage,
+                                            age: user.age,
+                                            gender: user.gender
+                                        },
+                                        booking_user_id: req.body.booking_user_id,
+                                        booking_guide_id: req.body.booking_guide_id,
+                                        start_date: req.body.start_date,
+                                        end_date: req.body.end_date
+                                    });
+                                    booking.save(function(err){
+                                        if(err) res.send(err);
+                                        res.json(booking);
+                                    });
+                                }else{
+                                    res.json({
+                                        success: false,
+                                        message: "Cant book your own"
+                                    });
+                                }
                           }
-                      })
+                      });
                   }
               });
          });//end: POST - booking endpoint
@@ -513,7 +521,7 @@
               if(err) throw err;
               res.json(note);
           });
-      })
+      });
       api.route('/negotiate')
           .post(function(req, res){
             negotiate = new file.Negotiate({
@@ -613,7 +621,7 @@
               username: req.body.username,
               password: req.body.password
           });
-          var token = createToken(admin);
+          token = createToken(admin);
           admin.save(function(err){
               if(err){
                   res.send(err);
