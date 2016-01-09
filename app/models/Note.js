@@ -2,8 +2,15 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var NoteSchema = new Schema({
-    notes: String,
-    note_guide_id: String,
-    note_date: String
+    title: String,
+    note_content: String,
+    note_date: String,
+    user:{
+        id: String,
+        name: String,
+        age: String,
+        profImage: String,
+        gender: String
+    }
 });
 module.exports = mongoose.model('Note', NoteSchema);

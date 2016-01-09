@@ -11,7 +11,7 @@
     <link href="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/css/prism.css" rel="stylesheet"/>
     <link href="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link rel="stylesheet" media="only screen and (min-width: 320px) and (max-width: 640px)" href="album/mobile.css">
-    <link rel="stylesheet" media="only screen and (min-width: 641px) and (max-width: 1366px)" href="album/desktop.css">
+    <link rel="stylesheet" media="only screen and (min-width: 641px)" href="album/desktop.css">
     <base href="/">
 </head>
 
@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<div class="container-content">
+<div class="container-content valign-center">
 
     <div class="slider">
             <img ng-repeat="slide in album.images track by $index" class="slide slide-animation nonDraggableImage"
@@ -36,7 +36,7 @@
     </div>
 
 
-    <div class="user-info-card-desktop">
+    <div class="user-info-card-desktop mobile">
         <div class="valign-wrapper row">
             <div class="col">
                 <img class="circle" ng-src="{{album.user.profImage}}">
@@ -51,6 +51,8 @@
 
 </div>
 
+<small><h6 class="center-align guia-grey album-footer">copyright <strong>Guia</strong> 2015 - 2016 | All rights reserve</h6></small>
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -58,6 +60,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-touch.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/livestamp/1.1.2/livestamp.min.js"></script>
 <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/bin/materialize.js"></script>
 <script src="albumService.js"></script> 
 <script src="album.js"></script>

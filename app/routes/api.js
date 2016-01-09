@@ -71,7 +71,6 @@
         facebook_id: req.body.facebook_id
       }).select('guide_id facebook_id').exec(function(err, user){
           if(err) throw err;
-
           if(!user){
             createUser(req, res);
           } else if (user) {
@@ -213,8 +212,7 @@
                           id: req.body.user.id,
                           facebook_id: req.body.user.facebook_id,
                           name: req.body.user.name,
-                          profImage: req.body.user.profImage,
-                          guide_id: req.body.user.guide_id
+                          profImage: req.body.user.profImage
                       }
                   });
                   review.save(function(err, newReview){
@@ -487,19 +485,27 @@
       //start: POST - note endpoint
       api.route('/note')
           .post(function(req, res){
-              note = new file.Note({
-                  notes: req.body.notes,
-                  note_guide_id: req.body.note_guide_id,
-                  note_date: req.body.note_date
-              });
-              note.save(function(err){
-                  if(err)  res.send(err);
-                  else if(!err){
-                      file.Note.find({})
-                          .populate('notes')
-                          .populate('note_guide_id')
-                          .populate('note_date');
-                      res.json(note);
+              file.User.findById({ _id: req.body._id }, function(err, user){
+                  if(err) throw err;
+                  else{
+                      note = new file.Note({
+                          title: req.body.title,
+                          note_content: req.body.note_content,
+                          note_date: req.body.note_date,
+                          user: {
+                              id: user._id,
+                              name: user.name,
+                              age: user.age,
+                              profImage: user.profImage,
+                              gender:  user.gender
+                          }
+                      });
+                      note.save(function(err){
+                          if(err) throw err;
+                          else if(!err){
+                              res.json(note);
+                          }
+                      });
                   }
               });
           });//end: POST - note endpoint

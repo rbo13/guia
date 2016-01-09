@@ -3,12 +3,12 @@ body{
 }
 
 span{
-    margin: 10px;
+    margin: 6px;
 }
 
 img.circle{
-    height: 80px;
-    width: 80px;
+    height: 70px;
+    width: 70px;
 }
 
 div.override{
@@ -21,17 +21,21 @@ div.fixed{
 }
 
 p.override{
+    text-align: justify;
     font-size: 13px !important;
-    padding-left: 20px;
-    padding-right: 20px;
+}
+
+.album-footer{
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .card-override{
     overflow-y: auto !important;
     height: 256px; 
-    padding-left: 5px !important;
+    padding-top: 5px !important;
+    padding-left: 15px !important;
     padding-right: 15px !important;
-    padding: 15px !important;
 }
 
 .valign-wrapper{
@@ -210,9 +214,8 @@ p.override{
 }
 
 .dashboard-card-footer{
-    height: 20px;
+    height: 20px
 }
-
 
 .dashboard-card-body{
     margin: 0px;
@@ -276,3 +279,4 @@ p.override{
     margin-top: 5px;
     margin-top: 5px;
 }
+

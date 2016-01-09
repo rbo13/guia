@@ -10,8 +10,7 @@ var ReviewSchema = new Schema({
         id: String,
         facebook_id: { type: String, select: true },
         name: String,
-        profImage: String,
-        guide_id: String
+        profImage: String
     },
     created: { type: Date, default: Date.now },
     points: Number,

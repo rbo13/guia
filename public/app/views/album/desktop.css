@@ -7,19 +7,24 @@ nav{
     box-shadow: none !important;
 }
 
+img.circle{
+    height: 80px;
+    width: 80px;
+    border: 1px solid #eee;
+}
+
+.album-footer{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
 .guia-grey{
     color: #ccc;
 }
 
 .guia-color{
     color: #61e24c;
-}
-
-
-img.circle{
-    height: 80px;
-    width: 80px;
-    border: 1px solid #eee;
 }
 
 .valign-wrapper{
@@ -41,7 +46,9 @@ img.circle{
 }
 
 .user-info-card-desktop{
-    border-bottom: 3px solid #ccc;
+    border-bottom: 3px solid #ccc;      
+    max-width: 840px;
+    max-height: 720px;
 } 
 
 .user-info-card-desktop .row{
@@ -53,24 +60,28 @@ img.circle{
 .container-content{
     margin-left: 30%;
     margin-right: 30%;
+    min-height: 450px;
 }
 
 .slider{
     overflow: hidden;
     position: relative;
     background: #e6e6e6;
-    height: 450px;
+    min-height: 450px;
+    max-width: 840px;
+    max-height: 720px;
     border-top: 20px solid #fff;
     border-left: 20px solid #fff;
     border-right: 20px solid #fff;
+    background: #363635;
 }
 
 .slide {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 0%;
     height: 100%;
-    width: 100%;
+    width: auto;
 }
 
 .arrow {

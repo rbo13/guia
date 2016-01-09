@@ -16,6 +16,12 @@ nav{
 }
 
 
+.mobile{
+    border-bottom: 3px solid #ccc !important;
+    box-shadow: none !important;
+}
+
+
 img.circle{
     height: 80px;
     width: 80px;
@@ -67,7 +73,7 @@ img.circle{
     top: 0;
     left: 0;
     height: 100%;
-    width: 100%;
+    width: auto;
 }
 
 .arrow {
