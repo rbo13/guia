@@ -28,6 +28,10 @@
                 User.patchUser(guide_user_id, id)
                     .success(function(data){
                         console.log(data);
+                        Log.createLog(data.name + " - Guide Activated")
+                                .success(function(data){
+                                    console.log(data.email_address + " - Guide Activated");
+                        });
                     }).error(function(){
                         console.log('FAIL');
                     });
@@ -53,9 +57,9 @@
                     .success(function(data){
                         console.log(data);
                         console.log('Deactivated');
-                        Log.createLog(vm.logData)
+                        Log.createLog(data.name + " - Guide Deactivated")
                             .success(function(data){
-                                console.log(vm.logData);
+                                console.log(data.name + " - Guide Deactivated");
                         });
                     }).error(function(){
                         console.log('FAIL');

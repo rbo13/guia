@@ -236,7 +236,8 @@
                   return;
               }
               res.json(getReviews);
-          });
+          })
+          .sort({created: 'desc'});
       };
 //end review
 

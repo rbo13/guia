@@ -4,9 +4,9 @@
     angular.module('locationController', [])
         .controller('LocationController', LocationController);
 
-    LocationController.$inject = ['$location', '$window', 'Location', 'socketio', 'Toast'];
+    LocationController.$inject = ['$location', '$window', 'Location', 'socketio', 'Toast', 'Log'];
 
-    function LocationController($location, $window, Location, socketio, Toast){
+    function LocationController($location, $window, Location, socketio, Toast, Log){
         var vm = this;
         vm.guiaPreloader = true;
         vm.locationTable = false;
@@ -26,6 +26,10 @@
                 .success(function(data){
                     vm.locationData = '';
                     console.log(data);
+                    Log.createLog(data.city + ", " + data.country + " - Location Added")
+                        .success(function(data){
+                            console.log("Location Added");
+                    });
                 });
         };
         socketio.on('location', function(data){
@@ -57,6 +61,9 @@
                 .success(function(data){
                     console.log('Updated Location');
                     console.log(data);
+                    Log.createLog(data.city + ", " + data.country + " - Location Deactivated")
+                        .success(function(data){
+                    });
                     vm.locationData = '';
                 }).error(function(){
                     console.log('FAIL');
@@ -69,6 +76,12 @@
                 .success(function(data){
                     console.log('Updated Location');
                     console.log(data);
+                    if(value){
+                        Log.createLog(data.city + ", " + data.country + " - Location Activated");    
+                    }else{
+                        Log.createLog(data.city + ", " + data.country + " - Location Deactivated");
+                    }
+                    
                 }).error(function(){
                     console.log('FAIL');
                 });

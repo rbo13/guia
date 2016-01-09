@@ -9,7 +9,8 @@
             };
 
             var createLog = function(logData){
-                return $http.post('/api/v1/log', logData);
+                var message = { activity: logData }; 
+                return $http.post('/api/v1/log', message);
             };
 
             //var patchUser = function(id, updateValue){

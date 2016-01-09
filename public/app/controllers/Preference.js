@@ -4,9 +4,9 @@
     angular.module('preferenceController', [])
         .controller('PreferenceController', PreferenceController);
 
-    PreferenceController.$inject = ['$location', '$window', 'Preference', 'socketio', 'Toast'];
+    PreferenceController.$inject = ['$location', '$window', 'Preference', 'socketio', 'Toast', 'Log'];
 
-    function PreferenceController($location, $window, Preference, socketio, Toast){
+    function PreferenceController($location, $window, Preference, socketio, Toast, Log){
         var vm = this;
         vm.guiaPreloader = true;
         vm.preferenceTable = false;
@@ -26,6 +26,7 @@
                 .success(function(data){
                     vm.preferenceData = '';
                     console.log(data);
+                    Log.createLog(data.preference + " - Preference Added");
                 });
         };
         socketio.on('preference', function(data){
@@ -38,6 +39,11 @@
                 .success(function(data){
                     console.log('Updated Preference')
                     console.log(data);
+                    if(value){
+                        Log.createLog(data.preference + " - Preference Activated");
+                    }else{
+                        Log.createLog(data.preference + " - Preference Deactivated");
+                    }
                 }).error(function(){
                     console.log('FAIL');
                 });
