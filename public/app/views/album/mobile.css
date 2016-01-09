@@ -7,6 +7,10 @@ nav{
     box-shadow: none !important;
 }
 
+div.col{
+    padding: 5px;
+}
+
 .guia-grey{
     color: #ccc;
 }
@@ -15,12 +19,10 @@ nav{
     color: #61e24c;
 }
 
-
 .mobile{
     border-bottom: 3px solid #ccc !important;
     box-shadow: none !important;
 }
-
 
 img.circle{
     height: 80px;
@@ -32,7 +34,10 @@ img.circle{
     margin: 0px;
 }
 
-
+.footer-album{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 
 .time-stamp{
     color: #61e24c;

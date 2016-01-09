@@ -28,9 +28,9 @@
 <div class="container-content valign-center">
 
     <div class="slider">
-            <img ng-repeat="slide in album.images track by $index" class="slide slide-animation nonDraggableImage"
-                 ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
-                 ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide}}" alt="Image">
+        <img ng-repeat="slide in album.images track by $index" class="slide slide-animation nonDraggableImage"
+             ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+             ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide}}" alt="Image">
         <a class="arrow prev" ng-click="nextSlide()"></a>
         <a class="arrow next" ng-click="prevSlide()"></a>
     </div>
@@ -38,10 +38,10 @@
 
     <div class="user-info-card-desktop mobile">
         <div class="valign-wrapper row">
-            <div class="col">
+            <div class="col s4 center-align">
                 <img class="circle" ng-src="{{album.user.profImage}}">
             </div>
-            <div class="col">
+            <div class="col s8">
                 <h5 class="guia-color">{{album.album_name}}</h5>
                 <h6 class="guia-grey">{{album.description}}</h6>
                 <p>{{album.user.name}} <span class="guia-color">{{album.created | date:'MMMM d, yyyy'}}</span></p>
@@ -51,7 +51,7 @@
 
 </div>
 
-<small><h6 class="center-align guia-grey album-footer">copyright <strong>Guia</strong> 2015 - 2016 | All rights reserve</h6></small>
+<small><h6 class="center-align guia-grey album-footer">&copy; <strong>Guia</strong> 2015 - 2016 | All rights reserved</h6></small>
 
 
 
@@ -60,10 +60,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-touch.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/livestamp/1.1.2/livestamp.min.js"></script>
 <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/bin/materialize.js"></script>
-<script src="albumService.js"></script> 
+<script src="albumService.js"></script>
 <script src="album.js"></script>
 
 

@@ -47,8 +47,8 @@ img.circle{
 
 .user-info-card-desktop{
     border-bottom: 3px solid #ccc;
-    max-width: 500px;
-    max-height: 720px;
+    width: 500px;
+    max-height: 300px;
 }
 
 .user-info-card-desktop .row{

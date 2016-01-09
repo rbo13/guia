@@ -6,9 +6,9 @@
 
         <div class="dashboard-card-body">
             <div class="col s12 right">
-                <select class="select-statistics browser-default" ng-model="stat.userYear">
-                    <option selected="selected">2015</option>
-                    <option>2016</option>
+                <select class="select-statistics browser-default" ng-init="stat.selectedYear = 2016"
+                        ng-model="stat.selectedYear" ng-change="stat.changeYear()">
+                    <option selected="selected">2016</option>
                     <option>2017</option>
                     <option>2018</option>
                     <option>2019</option>

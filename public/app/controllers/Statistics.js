@@ -12,12 +12,22 @@
 
         //Users
         vm.userQuarter = 0;
-        vm.userYear = 2015;
+        vm.userYear = 2016;
+
         Statistic.getUsers()
             .success(function(data){
                 vm.uData = data;
                 vm.userTabulate();
             });
+
+        vm.changeYear = function(){
+            vm.userYear = vm.selectedYear;
+            Statistic.getUsers()
+                .success(function(data){
+                    vm.uData = data;
+                    vm.userTabulate();
+                });
+        }
         vm.userTabulate = function(){
             var u = [0,0,0];
             var g = [0,0,0];
