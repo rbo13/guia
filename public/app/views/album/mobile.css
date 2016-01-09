@@ -1,4 +1,4 @@
-body {  
+body {
     background-color: #F4F7F3;
 }
 
@@ -38,7 +38,7 @@ img.circle{
     color: #61e24c;
 }
 
-.header-logo-card{  
+.header-logo-card{
     margin-left: 20%;
     margin-right: 20%;
 }
@@ -50,10 +50,10 @@ img.circle{
 
 .user-info-card-desktop{
     box-shadow: 0px 3px 5px #ccc;
-} 
+}
 
 .user-info-card-desktop .row{
-    background: #fff; 
+    background: #fff;
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -72,7 +72,7 @@ img.circle{
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    height: auto;
     width: auto;
 }
 
