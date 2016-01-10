@@ -10,7 +10,7 @@
   var user, location, preference, guide,
     review, trip, tour, reward,
     redeem, booking, note, negotiate, admin, subscribe, log,
-    album;
+    album, message;
 
     var token;
 
@@ -69,7 +69,7 @@
     api.post('/login', function(req, res){
       file.User.findOne({
         facebook_id: req.body.facebook_id
-      }).select('guide_id facebook_id').exec(function(err, user){
+      }).select('guide_id facebook_id points').exec(function(err, user){
           if(err) throw err;
           if(!user){
             createUser(req, res);
@@ -622,7 +622,11 @@
       api.get('/albums', endpoints.getAllAlbums);
       api.use('/album/:albumId', endpoints.getAlbumById); //end getById endpoint
       api.route('/album/:albumId')
-          .get(endpoints.getAlbumByIdRoute);
+          .get(endpoints.getAlbumByIdRoute); //end
+
+      //TODO: message endpoint
+
+
       //signup admin
       api.post('/admin/signup', function(req, res){
           admin = new file.Admin({

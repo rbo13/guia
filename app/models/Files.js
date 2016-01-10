@@ -17,6 +17,7 @@
         Admin: require('./Admin.js'),
         Subscriber: require('./Subscriber.js'),
         Log: require('./Log.js'),
-        Album: require('./Album.js')
+        Album: require('./Album.js'),
+        Message: require('./Message.js')
     };
 })();
