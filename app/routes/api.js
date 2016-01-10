@@ -10,7 +10,7 @@
   var user, location, preference, guide,
     review, trip, tour, reward,
     redeem, booking, note, negotiate, admin, subscribe, log,
-    album, message;
+    album, conversation;
 
     var token;
 
@@ -471,6 +471,24 @@
           if(req.body._id){
               file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'accepted' }, function(err, booking){
                   if(err) throw err;
+
+                  conversation = new file.Conversation;
+
+                  file.User.findById({ _id: booking.booking_user_id }, function(err, user){
+                      conversation.traveler =  { id: user._id, name: user.name };
+                  });
+                  file.Guide.findById({ _id: booking.booking_guide_id }, function(err, guide){
+                      if(err) throw err;
+                      console.log(guide);
+                        file.User.findById({ _id: guide.guide_user_id }, function(err, user_guide){
+                            conversation.guide = { id: user_guide._id, name: user_guide.name };
+                        });
+                  });
+
+                  console.log(conversation);
+                  conversation.save(function(err, newConversation){
+
+                  });
                   res.json(booking);
               });
           }else{
@@ -624,7 +642,7 @@
       api.route('/album/:albumId')
           .get(endpoints.getAlbumByIdRoute); //end
 
-      //TODO: message endpoint
+      //TODO: conversation endpoint
 
 
       //signup admin
