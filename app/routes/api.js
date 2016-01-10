@@ -197,7 +197,7 @@
                         if(err) throw err;
                         file.User.findById({_id: req.body.user.id},function(err, user){
                             var newpoint = user.points + req.body.points;
-                            file.User.findByIdAndUpdate({ _id: req.body.user.id }, { points: req.body.points}, function(err, newUser){
+                            file.User.findByIdAndUpdate({ _id: req.body.user.id }, { points: newpoint}, function(err, newUser){
                                 if(err) throw err;
                                 file.Booking.findByIdAndUpdate({ _id: req.body.review_booking_id }, { status: 'done' }, function(err, updatedBooking){
                                     if(err) throw err;
