@@ -238,6 +238,12 @@
                   });
               }
           });
+      api.post('/doneBooking', function(req, res){
+         file.Booking.findByIdAndUpdate({ _id: req.body.review_booking_id }, { status: 'done' }, function(err, bookingValue){
+            if(err) throw err;
+             res.send(bookingValue);
+         });
+      });
       api.get('/reviews', endpoints.getReviews); //GET-review endpoint
       api.get('/review/:guide_id', endpoints.getReviewByGuideId); //GET-review endpoint
       api.use('/review/:guide_id', endpoints.getReviewByGuideIdRoute);

@@ -4,9 +4,9 @@
     angular.module('rewardController', [])
         .controller('RewardController', RewardController);
 
-    RewardController.$inject = ['$location', '$window', 'Reward', 'Toast', 'socketio'];
+    RewardController.$inject = ['$location', '$window', 'Reward', 'Toast', 'socketio', 'Log'];
 
-    function RewardController($location, $window, Reward, Toast, socketio){
+    function RewardController($location, $window, Reward, Toast, socketio, Log){
         var vm = this;
         vm.guiaPreloader = true;
         vm.tours = [];
@@ -77,6 +77,7 @@
                 .success(function(data){
                     vm.rewardData = '';
                     console.log(data);
+                    Log.createLog("New Reward Added");
                 });
         };
 
