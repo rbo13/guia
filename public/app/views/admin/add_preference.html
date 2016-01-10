@@ -36,9 +36,6 @@
                             {{ preference.preference }}
                         </td>
                         <td>
-                            <input type="hidden" value="Deactivated a Preference"/>
-                        </td>
-                        <td>
                             <div>
                                 <button ng-if="preference.isActivated == false" class="waves-effect waves-light btn green" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated">Activate</button>
                                 <button ng-if="preference.isActivated == true" class="waves-effect waves-light btn red" ng-click="_preference.activatePreference(preference._id, !preference.isActivated); preference.isActivated = !preference.isActivated" ng-confirm-dialog content="Are you sure you want to deactivate?">Deactivate</button>

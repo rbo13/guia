@@ -196,13 +196,13 @@
                     file.Guide.findByIdAndUpdate({ _id: req.body.review_guide_id }, { reviewCount: count, rating: ave }, function(err, updatedguide){
                         if(err) throw err;
                         file.User.findById({_id: req.body.user.id},function(err, user){
-                                var newpoint = user.points + req.body.points;
-                                file.User.findByIdAndUpdate({ _id: req.body.user.id }, { points: req.body.points}, function(err, newUser){
+                            var newpoint = user.points + req.body.points;
+                            file.User.findByIdAndUpdate({ _id: req.body.user.id }, { points: req.body.points}, function(err, newUser){
+                                if(err) throw err;
+                                file.Booking.findByIdAndUpdate({ _id: req.body.review_booking_id }, { status: 'done' }, function(err, updatedBooking){
                                     if(err) throw err;
-                                    file.Booking.findByIdAndUpdate({ _id: req.body.review_booking_id }, { status: 'done' }, function(err, updatedBooking){
-                                        if(err) throw err;
-                                    })
-                                });
+                                })
+                            });
                         });
                 });
             });

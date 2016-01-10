@@ -13,14 +13,6 @@
                     console.log(data);
                     $scope.slides = $scope.album.images;
                 });
-/*            $scope.slides = [
-                {image: 'http://wallpaperlayer.com/img/2015/7/spring-scenery-6392-6668-hd-wallpapers.jpg', description: 'Image 00'},
-                {image: 'http://attracttour.com/wp-content/uploads/2013/04/kawasan-falls.jpg', description: 'Image 01'},
-                {image: 'http://www.saferidecarrental.com/wp-content/uploads/2015/10/4-canyoneers.jpg', description: 'Image 02'},
-                {image: 'http://thebudgettraveler.org/wp-content/uploads/2014/09/loqal-cebu-pungko-pungko2_ss.jpg', description: 'Image 03'},
-                {image: 'http://aphs.worldnomads.com/loriejoy/16415/Cebu_01.jpg', description: 'Image 04'}
-            ];
-*/
 
             $scope.direction = 'left';
             $scope.currentIndex = 0;
