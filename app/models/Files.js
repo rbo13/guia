@@ -18,6 +18,6 @@
         Subscriber: require('./Subscriber.js'),
         Log: require('./Log.js'),
         Album: require('./Album.js'),
-        Message: require('./Message.js')
+        Conversation: require('./Conversation.js')
     };
 })();
