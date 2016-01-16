@@ -13,17 +13,15 @@
             id: String,
             name: String
         },
-        messages: [
-            {
+        messages: {
                 from: {
                     id: String,
                     name: String,
                     profImage: String
                 },
-                body: String,
+                message_body: String,
                 created: { type: Date, default: Date.now }
-            }
-        ]
+        }
     });
 //end creating conversation schema.
     module.exports = mongoose.model('Conversation', ConversationSchema);

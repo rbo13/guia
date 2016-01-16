@@ -385,15 +385,7 @@
             });
           });//end: POST - redeem endpoint
       //start GET-redeem endpoint
-      api.get('/redeems', function(req, res){
-          file.Redeemed.find({}, function(err, getRedeems){
-              if(err){
-                  res.send(err);
-                  return;
-              }
-              res.json(getRedeems);
-          });
-      });//end GET-redeem endpoint
+      api.get('/redeems', endpoints.getAllRedeems);//end GET-redeem endpoint
       //start: getAllBooking
       api.get('/bookings', function(req, res){
           file.Booking.find({}, function(err, getBookings){
@@ -466,44 +458,30 @@
               res.json(booking);
           });
       });
-      api.route('/acceptBooking')
-          .post(function(req, res){
-              conversation = new file.Conversation;
-              file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'accepted' }, function(err, booking){
-                  if(err) throw err;
-                  file.User.findById({ _id: booking.booking_user_id }, function(err, user){
-                      if(err) throw err;
-                      conversation.traveler.id = user._id;
-                      conversation.traveler.name = user.name;
-                  });
-                  file.Guide.findById({ _id: booking.booking_guide_id }, function(err, guide){
-                      if(err) throw err;
-                      file.User.findById({ _id: guide.guide_user_id }, function(err, user_guide){
-                          conversation.guide.id = user_guide.guide_id;
-                          conversation.guide.name = user_guide.name;
+      api.route('/acceptBooking').post(endpoints.acceptBooking); //end: POST - acceptBooking endpoint
+      api.route('/declineBooking').post(endpoints.declineBooking); //end: POST - declineBooking endpoint
+      api.route('/completeBooking').post(endpoints.completeBooking); //end: POST - completeBooking endpoint
 
-                          conversation.save(function(err){
-                             if(err) throw err;
-                             res.json(conversation);
-                          });
-                      });
-                  });
-              });
-      });//end: POST - booking endpoint
-      api.route('/declineBooking')
-          .post(function(req, res){
-              file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'declined' }, function(err, booking){
-                  if(err) throw err;
-                  res.json(booking);
-              })
-          });//end: POST - booking endpoint
-      api.route('/completeBooking')
-          .post(function(req, res){
-              file.Booking.findOneAndUpdate({ status: 'accepted', _id: req.body._id }, { status: 'completed' }, function(err, booking){
-                  if(err) throw err;
-                  res.json(booking);
-              });
-          });//end: POST - booking endpoint
+      //conversation
+      api.post('/conversation', function(req, res){
+         file.Conversation.findByIdAndUpdate({ _id: req.body._id },
+             {
+                 messages: {
+                     from: {
+                         id: req.body.messages.from.id,
+                         name: req.body.messages.from.name,
+                         profImage: req.body.messages.from.profImage
+                     },
+                     message_body: req.body.messages.message_body
+                 }
+            }, function(err, conversation){
+                 if(err) throw err;
+                 res.json(conversation);
+             }
+         )
+      });
+      //get conversation
+      api.get('/conversations', endpoints.getAllConversations);
       //start: POST - note endpoint
       api.route('/note')
           .post(function(req, res){
