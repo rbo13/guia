@@ -10,7 +10,7 @@
   var user, location, preference, guide,
     review, trip, tour, reward,
     redeem, booking, note, negotiate, admin, subscribe, log,
-    album, message;
+    album, conversation;
 
     var token;
 

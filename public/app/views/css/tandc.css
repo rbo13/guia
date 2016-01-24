@@ -1,0 +1,25 @@
+span.guia-color{
+	font-size: 20px;
+}
+
+.header-logo-card{
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.guia-color{
+    color: #61e24c;
+}
+
+.content-body{
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
+.content-footer{
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-bottom: 20%;
+}

@@ -36,6 +36,10 @@ http.listen(config.port, function(err){
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/public/app/views/index.html');
 });
+//terms
+app.get('/terms', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/terms.html');
+});
 //load admin page
 app.get('/dashboard', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
@@ -110,6 +114,9 @@ app.get('/css/material-icons.css', function(req, res){
 });
 app.get('/css/main.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/main.css');
+});
+app.get('/css/tandc.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/css/tandc.css');
 });
 app.get('/public/app/views/css/ghpages-materialize.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/ghpages-materialize.css');
