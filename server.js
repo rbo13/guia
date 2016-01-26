@@ -23,6 +23,27 @@ app.use(express.static(__dirname + '/public'));
 var api = require('./app/routes/api')(app, express, io);
 app.use('/api/v1', api);
 
+//load index page.
+app.get('/', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/index.html');
+});
+
+io.on('connection',function(socket){
+    console.log('one user connected '+socket.id);
+    socket.on('message', function(data){
+        var sockets = io.sockets.sockets;
+
+        sockets.forEach(function(sock){
+            if(sock.id != socket.id)
+            {
+                sock.emit('message',data);
+            }
+        })
+    })
+    socket.on('disconnect',function(){
+        console.log('one user disconnected '+socket.id);
+    });
+})
 
 http.listen(config.port, function(err){
   if(err){
@@ -32,10 +53,6 @@ http.listen(config.port, function(err){
   }
 });
 
-//load index page.
-app.get('/', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/index.html');
-});
 //load admin page
 app.get('/dashboard', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');

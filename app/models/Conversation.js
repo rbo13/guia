@@ -4,6 +4,14 @@
     var mongoose = require('mongoose'),
         Schema = mongoose.Schema;
 
+    //var MessageSchema = new Schema({
+    //    id: String,
+    //    name: String,
+    //    profImage: String,
+    //    message: String,
+    //    date: { type: Date, default: Date.now }
+    //});
+
     var ConversationSchema = new Schema({
         guide: {
             id: String,
@@ -13,15 +21,13 @@
             id: String,
             name: String
         },
-        messages: {
-                from: {
-                    id: String,
-                    name: String,
-                    profImage: String
-                },
-                message_body: String,
-                created: { type: Date, default: Date.now }
-        }
+        messages: [{
+            id: String,
+            name: String,
+            profImage: String,
+            message: String,
+            date: { type: Date, default: Date.now }
+        }]
     });
 //end creating conversation schema.
     module.exports = mongoose.model('Conversation', ConversationSchema);

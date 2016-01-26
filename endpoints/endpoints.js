@@ -40,6 +40,22 @@
               res.json(getConversations);
           });
       };
+      //conversationById
+      var getConversationById = function(req, res, next){
+          Conversation.find({'traveler.id': req.params.userId}, function(err, conversations){
+              if(err) res.status(500).send(err);
+              else if(conversations){
+                  req.conversations = conversations;
+                  next();
+              }else{
+                  res.json(conversations);
+              }
+          });
+      };
+
+      var getConversationByIdRoute = function(req, res){
+            res.json(req.conversations);
+      };
       //acceptBooking
       var acceptBooking = function(req, res){
           conversation = new Conversation;
@@ -464,6 +480,8 @@
       return{
           getAllRedeems: getAllRedeems,
           getAllConversations: getAllConversations,
+          getConversationById: getConversationById,
+          getConversationByIdRoute: getConversationByIdRoute,
           acceptBooking: acceptBooking,
           declineBooking: declineBooking,
           completeBooking: completeBooking,

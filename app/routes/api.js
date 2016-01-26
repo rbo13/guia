@@ -28,7 +28,8 @@
   module.exports = function(app, express, io){
       var api = express.Router();
       var endpoints = require('../../endpoints/endpoints.js')();
-//begin endpoints
+
+    //begin endpoints
       api.use('/user/:userId', endpoints.getById); //end getById endpoint
       api.route('/user/:userId')
          .get(endpoints.get)
@@ -464,24 +465,20 @@
 
       //conversation
       api.post('/conversation', function(req, res){
-         file.Conversation.findByIdAndUpdate({ _id: req.body._id },
-             {
-                 messages: {
-                     from: {
-                         id: req.body.messages.from.id,
-                         name: req.body.messages.from.name,
-                         profImage: req.body.messages.from.profImage
-                     },
-                     message_body: req.body.messages.message_body
-                 }
-            }, function(err, conversation){
-                 if(err) throw err;
-                 res.json(conversation);
-             }
-         )
+          file.Conversation.findById({ _id: req.body._id }, function(err, conversation){
+             conversation.messages.push({ id: req.body.messages.id, name: req.body.messages.name, profImage: req.body.messages.profImage, message: req.body.messages.message });
+
+              conversation.save(function(err){
+                  if(err) throw err;
+                  res.json(conversation);
+              })
+          });
       });
       //get conversation
       api.get('/conversations', endpoints.getAllConversations);
+      //get conversation by id
+      api.use('/conversation/:userId', endpoints.getConversationById); //end getConversationByID endpoint
+      api.route('/conversation/:userId').get(endpoints.getConversationByIdRoute)
       //start: POST - note endpoint
       api.route('/note')
           .post(function(req, res){
