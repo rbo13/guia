@@ -4,8 +4,24 @@
     var mongoose = require('mongoose'),
         Schema = mongoose.Schema;
 
+    var MessageSchema = new Schema({
+        id: String,
+        name: String,
+        profImage: String,
+        message: String,
+        date: { type: Date, default: Date.now }
+    });
+
     var ConversationSchema = new Schema({
-        messages: { type: Array, default: [] }
+        guide: {
+            id: String,
+            name: String
+        },
+        traveler: {
+            id: String,
+            name: String
+        },
+        messages: [MessageSchema]
     });
 //end creating message schema.
     module.exports = mongoose.model('Conversation', ConversationSchema);

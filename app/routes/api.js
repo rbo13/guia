@@ -466,31 +466,9 @@
               res.json(booking);
           });
       });
-      api.route('/acceptBooking')
-          .post(function(req, res){
-          if(req.body._id){
-              file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'accepted' }, function(err, booking){
-                  if(err) throw err;
-                  res.json(booking);
-              });
-          }else{
-              res.json(booking);
-          }
-      });//end: POST - booking endpoint
-      api.route('/declineBooking')
-          .post(function(req, res){
-              file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'declined' }, function(err, booking){
-                  if(err) throw err;
-                  res.json(booking);
-              })
-          });//end: POST - booking endpoint
-      api.route('/completeBooking')
-          .post(function(req, res){
-              file.Booking.findOneAndUpdate({ status: 'accepted', _id: req.body._id }, { status: 'completed' }, function(err, booking){
-                  if(err) throw err;
-                  res.json(booking);
-              });
-          });//end: POST - booking endpoint
+      api.route('/acceptBooking').post(endpoints.acceptBooking); //end: POST - acceptBooking endpoint
+      api.route('/declineBooking').post(endpoints.declineBooking); //end: POST - declineBooking endpoint
+      api.route('/completeBooking').post(endpoints.completeBooking); //end: POST - completeBooking endpoint
       //start: POST - note endpoint
       api.route('/note')
           .post(function(req, res){
@@ -520,9 +498,7 @@
           });//end: POST - note endpoint
       api.get('/notes', endpoints.getAllNotes); //end: GET - note endpoint
       api.use('/note/:guideId', endpoints.getNoteById); //end getByPreferenceId endpoint
-      api.route('/note/:guideId')
-          .get(endpoints.getNoteByIdRoute)
-          .delete(endpoints.deleteNote);
+      api.route('/note/:guideId').get(endpoints.getNoteByIdRoute).delete(endpoints.deleteNote);
       api.route('/note/:noteId')
          .post(function(req, res){
               file.Note.findByIdAndUpdate(req.params.noteId, { notes: req.body.notes, note_guide_id: req.body.note_guide_id, note_date: req.body.note_date }, function(err, note){
@@ -624,9 +600,21 @@
       api.route('/album/:albumId')
           .get(endpoints.getAlbumByIdRoute); //end
 
-      //TODO: message endpoint
-
-
+      //conversation
+      api.post('/conversation', function(req, res){
+          file.Conversation.findById({ _id: req.body._id }, function(err, conversation){
+              conversation.messages.push({ id: req.body.messages.id, name: req.body.messages.name, profImage: req.body.messages.profImage, message: req.body.messages.message });
+              conversation.save(function(err){
+                  if(err) throw err;
+                  res.json(conversation);
+              })
+          });
+      });
+      //get conversation
+      api.get('/conversations', endpoints.getAllConversations);
+      //get conversation by id
+      api.use('/conversation/:userId', endpoints.getConversationById);
+      api.route('/conversation/:userId').get(endpoints.getConversationByIdRoute);
       //signup admin
       api.post('/admin/signup', function(req, res){
           admin = new file.Admin({

@@ -13,9 +13,79 @@
   var Subscriber = require('../app/models/Subscriber');
   var Log = require('../app/models/Log');
   var Album = require('../app/models/Album');
+  var Conversation = require('../app/models/Conversation');
+  var Booking = require('../app/models/Booking');
+  var conversation;
 
   var endpoints = function(io){
-//user
+
+      //acceptBooking
+      var acceptBooking = function(req, res){
+          conversation = new Conversation;
+          Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'accepted' }, function(err, booking){
+              if(err) throw err;
+              User.findById({ _id: booking.booking_user_id }, function(err, user){
+                  if(err) throw err;
+                  conversation.traveler.id = user._id;
+                  conversation.traveler.name = user.name;
+              });
+              Guide.findById({ _id: booking.booking_guide_id }, function(err, guide){
+                  if(err) throw err;
+                  User.findById({ _id: guide.guide_user_id }, function(err, user_guide){
+                      conversation.guide.id = user_guide.guide_id;
+                      conversation.guide.name = user_guide.name;
+
+                      conversation.save(function(err){
+                          if(err) throw err;
+                          res.json(conversation);
+                      });
+                  });
+              });
+          });
+      };
+      //declineBooking
+      var declineBooking = function(req, res){
+          Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'declined' }, function(err, booking){
+              if(err) throw err;
+              res.json(booking);
+          })
+      };
+      //completeBooking
+      var completeBooking = function(req, res){
+          Booking.findOneAndUpdate({ status: 'accepted', _id: req.body._id }, { status: 'completed' }, function(err, booking){
+              if(err) throw err;
+              res.json(booking);
+          });
+      };
+
+      //getAllConversations
+      var getAllConversations = function(req, res){
+          Conversation.find({}, function(err, getConversations){
+              if(err){
+                  res.send(err);
+                  return;
+              }
+              res.json(getConversations);
+          });
+      };
+      //conversationById
+      var getConversationById = function(req, res, next){
+          Conversation.find({'traveler.id': req.params.userId}, function(err, conversations){
+              if(err) res.status(500).send(err);
+              else if(conversations){
+                  req.conversations = conversations;
+                  next();
+              }else{
+                  res.json(conversations);
+              }
+          });
+      };
+
+      var getConversationByIdRoute = function(req, res){
+          res.json(req.conversations);
+      };
+
+    //user
       var getById = function(req, res, next){
           User.findById(req.params.userId, function(err, user){
               if(err) res.status(500).send(err);
@@ -399,6 +469,12 @@
       };
 
       return{
+          acceptBooking: acceptBooking,
+          declineBooking: declineBooking,
+          completeBooking: completeBooking,
+          getAllConversations: getAllConversations,
+          getConversationById: getConversationById,
+          getConversationByIdRoute: getConversationByIdRoute,
           getLocationById: getLocationById,
           getLocationByIdRoute: getLocationByIdRoute,
           getLocation: getLocation,
