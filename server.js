@@ -40,6 +40,9 @@ app.get('/', function(req, res){
 app.get('/terms', function(req, res){
     res.sendFile(__dirname + '/public/app/views/terms.html');
 });
+app.get('/privacy', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/privacy.html');
+});
 //load admin page
 app.get('/dashboard', function(req, res){
     res.sendFile(__dirname + '/public/app/views/admin/dashboard.html');
