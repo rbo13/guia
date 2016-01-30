@@ -228,9 +228,23 @@ app.get('/img/cover2.jpg', function(req, res){
 });
 app.get('/img/icons/png/retina-ready.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/icons/png/Retina-Ready.png');
-});app.get('/img/icons/png/compas.png', function(req, res){
+});
+app.get('/img/icons/png/compas.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/icons/png/Compas.png');
-});app.get('/img/guia.png', function(req, res){
+});
+app.get('/img/icons/png/gift-box.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/icons/png/Gift-Box.png');
+});
+app.get('/img/icons/png/clipboard.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/icons/png/Clipboard.png');
+});
+app.get('/img/icons/png/watches.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/icons/png/Watches.png');
+});
+app.get('/img/icons/png/share.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/icons/png/Share.png');
+});
+app.get('/img/guia.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/guia.png');
 });
 //angular files
