@@ -1,6 +1,7 @@
 html{
 	height: 100%;
 	width: 100%;
+	overflow-x: hidden;
 }
 
 body{
@@ -14,6 +15,11 @@ body{
 img.brand{
 	height: 25%;
 	width: 25%;	
+}
+
+img.brand-xs{
+	height: 23%;
+	width: 23%;
 }
 
 input{
@@ -42,13 +48,13 @@ input{
 
 #page-top{
 	width: 100%;
-	height: 800px;
-	background: url(../img/cover.jpg);
+	padding-bottom: 25%;
+	background: url(../img/cover.jpg) no-repeat;
 }
 
 #page-top .row{
-	margin-left: 20%;
-	margin-right: 20%;
+	margin-left: 10%;
+	margin-right: 10%;
 	margin-top: 15%;
 	color: #fff;
 }
@@ -57,11 +63,15 @@ input{
 	padding-top: 180px;
 }
 
+#page-top .signup{
+	margin: 5px;
+}
+
 #about{
 	width: 100%;
-	height: 800px;
 	background: #fff;
 	padding-top: 10%;
+	padding-bottom: 10%;
 	color: #363635;
 }
 
@@ -78,6 +88,7 @@ input{
 	background: #61e24c;
 	text-align: center;
 	color: #fff;
+	margin: 0px;
 	padding-top: 10%;
 }
 
@@ -152,21 +163,19 @@ button.signup:hover{
 
 #download{
 	width: 100%;
-	height: 800px;
+	padding-top: 20%;
+	padding-bottom: 20%;
 	background: url(../img/cover2.jpg);
 	text-align: center;
 }
 
 #download .row{
-	margin-left: 20%;
-	margin-right: 20%;
-	margin-top: 15%;
 	color: #fff;
 }
 
 #contact{
 	width: 100%;
-	padding: 15%;
+	padding: 20%;
 	color: #fff;
 	background: #363635;
 	text-align: center
@@ -179,11 +188,11 @@ button.signup:hover{
 	margin-right: 43%;
 }
 
-#contact a{
+#contact div a{
 	padding: 23px;
 	font-size: 20px;
-	margin: 20px;
 	color: #fff;
+	margin: 15px;
 	background: url(../img/circbutton.png) no-repeat;
 }
 
