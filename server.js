@@ -242,7 +242,7 @@ app.get('/img/icons/png/watches.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/icons/png/Watches.png');
 });
 app.get('/img/icons/png/share.png', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/img/icons/png/Share.png');
+    res.sendFile(__dirname + '/public/app/views/img/icons/png/share.png');
 });
 app.get('/img/guia.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/guia.png');
