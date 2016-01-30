@@ -208,6 +208,9 @@ app.get('/img/brandlogo.png', function(req, res){
 app.get('/img/icons/png/map.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/icons/png/Map.png');
 });
+app.get('/img/guia-inline.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/guia-inline.png');
+});
 app.get('/img/circbutton.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/circbutton.png');
 });
