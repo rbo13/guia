@@ -105,6 +105,9 @@ app.get('/albumService.js', function(req, res){
 app.get('/bootstrap.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/album/bootstrap.css');
 });
+app.get('/css/bootstrap.min.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/css/bootstrap.min.css');
+});
 //add libraries: js, css
 app.get('/css/inconsolata.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/inconsolata.css');
@@ -114,6 +117,35 @@ app.get('/css/material-icons.css', function(req, res){
 });
 app.get('/css/main.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/main.css');
+});
+app.get('/css/landing.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/css/landing.css');
+});
+app.get('/dist/css/flat-ui.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/dist/css/flat-ui.css');
+});
+app.get('/dist/fonts/lato/lato-bold.woff', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/dist/fonts/lato/lato-bold.woff');
+});
+app.get('/dist/fonts/lato/lato-regular.woff', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/dist/fonts/lato/lato-regular.woff');
+});
+app.get('/dist/fonts/glyphicons/flat-ui-icons-regular.woff', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/dist/fonts/glyphicons/flat-ui-icons-regular.woff');
+});app.get('/dist/fonts/glyphicons/flat-ui-icons-regular.ttf', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/dist/fonts/glyphicons/flat-ui-icons-regular.ttf');
+});
+app.get('/js/bootstrap.min.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/js/bootstrap.min.js');
+});
+app.get('/js/scrolling-nav.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/js/scrolling-nav.js');
+});
+app.get('/dist/js/flat-ui.min.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/dist/js/flat-ui.min.js');
+});
+app.get('/docs/assets/js/application.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/docs/assets/js/application.js');
 });
 app.get('/css/tandc.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/tandc.css');
@@ -169,6 +201,31 @@ app.get('/images/guia-inline.png', function(req, res){
 });
 app.get('/views/images/guia-loader.gif', function(req, res){
     res.sendFile(__dirname + '/public/app/views/images/guia-loader.gif');
+});
+app.get('/img/brandlogo.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/brandlogo.png');
+});
+app.get('/img/icons/png/map.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/icons/png/Map.png');
+});
+app.get('/img/circbutton.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/circbutton.png');
+});
+app.get('/img/circbutton-hover.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/circbutton-hover.png');
+});
+app.get('/img/cover.jpg', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/cover.jpg');
+});
+app.get('/img/cover2.jpg', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/cover2.jpg');
+});
+app.get('/img/icons/png/retina-ready.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/icons/png/Retina-Ready.png');
+});app.get('/img/icons/png/compas.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/icons/png/Compas.png');
+});app.get('/img/guia.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/guia.png');
 });
 //angular files
 app.get('/public/app/app.js', function(req, res){

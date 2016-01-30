@@ -399,7 +399,7 @@
 
       //subscriber
       var getAllSubscribers = function(req,res){
-          Subscriber.find({}, function(err, getSubscribers){
+          Subscriber.find({}).sort({ created: -1 }).exec(function(err, getSubscribers){
               if(err){
                   res.send(err);
                   return;

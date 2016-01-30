@@ -1,0 +1,201 @@
+html{
+	height: 100%;
+	width: 100%;
+}
+
+body{
+	margin: 0 auto;
+	padding: 0 auto;
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+}
+
+img.brand{
+	height: 25%;
+	width: 25%;	
+}
+
+input{
+	border-radius: 3px;
+	border: 2px solid #fff;
+	padding: 5px;
+}
+
+.footer{
+	text-align: center;
+	font-size: 15px;
+	color: #fff;
+	background: #222222;
+}
+
+.footer a{
+	font-size: 15px !important;
+}
+
+.navbar{
+	border-radius: 0;
+	padding-bottom: 0;
+	margin-bottom: 0;
+	border-bottom: 0;
+}
+
+#page-top{
+	width: 100%;
+	height: 800px;
+	background: url(../img/cover.jpg);
+}
+
+#page-top .row{
+	margin-left: 20%;
+	margin-right: 20%;
+	margin-top: 15%;
+	color: #fff;
+}
+
+#page-top div div img{
+	padding-top: 180px;
+}
+
+#about{
+	width: 100%;
+	height: 800px;
+	background: #fff;
+	padding-top: 10%;
+	color: #363635;
+}
+
+#about .row .about-desc p, h2{
+	text-align: center;
+}
+
+#about .row .feat{
+	padding-top: 30px;
+	text-align: center;
+}
+
+.signup{
+	background: #61e24c;
+	text-align: center;
+	color: #fff;
+	padding-top: 10%;
+}
+
+a.signup{
+	text-align: center;
+	background: rgba(0,0,0, 0.0);
+	padding-top: 10px;
+	padding-left: 35px;
+	padding-right: 35px;
+	padding-bottom: 10px;
+	color: #fff;
+	border-radius: 9px;
+	border: 2px solid #fff;
+}
+
+a.signup:hover{
+	text-align: center;
+	background: #fff;
+	padding-top: 10px;
+	padding-left: 35px;
+	padding-right: 35px;
+	padding-bottom: 10px;
+	color: #61e24c;
+	border-radius: 9px;
+	border: 2px solid #fff;
+}
+
+
+button.signup{
+	text-align: center;
+	background: rgba(0,0,0, 0.0);
+	padding-top: 10px;
+	padding-left: 35px;
+	padding-right: 35px;
+	padding-bottom: 10px;
+	color: #fff;
+	border-radius: 9px;
+	border: 2px solid #fff;
+}
+
+button.signup:hover{
+	text-align: center;
+	background: #fff;
+	padding-top: 10px;
+	padding-left: 35px;
+	padding-right: 35px;
+	padding-bottom: 10px;
+	color: #61e24c;
+	border-radius: 9px;
+	border: 2px solid #fff;
+}
+
+#explainer{
+	width: 100%;
+	background: #61e24c;
+	padding: 20%;
+	color: #fff;
+	padding-top: 80px;
+}
+
+#explainer .row{
+	height: 100%;
+	width: 100%;
+}
+
+#explainer .row img{
+	height: 30%;
+	width: 30%;
+	margin-left: 35%;
+	margin-right: 35%;
+}
+
+#download{
+	width: 100%;
+	height: 800px;
+	background: url(../img/cover2.jpg);
+	text-align: center;
+}
+
+#download .row{
+	margin-left: 20%;
+	margin-right: 20%;
+	margin-top: 15%;
+	color: #fff;
+}
+
+#contact{
+	width: 100%;
+	padding: 15%;
+	color: #fff;
+	background: #363635;
+	text-align: center
+}
+
+#contact img{
+	height: 15%;
+	width: 15%;
+	margin-left: 43%;
+	margin-right: 43%;
+}
+
+#contact a{
+	padding: 23px;
+	font-size: 20px;
+	margin: 20px;
+	color: #fff;
+	background: url(../img/circbutton.png) no-repeat;
+}
+
+#contact a:hover{
+	background: url(../img/circbutton-hover.png) no-repeat;
+	color: #61e24c;
+}
+
+#contact a span{
+	text-align: center;
+}
+
+#contact .row{
+	margin-bottom: 25px
+}
