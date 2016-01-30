@@ -247,6 +247,9 @@ app.get('/img/icons/png/share.png', function(req, res){
 app.get('/img/guia.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/guia.png');
 });
+app.get('/img/guia-thumbnail.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/guia-thumbnail.png');
+});
 //angular files
 app.get('/public/app/app.js', function(req, res){
     res.sendFile(__dirname + '/public/app/app.js');
