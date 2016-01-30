@@ -205,6 +205,9 @@ app.get('/views/images/guia-loader.gif', function(req, res){
 app.get('/img/brandlogo.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/brandlogo.png');
 });
+app.get('/img/favicon.ico', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/favicon.ico');
+});
 app.get('/img/icons/png/map.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/icons/png/Map.png');
 });
