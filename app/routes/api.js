@@ -115,6 +115,10 @@
                       type: req.body.type,
                       guide_user_id: req.body.guide_user_id
                   });
+
+                  file.User.findByIdAndUpdate({ _id: req.body.guide_user_id }, { guide_id: "pending" }, function(err, user){
+                      console.log(user);
+                  });
               }else if(loggedInUser){
                   guide = new file.Guide({
                       country: req.body.country,
@@ -123,6 +127,10 @@
                       email_address: req.body.email_address,
                       type: req.body.type,
                       guide_user_id: req.body.guide_user_id
+                  });
+
+                  file.User.findByIdAndUpdate({ _id: req.body.guide_user_id }, { guide_id: "pending" }, function(err, user){
+                      console.log(user);
                   });
               }
               guide.save(function(err, newGuide){

@@ -14,7 +14,7 @@
             }
 
             var deactivate = function(guide_user_id){
-                var obj = { guide_id: "" };
+                var obj = { guide_id: "deactivated" };
                 return $http.patch('/api/v1/user/'+guide_user_id, obj);
             }
 
