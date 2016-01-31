@@ -13,11 +13,7 @@ var TourSchema = new Schema({
   tour_preference: String,
   tour_guide_id: { type: String },
   main_image: { type: String },
-  additional_image : [
-    {
-      image: String
-    }
-  ]
+  additional_image : { type: Array, default: [] }
 });
 //end creating Tour Schema
 module.exports = mongoose.model('Tour', TourSchema);

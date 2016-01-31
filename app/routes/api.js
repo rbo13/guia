@@ -293,7 +293,8 @@
               points: req.body.rate * .05,
               rate : req.body.rate,
               negotiable : req.body.negotiable,
-              main_image: req.body.main_image
+              main_image: req.body.main_image,
+              additional_image: req.body.additional_image
           });
            tour.save(function(err){
              if(err)  res.send(err);
