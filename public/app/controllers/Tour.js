@@ -1,12 +1,12 @@
 (function(){
     'use strict';
 
-    angular.module('userController', [])
-        .controller('UserController', UserController);
+    angular.module('tourController', [])
+        .controller('TourController', TourController);
 
-    UserController.$inject = ['$location', '$window', 'User', 'Guide', 'socketio', 'Toast', 'Log', 'Tour'];
+    TourController.$inject = ['$location', '$window', 'User', 'Guide', 'socketio', 'Toast', 'Log', 'Tour'];
 
-    function UserController($location, $window, User, Guide, socketio, Toast, Log, Tour){
+    function TourController($location, $window, User, Guide, socketio, Toast, Log, Tour){
         var vm = this;
         vm.guiaPreloader = true;
         vm.userTable = false;
@@ -29,9 +29,9 @@
                     .success(function(data){
                         console.log(data);
                         Log.createLog(data.name + " - Guide Activated")
-                                .success(function(data){
-                                    console.log(data.email_address + " - Guide Activated");
-                        });
+                            .success(function(data){
+                                console.log(data.email_address + " - Guide Activated");
+                            });
                     }).error(function(){
                         console.log('FAIL');
                     });
@@ -57,17 +57,10 @@
                     .success(function(data){
                         console.log(data);
                         console.log('Deactivated');
-
-                        //TODO: continue
-                        //Tour.patchTour('5670af27b6026a11003ca1b3', '')
-                        //    .success(function(data){
-                        //        console.log(data);
-                        //    });
-
                         Log.createLog(data.name + " - Guide Deactivated")
                             .success(function(data){
                                 console.log(data.name + " - Guide Deactivated");
-                        });
+                            });
                     }).error(function(){
                         console.log('FAIL');
                     });

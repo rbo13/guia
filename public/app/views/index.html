@@ -57,12 +57,18 @@
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                 <h1 class="center hidden-xs">Get off the beaten path</h1>
                 <h3 class="center hidden-sm hidden-md hidden-lg">Get off the beaten path</h3>
-                <form>
-                    <input required id="email" type="email" placeholder="Email" ng-model="_subscriber.email" style="color: #000;">
-                    <button class="signup" ng-click="_subscriber.addSubscriber()">
-                        <strong>Subscribe Now!</strong>
-                    </button>
-                </form>
+                <div ng-show="!_subscriber.success">
+                    <form>
+                        <input required id="email" type="email" placeholder="Email" ng-model="_subscriber.email" style="color: #000;">
+                        <button class="signup" ng-click="_subscriber.addSubscriber()">
+                            <strong>Subscribe Now!</strong>
+                        </button>
+                    </form>
+                </div>
+                <div ng-show="_subscriber.success">
+                    <h6>Thank you for subscribing!</h6>
+                </div>
+
 			</div>
             <div class="col-lg-2"></div>
 		</div>

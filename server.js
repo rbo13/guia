@@ -308,6 +308,9 @@ app.get('/public/app/services/reviewService.js', function(req, res){
 app.get('/public/app/services/logService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/services/logService.js');
 });
+app.get('/public/app/services/tourService.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/services/tourService.js');
+});
 app.get('/public/app/controllers/Dashboard.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Dashboard.js');
 });
@@ -337,6 +340,9 @@ app.get('/public/app/controllers/Subscriber.js', function(req, res){
 });
 app.get('/public/app/controllers/Logs.js', function(req, res){
     res.sendFile(__dirname + '/public/app/controllers/Logs.js');
+});
+app.get('/public/app/controllers/Tour.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/controllers/Tour.js');
 });
 app.get('/public/app/directives/reverse.js', function(req, res){
     res.sendFile(__dirname + '/public/app/directives/reverse.js');

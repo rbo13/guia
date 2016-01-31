@@ -315,6 +315,8 @@
       api.get('/tours', endpoints.getAllTours); //end GET-tour endpoint
       api.use('/tour/:tourId', endpoints.getTourById);
       api.route('/tour/:tourId').get(endpoints.getTourByIdRoute);
+      api.use('/tours/:tour_guide_id', endpoints.getTourByTourGuideId);
+      api.route('/tours/:tour_guide_id').get(endpoints.getTourByTourGuideIdRoute).post(endpoints.patchTour);
       api.route('/tourByPreference')
           .post(function(req, res){
             var searchQuery = req.body.tour_preference;

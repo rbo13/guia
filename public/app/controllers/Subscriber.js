@@ -8,6 +8,7 @@
 
     function SubscriberController(Subscriber){
         var vm = this;
+        vm.success = false;
         vm.errorMessage = false;
 
         vm.addSubscriber = function(){
@@ -19,6 +20,7 @@
                         if(data.success){
                             vm.email = '';
                             console.log(data.message);
+                            vm.success = !vm.success;
                         }else{
                             vm.errorMessage = true;
                             vm.errorMessage = data.message;

@@ -326,10 +326,8 @@
 //start tours
       var getAllTours = function(req, res){
           Tour.find({}, function(err, getTours){
-              if(err){
-                  res.send(err);
-                  return;
-              }
+              if(err) throw err;
+
               res.json(getTours);
           });
       };
@@ -348,6 +346,50 @@
 
       var getTourByIdRoute = function(req, res){
           res.json(req.tour)
+      };
+
+      var getTourByTourGuideId = function(req, res, next){
+          Tour.find({ tour_guide_id: req.params.tour_guide_id })
+              .exec(function(err, tour){
+                 if(err) throw err;
+                  else if(tour){
+                     req.tourGuide = tour;
+                     next();
+                 }else{
+                     res.status(404).send('No tour found!');
+                 }
+              });
+      };
+
+      var getTourByTourGuideIdRoute = function(req, res){
+          res.json(req.tourGuide);
+      };
+
+      var patchTour = function(req, res){
+          Tour.find({ tour_guide_id: req.params.tour_guide_id }, function(err, resp){
+              resp.forEach(function(doc){
+                  var tour_guide_id = [doc.tour_guide_id];
+
+                  tour_guide_id.forEach(function(tour){
+                      tour = 'deactivated';
+
+                      doc.tour_guide_id = tour;
+                      doc.save(function(err, doc){
+                          console.log(doc);
+                      })
+                  });
+
+                  //doc.tour_guide_id.forEach(function(tour){
+                  //  if(req.params.tour_guide_id.indexOf(tour.tour_guide_id.toString()) != -1){
+                  //      tour.tour_guide_id = 'deactivated';
+                  //
+                  //      Tour.update({ _id: doc.tour_guide_id}, {$set: {"tour_guide_id": tour_guide_id}}, function(err, aff, raw){
+                  //          console.log(aff);
+                  //      });
+                  //  }
+                  //})
+              })
+          });
       };
 //end tours
 
@@ -495,6 +537,8 @@
           getTrips: getTrips,
           getAllTours: getAllTours,
           getTourById: getTourById,
+          getTourByTourGuideId: getTourByTourGuideId,
+          getTourByTourGuideIdRoute:getTourByTourGuideIdRoute,
           getTourByIdRoute: getTourByIdRoute,
           getRewardById: getRewardById,
           getRewardByIdRoute: getRewardByIdRoute,
@@ -513,7 +557,8 @@
           getAlbumByIdRoute: getAlbumByIdRoute,
           getAllAlbums: getAllAlbums,
           getReviewByGuideId: getReviewByGuideId,
-          getReviewByGuideIdRoute: getReviewByGuideIdRoute
+          getReviewByGuideIdRoute: getReviewByGuideIdRoute,
+          patchTour: patchTour
       }
   };
 
