@@ -375,3 +375,6 @@ app.get('/bower_components/ngConfirmDialog/src/js/ngConfirmDialog.js', function(
 app.get('/socket.io/socket.io.js', function(req, res){
     res.sendFile(__dirname + '/socket.io/socket.io.js');
 });
+app.get('/zohoverify/verifyforzoho.html', function(req, res){
+    res.sendFile(__dirname + '/zohoverify/verifyforzoho.html');
+})
