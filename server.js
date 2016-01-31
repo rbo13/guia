@@ -211,6 +211,9 @@ app.get('/img/brandlogo.png', function(req, res){
 app.get('/img/favicon.ico', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/favicon.ico');
 });
+app.get('/img/soon-play.png', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/img/soon-play.png');
+});
 app.get('/img/icons/png/map.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/icons/png/Map.png');
 });

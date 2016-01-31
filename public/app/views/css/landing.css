@@ -84,8 +84,8 @@ img.about-img{
 @media screen and (max-device-width: 640px){
 	#page-top{
 		width: 100%;
-		padding-top: 50%;
-		padding-bottom: 50%;
+		padding-top: 40%;
+		padding-bottom: 60%;
 		background: url(../img/cover.jpg) no-repeat fixed;
 		background-size: cover;
 	}
@@ -122,8 +122,8 @@ img.about-img{
 @media screen and (min-device-width: 640px){
 	#page-top{
 		width: 100%;
-		padding-top: 25%;
-		padding-bottom: 25%;
+		padding-top: 10%;
+		padding-bottom: 40%;
 		background: url(../img/cover.jpg) no-repeat;
 		background-size: cover;
 	}
@@ -226,7 +226,7 @@ button.signup:hover{
 
 #download{
 	width: 100%;
-	padding-top: 10%;
+	padding-top: 13%;
 	padding-bottom: 23%;
 	background: url(../img/cover2.jpg) no-repeat;
 	background-size: cover;
