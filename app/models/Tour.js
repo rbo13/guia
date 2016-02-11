@@ -13,7 +13,16 @@ var TourSchema = new Schema({
   tour_preference: String,
   tour_guide_id: { type: String },
   main_image: { type: String },
-  additional_image : { type: Array, default: [] }
+  additional_image : { type: Array, default: [] },
+  user: {
+    id: String,
+    name: String,
+    birthday: String,
+    age: Number,
+    gender: String,
+    profImage: String
+  }
+  
 });
 //end creating Tour Schema
 module.exports = mongoose.model('Tour', TourSchema);

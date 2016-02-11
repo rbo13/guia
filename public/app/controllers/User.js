@@ -11,6 +11,7 @@
         vm.guiaPreloader = true;
         vm.userTable = false;
         vm.guides = [];
+        vm.guideId;
 
         //getAllGuides
         User.getAllGuides()
@@ -28,6 +29,19 @@
                 User.patchUser(guide_user_id, id)
                     .success(function(data){
                         console.log(data);
+                        console.log(data._id);
+                        console.log(data.guide_id);
+                        vm.guideId = data.guide_id;
+                        console.log('Tour Activated');
+
+                        //Tour.patchTour(data.guide_id, vm.guideId)
+                        //    .success(function(data){
+                        //        console.log(vm.guideId);
+                        //        console.log(data);
+                        //    }).error(function(){
+                        //        console.log("Failed To Update Tour");
+                        //    });
+
                         Log.createLog(data.name + " - Guide Activated")
                                 .success(function(data){
                                     console.log(data.email_address + " - Guide Activated");
@@ -37,6 +51,7 @@
                     });
             };
             console.log('Guide Activated');
+
             Guide.patchGuide(id, value)
                 .success(function(data){
                     vm.user();
@@ -57,11 +72,16 @@
                     .success(function(data){
                         console.log(data);
                         console.log('Deactivated');
-
+                        console.log(data.guide_id);
+                        console.log('Tour Deactivated');
                         //TODO: continue
-                        //Tour.patchTour('5670af27b6026a11003ca1b3', '')
+                        //Tour.patchTour(vm.guideId, 'deactivated')
                         //    .success(function(data){
+                        //        vm.guideId = data.guide_id;
+                        //        console.log(vm.guideId);
                         //        console.log(data);
+                        //    }).error(function(){
+                        //        console.log("Failed To Update Tour");
                         //    });
 
                         Log.createLog(data.name + " - Guide Deactivated")

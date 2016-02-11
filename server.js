@@ -7,6 +7,7 @@ var config = require('./config');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+
 //connect to mongodb
 mongoose.connect(config.database, function(err){
   if(err) console.log(err);
@@ -22,7 +23,6 @@ app.use(express.static(__dirname + '/public'));
 //load the api
 var api = require('./app/routes/api')(app, express, io);
 app.use('/api/v1', api);
-
 
 http.listen(config.port, function(err){
   if(err){

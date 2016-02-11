@@ -60,7 +60,7 @@
                           .populate('gender')
                           .populate('profImage')
                           .populate('guide_id');
-                      res.json(user);
+                      return res.json(user);
                   }
               }); //end user.save()
           }
@@ -75,7 +75,7 @@
             createUser(req, res);
           } else if (user) {
               loggedInUser = user._id;
-              res.json(user);
+              return res.json(user);
           }
       });
     });//end: login endpoint
@@ -99,7 +99,7 @@
                     .exec(function(error, locations) {
                         console.log(JSON.stringify(locations, null, "\t"));
                     });
-                res.json(newLocation);
+                return res.json(newLocation);
             })
         });//end of location POST endpoint.
     api.route('/locations').get(endpoints.getLocation); //end GET location endpoint
@@ -170,9 +170,9 @@
               }
               req.getLocation.save(function(err){
                   if(err)
-                      res.status(500).send(err);
+                      return res.status(500).send(err);
                   else
-                      res.json(req.getLocation);
+                      return res.json(req.getLocation);
               });
           }); //register getLocationById route
       //start POST-preference endpoint
@@ -187,7 +187,7 @@
                       io.emit('preference', newPreference);
                       file.Preference.find({})
                           .populate('preference');
-                      res.json(preference);
+                      return res.json(preference);
                   }
                 });
              });//end POST-preference endpoint
@@ -237,7 +237,7 @@
                           .populate('facebook_id')
                           .populate('name')
                           .populate('profImage');
-                      res.json(review);
+                      return res.json(review);
                   });
               }else{
                   res.json({
@@ -274,7 +274,7 @@
                      .populate('destination')
                      .populate('date_from')
                      .populate('date_to');
-                 res.json(trip);
+                 return res.json(trip);
              }
            });
          }); //end POST-trip endpoint
@@ -282,41 +282,61 @@
       //start POST-tour endpoint
       api.route('/tour')
          .post(function(req, res){
-          tour = new file.Tour({
-              name  : req.body.name,
-              tour_location : req.body.tour_location,
-              duration : req.body.duration,
-              duration_format: req.body.duration_format,
-              details  : req.body.details,
-              tour_preference : req.body.tour_preference,
-              tour_guide_id : req.body.tour_guide_id,
-              points: req.body.rate * .05,
-              rate : req.body.rate,
-              negotiable : req.body.negotiable,
-              main_image: req.body.main_image,
-              additional_image: req.body.additional_image
-          });
-           tour.save(function(err){
-             if(err)  res.send(err);
-             else if(!err){
-                 file.Tour.find({})
-                     .populate('name')
-                     .populate('tour_location')
-                     .populate('duration')
-                     .populate('details')
-                     .populate('rate')
-                     .populate('negotiable')
-                     .populate('tour_guide_id')
-                     .populate('additional_image.image');
-                 res.json(tour)
-             }
-           });
+            file.User.find({ guide_id: req.body.guide_id }, function(err, user){
+                if(err) throw err;
+
+                user.forEach(function(user){
+
+                    tour = new file.Tour({
+                        name  : req.body.name,
+                        tour_location : req.body.tour_location,
+                        duration : req.body.duration,
+                        duration_format: req.body.duration_format,
+                        details  : req.body.details,
+                        tour_preference : req.body.tour_preference,
+                        tour_guide_id : req.body.tour_guide_id,
+                        rate : req.body.rate,
+                        points: req.body.rate * .05,
+                        negotiable : req.body.negotiable,
+                        main_image: req.body.main_image,
+                        additional_image: req.body.additional_image,
+                        user: {
+                            id: user._id,
+                            name: user.name,
+                            birthday: user.birthday,
+                            age: user.age,
+                            gender: user.gender,
+                            profImage: user.profImage
+                        }
+                    });
+                    tour.save(function(err){
+                        if(err)  return res.send(err);
+                        else if(!err){
+                            return res.json(tour)
+                        }
+                    });
+                });
+            });
          });//end POST-tour endpoint
       api.get('/tours', endpoints.getAllTours); //end GET-tour endpoint
       api.use('/tour/:tourId', endpoints.getTourById);
       api.route('/tour/:tourId').get(endpoints.getTourByIdRoute);
-      api.use('/tours/:tour_guide_id', endpoints.getTourByTourGuideId);
-      api.route('/tours/:tour_guide_id').get(endpoints.getTourByTourGuideIdRoute).post(endpoints.patchTour);
+      //api.use('/tours/:tour_guide_id', endpoints.getTourByTourGuideId);
+      api.post('/tours/:tour_guide_id', function(req, res){
+            file.Tour.find({ tour_guide_id: req.params.tour_guide_id }, function(err, tours){
+
+                tours.forEach(function(tour){
+                    var tour_guide_id = [tour.tour_guide_id];
+                    tour_guide_id.forEach(function(newTour){
+                        newTour = req.body.tour_guide_id;
+                        tour.tour_guide_id = newTour;
+
+                        tour.save();
+                    });
+               });
+          });
+      });
+
       api.route('/tourByPreference')
           .post(function(req, res){
             var searchQuery = req.body.tour_preference;
@@ -331,7 +351,7 @@
                                 message: "Tour not found"
                             });
                         }
-            res.json(tour);
+            return res.json(tour);
         })
       }); //end POSt - tourByPreference endpoint
       //start: POST - reward endpoint
@@ -348,7 +368,7 @@
                   file.Reward.find({})
                       .populate('reward_tour_id')
                       .populate('redeem_points');
-                  res.json(reward);
+                  return res.json(reward);
               }
             });
           });//end: POST - reward endpoint
@@ -359,7 +379,7 @@
                   res.send(err);
                   return;
               }
-              res.json(getRewards);
+              return res.json(getRewards);
           });
       });//end GET-reward endpoint
       api.use('/reward/:rewardId', endpoints.getRewardById); //getLocationById
@@ -374,9 +394,9 @@
               }
               req.getReward.save(function(err){
                   if(err)
-                      res.status(500).send(err);
+                      return res.status(500).send(err);
                   else
-                      res.json(req.getReward);
+                      return res.json(req.getReward);
               });
           });
       //start: POST - redeem endpoint
@@ -391,7 +411,7 @@
               else if(!err){
                   file.Redeemed.find({})
                       .populate('redeem_reward_id');
-                  res.json(redeem);
+                  return res.json(redeem);
               }
             });
           });//end: POST - redeem endpoint
@@ -402,7 +422,7 @@
                   res.send(err);
                   return;
               }
-              res.json(getRedeems);
+              return res.json(getRedeems);
           });
       });//end GET-redeem endpoint
       //start: getAllBooking
@@ -412,7 +432,7 @@
                   res.send(err);
                   return;
               }
-              res.json(getBookings);
+              return res.json(getBookings);
           });
       });//end
       //start: getAllBookingByGuideId
@@ -422,7 +442,7 @@
                   res.send(err);
                   return;
               }
-              res.json(getBookings);
+              return res.json(getBookings);
           });
       });//end
       //start: POST - booking endpoint
@@ -461,7 +481,7 @@
                                 });
                                 booking.save(function(err){
                                     if(err) res.send(err);
-                                    res.json(booking);
+                                    return res.json(booking);
                                 });
                           }
                       });
@@ -474,7 +494,7 @@
                   res.send(err);
                   return;
               }
-              res.json(booking);
+              return res.json(booking);
           });
       });
       api.route('/acceptBooking').post(endpoints.acceptBooking); //end: POST - acceptBooking endpoint
@@ -483,38 +503,27 @@
       //start: POST - note endpoint
       api.route('/note')
           .post(function(req, res){
-              file.User.findById({ _id: req.body._id }, function(err, user){
+              note = new file.Note({
+                  title: req.body.title,
+                  note_content: req.body.note_content,
+                  note_date: req.body.note_date,
+                  note_guide_id: req.body.note_guide_id
+              });
+              note.save(function(err){
                   if(err) throw err;
-                  else{
-                      note = new file.Note({
-                          title: req.body.title,
-                          note_content: req.body.note_content,
-                          note_date: req.body.note_date,
-                          user: {
-                              id: user._id,
-                              name: user.name,
-                              age: user.age,
-                              profImage: user.profImage,
-                              gender:  user.gender
-                          }
-                      });
-                      note.save(function(err){
-                          if(err) throw err;
-                          else if(!err){
-                              res.json(note);
-                          }
-                      });
+                  else if(!err){
+                      return res.json(note);
                   }
               });
           });//end: POST - note endpoint
       api.get('/notes', endpoints.getAllNotes); //end: GET - note endpoint
-      api.use('/note/:guideId', endpoints.getNoteById); //end getByPreferenceId endpoint
-      api.route('/note/:guideId').get(endpoints.getNoteByIdRoute).delete(endpoints.deleteNote);
+      api.use('/note/:note_guide_id', endpoints.getNoteById); //end getByPreferenceId endpoint
+      api.route('/note/:note_guide_id').get(endpoints.getNoteByIdRoute).delete(endpoints.deleteNote);
       api.route('/note/:noteId')
          .post(function(req, res){
               file.Note.findByIdAndUpdate(req.params.noteId, { notes: req.body.notes, note_guide_id: req.body.note_guide_id, note_date: req.body.note_date }, function(err, note){
               if(err) throw err;
-              res.json(note);
+              return res.json(note);
           });
       });
       api.route('/negotiate')
@@ -532,7 +541,7 @@
                           .populate('negotiate_tour_id')
                           .populate('proposed_rate')
                           .populate('offered_rate');
-                      res.json(negotiate);
+                      return res.json(negotiate);
                   }
               })
           }); //end
@@ -603,7 +612,7 @@
                   .populate('user.facebook_id')
                   .populate('user.name')
                   .populate('user.profImage');
-              res.json(newAlbum);
+              return res.json(newAlbum);
           });
       });
       api.get('/albums', endpoints.getAllAlbums);
@@ -617,15 +626,41 @@
               conversation.messages.push({ id: req.body.messages.id, name: req.body.messages.name, profImage: req.body.messages.profImage, message: req.body.messages.message });
               conversation.save(function(err){
                   if(err) throw err;
-                  res.json(conversation);
+                  return res.json(conversation);
               })
           });
       });
       //get conversation
       api.get('/conversations', endpoints.getAllConversations);
       //get conversation by id
-      api.use('/conversation/:userId', endpoints.getConversationById);
-      api.route('/conversation/:userId').get(endpoints.getConversationByIdRoute);
+      //api.use('/conversations/:userId', endpoints.getConversationByTravelerId);
+      //api.route('/conversations/:userId').get(endpoints.getConversationByTravelerIdRoute);
+
+      api.use('/conversation/:conversationId', function(req, res, next){
+          file.Conversation.findById(req.params.conversationId, function(err, conversation){
+              if(err) res.status(500).send(err);
+              else if(conversation){
+                  req.conversation = conversation;
+                  next();
+              }else{
+                  return res.json(conversation);
+              }
+          });
+      });
+
+      api.route('/conversation/:conversationId').get(function(req, res){
+          return res.json(req.conversation);
+      });
+
+      //TODO: CONTINUE SOCKET
+      //io.on('connection', function(socket){
+      //    console.log('A user connected ' +socket.id);
+      //
+      //    socket.on('disconnect', function(){
+      //        console.log('User disconnected ' +socket.id);
+      //    });
+      //});
+
       //signup admin
       api.post('/admin/signup', function(req, res){
           admin = new file.Admin({
