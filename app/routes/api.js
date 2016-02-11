@@ -518,10 +518,10 @@
           });//end: POST - note endpoint
       api.get('/notes', endpoints.getAllNotes); //end: GET - note endpoint
       api.use('/note/:note_guide_id', endpoints.getNoteById); //end getByPreferenceId endpoint
-      api.route('/note/:note_guide_id').get(endpoints.getNoteByIdRoute).delete(endpoints.deleteNote);
-      api.route('/note/:noteId')
+      api.route('/note/:note_guide_id').get(endpoints.getNoteByIdRoute).post(endpoints.deleteNote);
+      api.route('/notes/:note_id')
          .post(function(req, res){
-              file.Note.findByIdAndUpdate(req.params.noteId, { notes: req.body.notes, note_guide_id: req.body.note_guide_id, note_date: req.body.note_date }, function(err, note){
+          file.Note.findByIdAndUpdate(req.params.note_id, { title: req.body.title, note_content: req.body.note_content, note_date: req.body.note_date }, function(err, note){
               if(err) throw err;
               return res.json(note);
           });

@@ -432,6 +432,14 @@
       var getNoteByIdRoute = function(req, res){
           return res.json(req.note);
       };
+
+      var deleteNote = function(req, res){
+          file.Note.findByIdAndRemove(req.params.note_guide_id, function(err, note){
+              if(err) throw err;
+
+              return res.json(note);
+          });
+      };
 //end note
 
       //subscriber
@@ -455,14 +463,7 @@
           });
       };//end
 
-      var deleteNote = function(req, res){
-          req.note.remove(function(err){
-              if(err)
-                  return res.status(500).send(err);
-              else
-                  return res.status(204).json({ message: "Note has been removed successfully!" });
-          });
-      };
+
       var getAlbumById = function(req, res, next){
           file.Album.findById(req.params.albumId, function(err, album){
               if(err) res.status(500).send(err);
