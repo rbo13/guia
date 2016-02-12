@@ -12,7 +12,8 @@ var GuideSchema = new Schema({
     guide_user_id: { type: String },
     rating: { type: Number, default: 0 },
     reviewCount: { type: Number, default: 0 },
-    created: { type: Date, default: Date.now }
+    created: { type: Date, default: Date.now },
+    profImage: String
 });
 //end creating guide Schema
 module.exports = mongoose.model('Guide', GuideSchema);

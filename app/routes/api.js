@@ -122,7 +122,8 @@
                       contact_number: req.body.contact_number,
                       email_address: req.body.email_address,
                       type: req.body.type,
-                      guide_user_id: req.body.guide_user_id
+                      guide_user_id: req.body.guide_user_id,
+                      profImage: req.body.profImage
                   });
 
                   file.User.findByIdAndUpdate({ _id: req.body.guide_user_id }, { guide_id: "pending" }, function(err, user){
@@ -135,7 +136,8 @@
                       contact_number: req.body.contact_number,
                       email_address: req.body.email_address,
                       type: req.body.type,
-                      guide_user_id: req.body.guide_user_id
+                      guide_user_id: req.body.guide_user_id,
+                      profImage: req.body.profImage
                   });
 
                   file.User.findByIdAndUpdate({ _id: req.body.guide_user_id }, { guide_id: "pending" }, function(err, user){
