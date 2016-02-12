@@ -28,7 +28,16 @@
   module.exports = function(app, express, io){
       var api = express.Router();
       var endpoints = require('../../endpoints/endpoints.js')();
-//begin endpoints
+
+      //route variable for socket to listen
+      var routes = {
+          // /conversation/:id
+          'conversation': '^\\/conversation\\/(\\d+)$',
+          // /:something/:id
+          'default': '^\\/(\\\w+)\\/(\\d+)$'
+      };
+
+      //begin endpoints
       api.use('/user/:userId', endpoints.getById); //end getById endpoint
       api.route('/user/:userId')
          .get(endpoints.get)
@@ -282,7 +291,7 @@
       //start POST-tour endpoint
       api.route('/tour')
          .post(function(req, res){
-            file.User.find({ guide_id: req.body.guide_id }, function(err, user){
+            file.User.find({ guide_id: req.body.tour_guide_id }, function(err, user){
                 if(err) throw err;
 
                 user.forEach(function(user){
@@ -521,9 +530,9 @@
       api.route('/note/:note_guide_id').get(endpoints.getNoteByIdRoute).post(endpoints.deleteNote);
       api.route('/notes/:note_id')
          .post(function(req, res){
-          file.Note.findByIdAndUpdate(req.params.note_id, { title: req.body.title, note_content: req.body.note_content, note_date: req.body.note_date }, function(err, note){
+          file.Note.findByIdAndUpdate(req.params.note_id, { title: req.body.title, note_content: req.body.note_content, note_date: req.body.note_date }, function(err, newNote){
               if(err) throw err;
-              return res.json(note);
+              return res.json(newNote);
           });
       });
       api.route('/negotiate')
@@ -653,14 +662,11 @@
       });
 
       //TODO: CONTINUE SOCKET
-      //io.on('connection', function(socket){
-      //    console.log('A user connected ' +socket.id);
-      //
-      //    socket.on('disconnect', function(){
-      //        console.log('User disconnected ' +socket.id);
-      //    });
-      //});
+      var nsp = io.of('/api/v1/conversations');
 
+      nsp.on('connection', function(socket){
+         console.log('A user connected ' +socket.id);
+      });
       //signup admin
       api.post('/admin/signup', function(req, res){
           admin = new file.Admin({

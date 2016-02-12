@@ -36,6 +36,7 @@ http.listen(config.port, function(err){
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/public/app/views/index.html');
 });
+
 //terms
 app.get('/terms', function(req, res){
     res.sendFile(__dirname + '/public/app/views/terms.html');
