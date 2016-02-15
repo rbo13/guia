@@ -5,6 +5,7 @@
   var file = require('../models/Files');
   var jsonwebtoken = require('jsonwebtoken');
   var async = require('async');
+  var Pusher = require('pusher');
   var secretKey = config.secretKey;
   var loggedInUser, guide_id;
   var user, location, preference, guide,
@@ -26,16 +27,23 @@
     }
 
   module.exports = function(app, express, io){
+
+      var pusher = new Pusher({
+          appId: '179602',
+          key: 'b21e529d3fc61f261eb1',
+          secret: '30aef7c4afa9f4c08646',
+      });
+
       var api = express.Router();
       var endpoints = require('../../endpoints/endpoints.js')();
 
       //route variable for socket to listen
-      var routes = {
-          // /conversation/:id
-          'conversation': '^\\/conversation\\/(\\d+)$',
-          // /:something/:id
-          'default': '^\\/(\\\w+)\\/(\\d+)$'
-      };
+      //var routes = {
+      //    // /conversation/:id
+      //    'conversation': '^\\/conversation\\/(\\d+)$',
+      //    // /:something/:id
+      //    'default': '^\\/(\\\w+)\\/(\\d+)$'
+      //};
 
       //begin endpoints
       api.use('/user/:userId', endpoints.getById); //end getById endpoint
@@ -635,6 +643,8 @@
       api.post('/conversation', function(req, res){
           file.Conversation.findById({ _id: req.body._id }, function(err, conversation){
               conversation.messages.push({ id: req.body.messages.id, name: req.body.messages.name, profImage: req.body.messages.profImage, message: req.body.messages.message });
+
+              pusher.trigger('conversation', 'new_conversation', conversation);
               conversation.save(function(err){
                   if(err) throw err;
                   return res.json(conversation);
@@ -664,11 +674,11 @@
       });
 
       //TODO: CONTINUE SOCKET
-      var nsp = io.of('/api/v1/conversations');
-
-      nsp.on('connection', function(socket){
-         console.log('A user connected ' +socket.id);
-      });
+      //var nsp = io.of('/api/v1/conversations');
+      //
+      //nsp.on('connection', function(socket){
+      //   console.log('A user connected ' +socket.id);
+      //});
       //signup admin
       api.post('/admin/signup', function(req, res){
           admin = new file.Admin({

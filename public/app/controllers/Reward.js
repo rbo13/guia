@@ -9,6 +9,7 @@
     function RewardController($location, $window, Reward, Toast, socketio, Log){
         var vm = this;
         vm.guiaPreloader = true;
+        vm.rewardTable = false;
         vm.tours = [];
         vm.rewards = [];
 

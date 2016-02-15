@@ -85,9 +85,9 @@ img.about-img{
 	#page-top{
 		width: 100%;
 		padding-top: 40%;
-		padding-bottom: 60%;
+		padding-bottom: 60%;/*
 		background: url(../img/cover.jpg) no-repeat fixed;
-		background-size: cover;
+		background-size: cover;*/
 	}
 
 	#page-top .row{

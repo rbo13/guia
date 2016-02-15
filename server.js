@@ -125,6 +125,9 @@ app.get('/css/main.css', function(req, res){
 app.get('/css/landing.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/landing.css');
 });
+app.get('/css/slider.css', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/css/slider.css');
+});
 app.get('/dist/css/flat-ui.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/dist/css/flat-ui.css');
 });
