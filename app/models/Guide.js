@@ -9,11 +9,17 @@ var GuideSchema = new Schema({
     type: String,
     email_address: String,
     isActivated: { type: Boolean, default: false },
-    guide_user_id: { type: String },
     rating: { type: Number, default: 0 },
     reviewCount: { type: Number, default: 0 },
     created: { type: Date, default: Date.now },
-    profImage: String
+    profImage: String,
+    user: {
+        id: String,
+        name: String,
+        profImage: String,
+        age: String,
+        gender: String
+    }
 });
 //end creating guide Schema
 module.exports = mongoose.model('Guide', GuideSchema);

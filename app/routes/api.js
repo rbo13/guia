@@ -362,7 +362,7 @@
                 file.Tour.find({
                   tour_location: req.body.tour_location
                 })
-                .select('name tour_location duration duration_format details tour_guide_id tour_preference rate main_image additional_image points').exec(function(err, tour){
+                .select('name tour_location duration duration_format details tour_guide_id tour_preference rate main_image additional_image points user.id user.name user.gender user.age').exec(function(err, tour){
                     if(err) throw err;
                         if(!tour){
                             res.json({
