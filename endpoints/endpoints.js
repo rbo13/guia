@@ -11,6 +11,7 @@
           conversation = new file.Conversation;
           file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'accepted' }, function(err, booking){
               if(err) throw err;
+              return res.json(booking);
               //file.User.findById({ _id: booking.booking_user_id }, function(err, user){
               //    if(err) throw err;
               //    conversation.traveler.id = user._id;
