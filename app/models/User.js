@@ -9,6 +9,7 @@ var UserSchema = new Schema({
   age: Number,
   gender: String,
   profImage: String,
+  coverPhoto: String,
   points: { type: Number, default: 0 },
   guide_id: { type: String, required: false, default: "" },
   created: { type: Date, default: Date.now },

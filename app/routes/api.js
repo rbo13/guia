@@ -59,7 +59,8 @@
               birthday: req.body.birthday,
               age: req.body.age,
               gender: req.body.gender,
-              profImage: req.body.profImage
+              profImage: req.body.profImage,
+              coverPhoto: req.body.coverPhoto
           });
           if(!req.body.facebook_id){
               res.status(400).send('User not available!');
@@ -76,6 +77,7 @@
                           .populate('age')
                           .populate('gender')
                           .populate('profImage')
+                          .populate('coverPhoto')
                           .populate('guide_id');
                       return res.json(user);
                   }
@@ -86,7 +88,7 @@
     api.post('/login', function(req, res){
       file.User.findOne({
         facebook_id: req.body.facebook_id
-      }).select('guide_id facebook_id points').exec(function(err, user){
+      }).select('guide_id facebook_id points name age gender').exec(function(err, user){
           if(err) throw err;
           if(!user){
             createUser(req, res);
@@ -124,52 +126,62 @@
       api.route('/guide')
           .post(function(req, res){
               if(!loggedInUser){
-                  guide = new file.Guide({
-                      country: req.body.country,
-                      city: req.body.city,
-                      contact_number: req.body.contact_number,
-                      email_address: req.body.email_address,
-                      type: req.body.type,
-                      guide_user_id: req.body.guide_user_id,
-                      profImage: req.body.profImage
-                  });
-
+                    file.User.findById({ _id: req.body.guide_user_id }, function(err, user){
+                        guide = new file.Guide({
+                            country: req.body.country,
+                            city: req.body.city,
+                            contact_number: req.body.contact_number,
+                            email_address: req.body.email_address,
+                            type: req.body.type,
+                            user: {
+                                id: user._id,
+                                name: user.name,
+                                age: user.age,
+                                gender: user.gender,
+                                profImage: user.profImage
+                            }
+                        });
+                        guide.save(function(err, newGuide){
+                            if(err){
+                                res.send(err);
+                                return;
+                            }
+                            io.emit('new_guide', newGuide); //socket for adding new guide
+                            res.json(guide);
+                        });
+                    });
                   file.User.findByIdAndUpdate({ _id: req.body.guide_user_id }, { guide_id: "pending" }, function(err, user){
                       console.log(user);
                   });
               }else if(loggedInUser){
-                  guide = new file.Guide({
-                      country: req.body.country,
-                      city: req.body.city,
-                      contact_number: req.body.contact_number,
-                      email_address: req.body.email_address,
-                      type: req.body.type,
-                      guide_user_id: req.body.guide_user_id,
-                      profImage: req.body.profImage
+                  file.User.findById({ _id: req.body.guide_user_id }, function(err, user){
+                      guide = new file.Guide({
+                          country: req.body.country,
+                          city: req.body.city,
+                          contact_number: req.body.contact_number,
+                          email_address: req.body.email_address,
+                          type: req.body.type,
+                          user: {
+                              id: user._id,
+                              name: user.name,
+                              age: user.age,
+                              gender: user.gender,
+                              profImage: user.profImage
+                          }
+                      });
+                      guide.save(function(err, newGuide){
+                          if(err){
+                              res.send(err);
+                              return;
+                          }
+                          io.emit('new_guide', newGuide); //socket for adding new guide
+                          res.json(guide);
+                      });
                   });
-
                   file.User.findByIdAndUpdate({ _id: req.body.guide_user_id }, { guide_id: "pending" }, function(err, user){
                       console.log(user);
                   });
               }
-              guide.save(function(err, newGuide){
-                  if(err){
-                      res.send(err);
-                      return;
-                  }
-                  io.emit('new_guide', newGuide); //socket for adding new guide
-                  file.Guide.find({})
-                      .populate('country')
-                      .populate('city')
-                      .populate('contact_number')
-                      .populate('email_address')
-                      .populate('type')
-                      .populate('guide_user_id');
-                  res.json({
-                      success: true,
-                      message: "Guide Activated!"
-                  });
-              });
           });//end POST
       api.route('/guides').get(endpoints.getGuide); //end /GET guide endpoint
       //start getGuideById

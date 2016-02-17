@@ -12,13 +12,12 @@ var GuideSchema = new Schema({
     rating: { type: Number, default: 0 },
     reviewCount: { type: Number, default: 0 },
     created: { type: Date, default: Date.now },
-    profImage: String,
     user: {
         id: String,
         name: String,
-        profImage: String,
-        age: String,
-        gender: String
+        age: Number,
+        gender: String,
+        profImage: String
     }
 });
 //end creating guide Schema
