@@ -234,27 +234,14 @@
                 var ave = ((guide.rating * guide.reviewCount) + req.body.rating) / count;
                     file.Guide.findByIdAndUpdate({ _id: req.body.review_guide_id }, { reviewCount: count, rating: ave }, function(err, updatedguide){
                         if(err) throw err;
-                        file.User.findById({_id: req.body.user.id},function(err, user){
+
+                        file.User.findById({_id: req.body.user.id}, function(err, user){
                             var newpoint = user.points + req.body.points;
                             file.User.findByIdAndUpdate({ _id: req.body.user.id }, { points: newpoint}, function(err, newUser){
                                 if(err) throw err;
                                 file.Booking.findByIdAndUpdate({ _id: req.body.review_booking_id }, { status: 'done' }, function(err, updatedBooking){
                                     if(err) throw err;
-                                    //TODO:
-                                    else if(!err){
-                                        trip = new file.Trip({
-                                            trip_user_id: updatedBooking.user.id,
-                                            location: updatedBooking.tour_location,
-                                            date_from: updatedBooking.start_date,
-                                            date_to: updateBooking.end_date
-                                        });
-                                        trip.save(function(err){
-                                            if(err)  res.send(err);
-                                            else if(!err){
-                                                return res.json(trip);
-                                            }
-                                        });
-                                    }
+                                    return res.json(updatedBooking);
                                 })
                             });
                         });
@@ -275,17 +262,22 @@
       //TODO:
       api.route('/trip')
          .post(function(req, res){
-              var updateTrip = {
-                  description: req.body.description,
-                  image: req.body.image
-              };
-           file.Trip.findByIdAndUpdate({ _id: req.body._id }, updateTrip, function(err, trip){
-               if(err) throw err;
-
-               return res.json(trip);
-           })
-         }); //end POST-trip endpoint
+              trip = new file.Trip({
+                  trip_user_id: req.body.trip_user_id,
+                  location: req.body.location,
+                  date_from: req.body.date_from,
+                  date_to: req.body.date_to
+              });
+              trip.save(function(err){
+                  if(err)  res.send(err);
+                  else if(!err){
+                      return res.json(trip);
+                  }
+              });
+           }); //end POST-trip endpoint
       api.get('/trips', endpoints.getTrips); //GET-trip endpoint
+      api.use('/trip/:trip_user_id', endpoints.getTripById);
+      api.route('/trip/:trip_user_id').get(endpoints.getTripByIdRoute);
       //start POST-tour endpoint
       api.route('/tour')
          .post(function(req, res){

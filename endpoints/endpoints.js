@@ -325,6 +325,22 @@
               res.json(getTrips);
           });
       };
+
+      var getTripById = function(req, res, next){
+          file.Trip.find({ trip_user_id: req.params.trip_user_id }, function(err, trip){
+              if(err) res.status(500).send(err);
+              else if(trip){
+                  req.trip = trip;
+                  next();
+              }else{
+                  return res.status(404).send('No trip found!');
+              }
+          });
+      };
+
+      var getTripByIdRoute = function(req, res){
+          return res.json(req.trip);
+      };
 //end trip
 
 //start tours
@@ -534,6 +550,8 @@
           getRatings: getRatings,
           getReviews: getReviews,
           getTrips: getTrips,
+          getTripById: getTripById,
+          getTripByIdRoute: getTripByIdRoute,
           getAllTours: getAllTours,
           getTourById: getTourById,
           //getTourByTourGuideId: getTourByTourGuideId,
