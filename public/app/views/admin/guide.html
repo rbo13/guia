@@ -88,8 +88,8 @@
                     </td>
 
                     <td>
-                        <span><button ng-if="guide.isActivated == true" ng-click="user.deactivateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" ng-confirm-dialog content="Are you sure you want to deactivate?" class="waves-effect waves-light btn red">Deactivate</button></span>
-                        <span><button ng-if="guide.isActivated == false" ng-click="user.activateGuide(guide.guide_user_id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn green">Activate</button></span>
+                        <span><button ng-if="guide.isActivated == true" ng-click="user.deactivateGuide(guide.user.id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" ng-confirm-dialog content="Are you sure you want to deactivate?" class="waves-effect waves-light btn red">Deactivate</button></span>
+                        <span><button ng-if="guide.isActivated == false" ng-click="user.activateGuide(guide.user.id, guide._id, !guide.isActivated); guide.isActivated = !guide.isActivated" class="waves-effect waves-light btn green">Activate</button></span>
                     </td>
                 </tr>
                 </tbody>
