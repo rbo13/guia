@@ -8,7 +8,6 @@ var ReviewSchema = new Schema({
     review_guide_id: String,
     user: {
         id: String,
-        facebook_id: { type: String, select: true },
         name: String,
         profImage: String
     },

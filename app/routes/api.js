@@ -245,6 +245,21 @@
                                 })
                             });
                         });
+
+                        review = new file.Review({
+                            review: req.body.review,
+                            rating: req.body.rating,
+                            review_guide_id: req.body.review_guide_id,
+                            user:{
+                                id: req.body.user.id,
+                                name: req.body.user.name,
+                                profImage: req.body.user.profImage
+                            }
+                        });
+                        review.save(function(err, newReview){
+                            if(err) res.send(err);
+                            io.emit('review', newReview);
+                        });
                 });
             });
           });
