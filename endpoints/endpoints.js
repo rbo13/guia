@@ -8,26 +8,26 @@
 
       //acceptBooking
       var acceptBooking = function(req, res){
-          conversation = new Conversation;
+          conversation = new file.Conversation;
           file.Booking.findOneAndUpdate({ status: 'pending', _id: req.body._id }, { status: 'accepted' }, function(err, booking){
               if(err) throw err;
-              file.User.findById({ _id: booking.booking_user_id }, function(err, user){
-                  if(err) throw err;
-                  conversation.traveler.id = user._id;
-                  conversation.traveler.name = user.name;
-              });
-              file.Guide.findById({ _id: booking.booking_guide_id }, function(err, guide){
-                  if(err) throw err;
-                  file.User.findById({ _id: guide.guide_user_id }, function(err, user_guide){
-                      conversation.guide.id = user_guide.guide_id;
-                      conversation.guide.name = user_guide.name;
-
-                      conversation.save(function(err){
-                          if(err) throw err;
-                          return res.json(conversation);
-                      });
-                  });
-              });
+              //file.User.findById({ _id: booking.booking_user_id }, function(err, user){
+              //    if(err) throw err;
+              //    conversation.traveler.id = user._id;
+              //    conversation.traveler.name = user.name;
+              //});
+              //file.Guide.findById({ _id: booking.booking_guide_id }, function(err, guide){
+              //    if(err) throw err;
+              //    file.User.findById({ _id: guide.guide_user_id }, function(err, user_guide){
+              //        conversation.guide.id = user_guide.guide_id;
+              //        conversation.guide.name = user_guide.name;
+              //
+              //        conversation.save(function(err){
+              //            if(err) throw err;
+              //            return res.json(conversation);
+              //        });
+              //    });
+              //});
           });
       };
       //declineBooking

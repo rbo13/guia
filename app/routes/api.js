@@ -240,42 +240,26 @@
                                 if(err) throw err;
                                 file.Booking.findByIdAndUpdate({ _id: req.body.review_booking_id }, { status: 'done' }, function(err, updatedBooking){
                                     if(err) throw err;
+                                    //TODO:
+                                    else if(!err){
+                                        trip = new file.Trip({
+                                            trip_user_id: updatedBooking.user.id,
+                                            location: updatedBooking.tour_location,
+                                            date_from: updatedBooking.start_date,
+                                            date_to: updateBooking.end_date
+                                        });
+                                        trip.save(function(err){
+                                            if(err)  res.send(err);
+                                            else if(!err){
+                                                return res.json(trip);
+                                            }
+                                        });
+                                    }
                                 })
                             });
                         });
                 });
             });
-              if(req.body.review_guide_id !== req.body.user.guide_id){
-                  review = new file.Review({
-                      review: req.body.review,
-                      rating: req.body.rating,
-                      review_guide_id: req.body.review_guide_id,
-                      user:{
-                          id: req.body.user.id,
-                          facebook_id: req.body.user.facebook_id,
-                          name: req.body.user.name,
-                          profImage: req.body.user.profImage
-                      }
-                  });
-                  review.save(function(err, newReview){
-                      if(err) res.send(err);
-                      io.emit('review', newReview);
-                      file.Review.find({})
-                          .populate('review')
-                          .populate('rate')
-                          .populate('review_guide_id')
-                          .populate('user.id')
-                          .populate('facebook_id')
-                          .populate('name')
-                          .populate('profImage');
-                      return res.json(review);
-                  });
-              }else{
-                  res.json({
-                      success: false,
-                      message: "Cant review your own"
-                  });
-              }
           });
       api.post('/doneBooking', function(req, res){
          file.Booking.findByIdAndUpdate({ _id: req.body.review_booking_id }, { status: 'done' }, function(err, bookingValue){
@@ -286,28 +270,20 @@
       api.get('/reviews', endpoints.getReviews); //GET-review endpoint
       api.get('/review/:guide_id', endpoints.getReviewByGuideId); //GET-review endpoint
       api.use('/review/:guide_id', endpoints.getReviewByGuideIdRoute);
+
       //start POST-trip endpoint
+      //TODO:
       api.route('/trip')
          .post(function(req, res){
-           trip = new file.Trip({
-               trip_traveler_id: req.body.trip_traveler_id,
-               location: req.body.location,
-               destination: req.body.destination,
-               date_from: req.body.date_from,
-               date_to: req.body.date_to
-           });
-           trip.save(function(err){
-             if(err)  res.send(err);
-             else if(!err){
-                 file.Trip.find({})
-                     .populate('location')
-                     .populate('trip_traveler_id')
-                     .populate('destination')
-                     .populate('date_from')
-                     .populate('date_to');
-                 return res.json(trip);
-             }
-           });
+              var updateTrip = {
+                  description: req.body.description,
+                  image: req.body.image
+              };
+           file.Trip.findByIdAndUpdate({ _id: req.body._id }, updateTrip, function(err, trip){
+               if(err) throw err;
+
+               return res.json(trip);
+           })
          }); //end POST-trip endpoint
       api.get('/trips', endpoints.getTrips); //GET-trip endpoint
       //start POST-tour endpoint
