@@ -290,6 +290,17 @@
                   }
               });
            }); //end POST-trip endpoint
+      //update trip
+      api.post('/updateTrip', function(req, res){
+          var newTrip = {
+            description: req.body.description,
+            image: req.body.image
+          };
+          file.Trip.findByIdAndUpdate({ _id: req.body._id }, newTrip, function(err, newTrip){
+              if(err) throw err;
+              return res.json(newTrip);
+          });
+      });//end
       api.get('/trips', endpoints.getTrips); //GET-trip endpoint
       api.use('/trip/:trip_user_id', endpoints.getTripById);
       api.route('/trip/:trip_user_id').get(endpoints.getTripByIdRoute);
