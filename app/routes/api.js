@@ -294,7 +294,7 @@
       api.post('/updateTrip', function(req, res){
           var newTrip = {
             description: req.body.description,
-            image: req.body.image
+            image: req.body.image || 'http://res.cloudinary.com/guia/image/upload/v1455680971/add_image_u9mal4.png'
           };
           file.Trip.findByIdAndUpdate({ _id: req.body._id }, newTrip, function(err, newTrip){
               if(err) throw err;
