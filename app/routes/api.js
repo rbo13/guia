@@ -26,6 +26,32 @@
         return token;
     }
 
+    //TODO
+    //mailchimp
+    //var MailChimpAPI = require('mailchimp').MailChimpAPI;
+    //
+    //var apiKey = 'c6d55bf8b9db4864e6047a8dd872531c-us12';
+    //
+    //try {
+    //    var mailchimp = new MailChimpAPI(apiKey, { version : '2.0' });
+    //} catch (error) {
+    //    console.log(error.message);
+    //}
+    //
+    //mailchimp.call('campaigns', 'list', { start: 0, limit: 25 }, function (error, data) {
+    //    if (error)
+    //        console.log(error.message);
+    //    else
+    //        console.log(JSON.stringify(data)); // Do something with your data!
+    //});
+    //
+    //mailchimp.call('campaigns', 'template-content', { cid: 'mailchimp8200b23f06406eeed944c3816.647c0f96a4' }, function (error, data) {
+    //    if (error)
+    //        console.log(error.message);
+    //    else
+    //        console.log(JSON.stringify(data)); // Do something with your data!
+    //});
+
   module.exports = function(app, express, io){
 
       var pusher = new Pusher({
@@ -292,13 +318,18 @@
            }); //end POST-trip endpoint
       //update trip
       api.post('/updateTrip', function(req, res){
-          var newTrip = {
-            description: req.body.description,
-            image: req.body.image || 'http://res.cloudinary.com/guia/image/upload/v1455680971/add_image_u9mal4.png'
-          };
-          file.Trip.findByIdAndUpdate({ _id: req.body._id }, newTrip, function(err, newTrip){
-              if(err) throw err;
-              return res.json(newTrip);
+
+
+          file.Trip.findById({ _id: req.body._id }, function(err, trip){
+             var updateTrip = {
+               description: req.body.description,
+               image: req.body.image || trip.image
+             };
+
+              file.Trip.findByIdAndUpdate({ _id: req.body._id }, updateTrip, function(err, newTrip){
+                  if(err) throw err;
+                  return res.json(newTrip);
+              });
           });
       });//end
       api.get('/trips', endpoints.getTrips); //GET-trip endpoint
