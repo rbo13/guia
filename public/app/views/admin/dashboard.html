@@ -34,7 +34,7 @@
 <body ng-controller="DashboardController as dashboard" ng-show="dashboard.adminLoggedIn">
 <header>
     <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="mdi-navigation-menu"></i></a></div>
-    <ul id="nav-mobile" class="side-nav fixed">
+    <ul id="nav-mobile" class="side-nav fixed green darken-3">
         <li class="logo nav-logo"><a id="logo-container" class="brand-logo">
             <img class="dashboard-logo" src="images/guia.png">
         </a>
@@ -46,7 +46,7 @@
             </div>
         </li>
 
-        <li class="search nav-search">
+        <li class="search nav-search green darken-3">
             <div class="search-wrapper card">
                 <input id="search" ng-model="search"/><i class="material-icons">search</i>
                 <div class="search-results"></div>
@@ -54,31 +54,30 @@
         </li>
 
         <li class="no-padding nav-option">
-            <ul class="collapsible collapsible-accordion">
-                <li class="bold"><a href="/dashboard/statistics" class="collapsible-header  waves-effect waves-green">Statistics</a>
-                    <div class="collapsible-body">
+            <ul class="collapsible collapsible-accordion green darken-3">
+                <li class="bold"><a href="/dashboard/statistics" class="collapsible-header green darken-3 waves-effect waves-white white-text">Statistics</a>
+                    <div class="collapsible-body green darken-2">
                         <ul>
-                            <li><a href="#tours">Tours</a></li>
-                            <li><a href="#places">Places</a></li>
+                            <li><a href="#tours" class="white-text">Tours</a></li>
+                            <li><a href="#places" class="white-text">Places</a></li>
                         </ul>
                     </div>
                 </li>
-                <li class="bold"><a class="collapsible-header  waves-effect waves-green">Users</a>
-                    <div class="collapsible-body">
+                <li class="bold"><a class="collapsible-header green darken-3 waves-effect waves-white white-text">Users</a>
+                    <div class="collapsible-body green darken-2">
                         <ul>
-                            <li><a href="/dashboard/guides">Guides</a></li>
-                            <li><a href="#">Travelers</a></li>
+                            <li><a href="/dashboard/guides" class="white-text">Guides</a></li>
                         </ul>
                     </div>
                 </li>
-                <li class="bold"><a href="/dashboard/rewards" class="collapsible-header  waves-effect waves-green">Rewards</a>
+                <li class="bold"><a href="/dashboard/rewards" class="collapsible-header green darken-3 waves-effect waves-white white-text">Rewards</a>
                 </li>
-                <li class="bold"><a href="/dashboard/location" class="collapsible-header waves-effect waves-green">Location</a>
-                <li class="bold"><a href="/dashboard/preference" class="collapsible-header waves-effect waves-green">Preferences</a>
-                <li class="bold"><a href="/dashboard/logs" class="collapsible-header waves-effect waves-green">Activity Logs</a>
-                <li class="bold"><a href="/dashboard/reviews" class="collapsible-header waves-effect waves-green">Reviews and Ratings</a>
+                <li class="bold"><a href="/dashboard/location" class="collapsible-header green darken-3 waves-effect waves-white white-text">Location</a>
+                <li class="bold"><a href="/dashboard/preference" class="collapsible-header green darken-3 waves-effect waves-white white-text">Preferences</a>
+                <li class="bold"><a href="/dashboard/logs" class="collapsible-header green darken-3 waves-effect waves-white white-text">Activity Logs</a>
+                <li class="bold"><a href="/dashboard/reviews" class="collapsible-header green darken-3 waves-effect waves-white white-text">Reviews and Ratings</a>
                 <li class="hide-on-small-only hide-on-med-only bold">
-                    <a href="/admin" ng-click="dashboard.doLogout()" class="collapsible-header waves-effect waves-green">Logout</a>
+                    <a href="/admin" ng-click="dashboard.doLogout()" class="collapsible-header green darken-3 waves-effect waves-white white-text">Logout</a>
                 </li>
             </ul>
         </li>
