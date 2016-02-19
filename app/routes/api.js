@@ -26,6 +26,10 @@
         return token;
     }
 
+    function isEmptyObject(obj){
+        return !Object.keys(obj).length;
+    }
+
     //TODO
     //mailchimp
     //var MailChimpAPI = require('mailchimp').MailChimpAPI;
@@ -303,15 +307,24 @@
       //TODO:
       api.route('/trip')
          .post(function(req, res){
-              trip = new file.Trip({
-                  trip_user_id: req.body.trip_user_id,
-                  location: req.body.location,
-                  date_from: req.body.date_from,
-                  date_to: req.body.date_to
-              });
-              trip.save(function(err){
-                  if(err)  res.send(err);
-                  else if(!err){
+
+              file.Trip.find({ trip_user_id: req.body.trip_user_id, location: req.body.location }, function(err, trip){
+                 if(err) throw err;
+
+                  if(isEmptyObject(trip)){
+                      trip = new file.Trip({
+                          trip_user_id: req.body.trip_user_id,
+                          location: req.body.location,
+                          date_from: req.body.date_from,
+                          date_to: req.body.date_to
+                      });
+                      trip.save(function(err){
+                          if(err)  return res.send(err);
+                          else if(!err){
+                              return res.json(trip);
+                          }
+                      });
+                  }else if(trip){
                       return res.json(trip);
                   }
               });
