@@ -530,6 +530,9 @@
                                         age: user.age,
                                         gender: user.gender
                                     },
+                                    guide: {
+                                        name: tour.user.name
+                                    },
                                     booking_user_id: req.body.booking_user_id,
                                     booking_guide_id: req.body.booking_guide_id,
                                     start_date: req.body.start_date,

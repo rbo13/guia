@@ -22,6 +22,9 @@ var BookingSchema = new Schema({
         age: Number,
         gender: String
   },
+  guide: {
+        name: String
+  },
   booking_user_id: { type: String, default: "" },
   booking_guide_id: { type: String, default: "" },
   start_date: String,
