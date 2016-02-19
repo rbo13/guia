@@ -132,24 +132,35 @@
     //POST location endpoint.
     api.route('/location')
         .post(function(req, res){
-            location = new file.Location({
-                country: req.body.country,
-                city: req.body.city
-            });
-            location.save(function(err, newLocation){
-                if(err){
-                    res.send(err);
-                    return;
-                }
-                io.emit('location', newLocation);
-                file.Location.find({})
-                    .populate('country')
-                    .populate('city')
-                    .exec(function(error, locations) {
-                        console.log(JSON.stringify(locations, null, "\t"));
-                    });
-                return res.json(newLocation);
-            })
+
+            file.Location.find({ city: req.body.city })
+                .select('city')
+                .exec(function(err, location){
+                   if(err) throw err;
+
+                    if(isEmptyObject(location)){
+                        location = new file.Location({
+                            country: req.body.country,
+                            city: req.body.city
+                        });
+                        location.save(function(err, newLocation){
+                            if(err){
+                                res.send(err);
+                                return;
+                            }
+                            io.emit('location', newLocation);
+                            file.Location.find({})
+                                .populate('country')
+                                .populate('city')
+                                .exec(function(error, locations) {
+                                    console.log(JSON.stringify(locations, null, "\t"));
+                                });
+                            return res.json(newLocation);
+                        })
+                    }else{
+                        return res.sendStatus(409);
+                    }
+                });
         });//end of location POST endpoint.
     api.route('/locations').get(endpoints.getLocation); //end GET location endpoint
       //POST/GET guide endpoint
@@ -239,18 +250,30 @@
       //start POST-preference endpoint
       api.route('/preference')
              .post(function(req, res){
-               preference = new file.Preference({
-                   preference: req.body.preference
-               });
-                preference.save(function(err, newPreference){
-                  if(err) res.send(err);
-                  else if(!err){
-                      io.emit('preference', newPreference);
-                      file.Preference.find({})
-                          .populate('preference');
-                      return res.json(preference);
-                  }
-                });
+
+              file.Preference.find({ preference: req.body.preference })
+                  .select('preference')
+                  .exec(function(err, preference){
+                     if(err) throw err;
+
+                      if(isEmptyObject(preference)){
+                          preference = new file.Preference({
+                              preference: req.body.preference
+                          });
+                           preference.save(function(err, newPreference){
+                             if(err) res.send(err);
+                             else if(!err){
+                                 io.emit('preference', newPreference);
+                                 file.Preference.find({})
+                                     .populate('preference');
+                                 return res.json(preference);
+                             }
+                           });
+                      }else{
+                          return res.sendStatus(409);
+                      }
+                  });
+
              });//end POST-preference endpoint
       //start GET-preference endpoint
        api.get('/preferences', endpoints.getPreference); //end get endpoint

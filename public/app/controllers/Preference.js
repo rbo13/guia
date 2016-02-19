@@ -27,6 +27,9 @@
                     vm.preferenceData = '';
                     console.log(data);
                     Log.createLog(data.preference + " - Preference Added");
+                }).error(function(data){
+                    console.log(data);
+                    Toast.error("Oops, Duplicate Entry!");
                 });
         };
         socketio.on('preference', function(data){

@@ -30,6 +30,9 @@
                         .success(function(data){
                             console.log("Location Added");
                     });
+                }).error(function(data){
+                    console.log(data);
+                    Toast.error('Duplicate Entry');
                 });
         };
         socketio.on('location', function(data){
