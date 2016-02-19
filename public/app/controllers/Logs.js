@@ -9,7 +9,7 @@
     function LogsController(Log, Toast, socketio, User){
         var vm = this;
 
-        vm.guiaPreloader = false;
+        vm.guiaPreloader = true;
         vm.logTable = false;
         vm.logs = [];
 
@@ -19,9 +19,6 @@
                 vm.guiaPreloader = true;
                 vm.guides = data;
                 console.log(data);
-                vm.guiaPreloader = false;
-                vm.userTable = true;
-                Toast.success(vm.guides);
             });
 
         Log.getLogs()

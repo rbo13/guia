@@ -56,7 +56,7 @@
         <div id="modal" class="modal">
             <div class="modal-content">
                 <h4 class="green-text">Edit Reward</h4>
-                <form ng-submit="reward.updateReward()">
+                <form ng-submit="reward.updateReward()" onsubmit="window.location.assign('/dashboard/rewards')">
                     <div class="input-field">
                         <input type="number" id="modalpoints" class="validate" ng-model="reward.rewardData.redeem_points">
                         <label for="reward">Points</label>

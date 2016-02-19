@@ -96,7 +96,7 @@
             <div class="modal-content">
                 <h4 class="green-text">Edit location</h4>
 
-                <form ng-submit="_location.updateLocation()">
+                <form ng-submit="_location.updateLocation()" onsubmit="window.location.assign('/dashboard/location')">
                     <div class="input-field">
                         <select id="editcountry" class="validate browser-default" name="country" ng-model="_location.locationData.country">
 
@@ -150,7 +150,6 @@
                     </div>
                     <div class="input-field">
                         <input id="editcity" type="text" class="validate" ng-model="_location.locationData.city">
-                        <label for="city">City</label>
                     </div>
                 </form>
             </div>

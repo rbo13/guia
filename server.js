@@ -371,7 +371,7 @@ app.get('/bower_components/angular-toastr/dist/angular-toastr.tpls.js', function
     res.sendFile(__dirname + '/bower_components/angular-toastr/dist/angular-toastr.tpls.js');
 });
 app.get('/bower_components/angular-toastr/dist/angular-toastr.css', function(req, res){
-    res.sendFile(__dirname + '//bower_components/angular-toastr/dist/angular-toastr.css');
+    res.sendFile(__dirname + '/bower_components/angular-toastr/dist/angular-toastr.css');
 });
 app.get('/bower_components/angular-animate/angular-animate.js', function(req, res){
     res.sendFile(__dirname + '/bower_components/angular-animate/angular-animate.js');
