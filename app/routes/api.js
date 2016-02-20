@@ -709,22 +709,22 @@
 
       //conversation
       api.post('/conversation/:conversationId', function(req, res){
-          file.Conversation.findById({ _id: req.params.conversationId }, function(err, conversation){
-              conversation.messages.push({ id: req.body.messages.id, name: req.body.messages.name, profImage: req.body.messages.profImage, message: req.body.messages.message });
-
-              pusher.trigger('conversation', 'new_conversation', conversation);
-              conversation.save(function(err){
+          file.Conversation.findById({ _id: req.params.conversationId })
+              .select('messages.message messages.date traveler.id traveler.name guide.id guide.name')
+              .sort({ date: -1 })
+              .limit(1)
+              .exec(function(err, conversation){
                   if(err) throw err;
-                  return res.json(conversation);
+                  var messages = conversation.messages;
+                  conversation.messages.push({ id: req.body.messages.id, name: req.body.messages.name, profImage: req.body.messages.profImage, message: req.body.messages.message });
+                  pusher.trigger(req.params.conversationId, 'new_conversation', conversation);
+                  conversation.save(function(err){
+                      return res.json(messages[messages.length-1]);
+                  });
               });
-          });
       });
       //get conversation
       api.get('/conversations', endpoints.getAllConversations);
-      //get conversation by id
-      //api.use('/conversations/:userId', endpoints.getConversationByTravelerId);
-      //api.route('/conversations/:userId').get(endpoints.getConversationByTravelerIdRoute);
-
       api.use('/conversation/:conversationId', function(req, res, next){
           file.Conversation.findById(req.params.conversationId, function(err, conversation){
               if(err) res.status(500).send(err);
@@ -736,17 +736,9 @@
               }
           });
       });
-
       api.route('/conversation/:conversationId').get(function(req, res){
           return res.json(req.conversation);
       });
-
-      //TODO: CONTINUE SOCKET
-      //var nsp = io.of('/api/v1/conversations');
-      //
-      //nsp.on('connection', function(socket){
-      //   console.log('A user connected ' +socket.id);
-      //});
       //signup admin
       api.post('/admin/signup', function(req, res){
           admin = new file.Admin({
