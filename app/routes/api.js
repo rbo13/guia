@@ -67,14 +67,6 @@
       var api = express.Router();
       var endpoints = require('../../endpoints/endpoints.js')();
 
-      //route variable for socket to listen
-      //var routes = {
-      //    // /conversation/:id
-      //    'conversation': '^\\/conversation\\/(\\d+)$',
-      //    // /:something/:id
-      //    'default': '^\\/(\\\w+)\\/(\\d+)$'
-      //};
-
       //begin endpoints
       api.use('/user/:userId', endpoints.getById); //end getById endpoint
       api.route('/user/:userId')
@@ -716,7 +708,7 @@
           .get(endpoints.getAlbumByIdRoute); //end
 
       //conversation
-      api.post('/conversation', function(req, res){
+      api.post('/conversation/:conversationId', function(req, res){
           file.Conversation.findById({ _id: req.body._id }, function(err, conversation){
               conversation.messages.push({ id: req.body.messages.id, name: req.body.messages.name, profImage: req.body.messages.profImage, message: req.body.messages.message });
 
