@@ -739,6 +739,12 @@
       api.route('/conversation/:conversationId').get(function(req, res){
           return res.json(req.conversation);
       });
+      api.get('/conversations/:travelerId', function(req, res, next){
+          file.Conversation.find({ 'traveler.id': req.params.travelerId })
+              .exec(function(err, conversation){
+                return res.json(conversation);
+          });
+      });
       //signup admin
       api.post('/admin/signup', function(req, res){
           admin = new file.Admin({
