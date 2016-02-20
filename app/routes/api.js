@@ -709,14 +709,14 @@
 
       //conversation
       api.post('/conversation/:conversationId', function(req, res){
-          file.Conversation.findById({ _id: req.body._id }, function(err, conversation){
+          file.Conversation.findById({ _id: req.params.conversationId }, function(err, conversation){
               conversation.messages.push({ id: req.body.messages.id, name: req.body.messages.name, profImage: req.body.messages.profImage, message: req.body.messages.message });
 
               pusher.trigger('conversation', 'new_conversation', conversation);
               conversation.save(function(err){
                   if(err) throw err;
                   return res.json(conversation);
-              })
+              });
           });
       });
       //get conversation
