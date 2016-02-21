@@ -7,7 +7,6 @@
     var MessageSchema = new Schema({
         id: String,
         name: String,
-        profImage: String,
         message: String,
         date: { type: Date, default: Date.now }
     });
@@ -19,6 +18,7 @@
         },
         traveler: {
             id: String,
+            profImage: String,
             name: String
         },
         messages: [MessageSchema]

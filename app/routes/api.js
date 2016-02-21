@@ -716,7 +716,7 @@
               .exec(function(err, conversation){
                   if(err) throw err;
                   var messages = conversation.messages;
-                  conversation.messages.push({ id: req.body.messages.id, name: req.body.messages.name, profImage: req.body.messages.profImage, message: req.body.messages.message });
+                  conversation.messages.push({ id: req.body.messages.id, name: req.body.messages.name, message: req.body.messages.message });
                   pusher.trigger(req.params.conversationId, 'new_conversation', conversation);
                   conversation.save(function(err){
                       return res.json(messages[messages.length-1]);

@@ -22,6 +22,7 @@
                           if(err) throw err;
                           conversation.traveler.id = user._id;
                           conversation.traveler.name = user.name;
+                          conversation.traveler.profImage = user.profImage;
                       });
 
                   file.Guide.findById({ _id: booking.booking_guide_id })
