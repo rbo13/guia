@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/css/prism.css" rel="stylesheet"/>
+    <link href="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="icon" href="http://res.cloudinary.com/whaangbuu/image/upload/v1447916187/favicon_qs9fj0.ico"/>
+    <link rel="stylesheet" type="text/css" href="photo-album.css">
+    <title>Travel Album</title>
+</head>
+<body>
+
+    <div class="header-logo-card">
+        <div class="valign-wrapper row">
+                <img src="img/guia-inline.png" class="responsive-img">
+        </div>
+    </div>
+
+
+
+    <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 750px; height: 556px; overflow: hidden; visibility: hidden; background-color: #24262e;">
+        <!-- Loading Screen -->
+        <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
+            <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+            <div style="position:absolute;display:block;background:url('img/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
+        </div>
+        <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 750px; height: 556px; overflow: hidden;">
+            <div data-p="144.50" style="display: none;">
+                <img data-u="image" src="img/01.jpg" />
+            </div>
+            <div data-p="144.50" style="display: none;">
+                <img data-u="image" src="img/02.jpg" />
+            </div>
+            <div data-p="144.50" style="display: none;">
+                <img data-u="image" src="img/03.jpg" />
+            </div>
+            <div data-p="144.50" style="display: none;">
+                <img data-u="image" src="img/04.jpg" />
+            </div>
+            <div data-p="144.50" style="display: none;">
+                <img data-u="image" src="img/05.jpg" />
+            </div>
+            <div data-p="144.50" style="display: none;">
+                <img data-u="image" src="img/06.jpg" />
+            </div>
+            <div data-p="144.50" style="display: none;">
+                <img data-u="image" src="img/07.jpg" />
+            </div>
+            <div data-p="144.50" style="display: none;">
+                <img data-u="image" src="img/08.jpg" />
+            </div>
+            <div data-p="144.50" style="display: none;">
+                <img data-u="image" src="img/09.jpg" />
+            </div>
+            <div data-p="144.50" style="display: none;">
+                <img data-u="image" src="img/10.jpg" />
+            </div>
+            <div data-p="144.50" style="display: none;">
+                <img data-u="image" src="img/11.jpg" />
+            </div>
+            <div data-p="144.50" style="display: none;">
+                <img data-u="image" src="img/12.jpg" />
+            </div>
+        </div>
+        <!-- Thumbnail Navigator -->
+        <!-- Arrow Navigator -->
+        <span data-u="arrowleft" class="jssora05l" style="top:238px;left:8px;width:40px;height:40px;"></span>
+        <span data-u="arrowright" class="jssora05r" style="top:238px;right:8px;width:40px;height:40px;"></span>
+        <a href="http://www.jssor.com" style="display:none">Slideshow Maker</a>
+    </div>
+
+    <div class="user-info-card-desktop mobile">
+        <div class="valign-wrapper row">
+            <div class="col s4 center-align">
+                <img class="circle" ng-src="{{album.user.profImage}}">
+            </div>
+            <div class="col s8">
+                <h5 class="green-text">{{album.album_name}}</h5>
+                <h6>{{album.description}}</h6>
+                <p>{{album.user.name}} <span class="guia-color">{{album.created | date:'MMMM d, yyyy'}}</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/jssor.slider.mini.js"></script>
+    <script type="text/javascript" src="photo-album.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
+    <script src="https://cdn.goodwillwa.org/vendor/materialize/0.95.1/bin/materialize.js"></script>
+    <!-- #endregion Jssor Slider End -->
+</body>
+</html>
