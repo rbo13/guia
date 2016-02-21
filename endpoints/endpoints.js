@@ -33,6 +33,7 @@
                               .exec(function(err, userGuide){
                                   conversation.guide.id = userGuide.guide_id;
                                   conversation.guide.name = userGuide.name;
+                                  conversation.guide.profImage = userGuide.profImage;
 
                                   conversation.save(function(err){
                                      if(err) throw err;

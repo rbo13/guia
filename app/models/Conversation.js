@@ -14,12 +14,13 @@
     var ConversationSchema = new Schema({
         guide: {
             id: String,
-            name: String
+            name: String,
+            profImage: String,
         },
         traveler: {
             id: String,
-            profImage: String,
-            name: String
+            name: String,
+            profImage: String
         },
         messages: [MessageSchema]
     });
