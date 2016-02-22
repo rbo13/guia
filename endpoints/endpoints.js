@@ -31,7 +31,7 @@
 
                           file.User.findById({ _id: guide.user.id })
                               .exec(function(err, userGuide){
-                                  conversation.guide.id = userGuide.guide_id;
+                                  conversation.guide.id = userGuide._id;
                                   conversation.guide.name = userGuide.name;
                                   conversation.guide.profImage = userGuide.profImage;
 
