@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width = 320" id="mobileviewport">
-    <title>Travel Album</title>
+    <title>Album</title>
     <link rel="icon" href="http://res.cloudinary.com/whaangbuu/image/upload/v1447916187/favicon_qs9fj0.ico"/>
     <!--  Android 5 Chrome Color-->
     <meta name="theme-color" content="#EE6E73">
@@ -28,7 +28,7 @@
 <div class="container-content valign-center">
 
     <div class="slider">
-        <img ng-repeat="slide in album.images track by $index" class="slide slide-animation nonDraggableImage"
+       <img ng-repeat="slide in album.images track by $index" class="slide slide-animation nonDraggableImage"
              ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
              ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide}}" alt="Image">
         <a class="arrow prev" ng-click="nextSlide()"></a>

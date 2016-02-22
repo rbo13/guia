@@ -32,7 +32,7 @@
                     });
                 }).error(function(data){
                     console.log(data);
-                    Toast.error('Duplicate Entry');
+                    Toast.error('Oops, Duplicate Entry!');
                 });
         };
         socketio.on('location', function(data){

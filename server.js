@@ -106,6 +106,12 @@ app.get('/album', function(req, res){
 app.get('/albumService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/views/album/albumService.js');
 });
+app.get('/js/jssor.slider.mini.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/js/jssor.slider.mini.js');
+});
+app.get('/photo-album.js', function(req, res){
+   res.sendFile(__dirname + '/public/app/views/album/photo-album.js');
+});
 app.get('/bootstrap.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/album/bootstrap.css');
 });
@@ -127,6 +133,9 @@ app.get('/css/landing.css', function(req, res){
 });
 app.get('/css/slider.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/css/slider.css');
+});
+app.get('/photo-album.css', function(req, res){
+   res.sendFile(__dirname + '/public/app/views/album/photo-album.css');
 });
 app.get('/dist/css/flat-ui.css', function(req, res){
     res.sendFile(__dirname + '/public/app/views/dist/css/flat-ui.css');
@@ -256,6 +265,9 @@ app.get('/img/icons/png/share.png', function(req, res){
 });
 app.get('/img/guia.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/guia.png');
+});
+app.get('/img/loading.gif', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/album/img/loading.gif');
 });
 app.get('/img/guia-thumbnail.png', function(req, res){
     res.sendFile(__dirname + '/public/app/views/img/guia-thumbnail.png');

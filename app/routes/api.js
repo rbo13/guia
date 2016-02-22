@@ -486,18 +486,30 @@
       //start: POST - redeem endpoint
       api.route('/redeem')
           .post(function(req, res){
-            redeem = new file.Redeemed({
-              //redeem_traveler_id: traveler._id,
-              redeem_reward_id: reward._id
-            });
-            redeem.save(function(err){
-              if(err) res.send(err);
-              else if(!err){
-                  file.Redeemed.find({})
-                      .populate('redeem_reward_id');
-                  return res.json(redeem);
-              }
-            });
+              file.Reward.findById({ _id: req.body._id}, function(err, reward){
+                  var reward_points = reward.redeem_points;
+
+                  file.User.findById({ _id: req.body.user_id }, function(err, user){
+                      redeem = new file.Redeemed({
+                          redeem_reward_id: req.body._id,
+                          user: {
+                              id: user._id,
+                              name: user.name,
+                              profImage: user.profImage
+                          }
+                      });
+                      redeem.save(function(err){
+                          if(err) throw err;
+                      });
+                      file.User.findById({ _id: user._id }, function(err, user){
+                            var new_points = user.points - reward_points;
+
+                          file.User.findByIdAndUpdate({ _id: req.body.user_id }, { points: new_points }, function(err, user){
+                              return res.json(user);
+                          });
+                      });
+                  });
+              });
           });//end: POST - redeem endpoint
       //start GET-redeem endpoint
       api.get('/redeems', function(req, res){

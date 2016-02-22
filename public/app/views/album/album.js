@@ -11,6 +11,7 @@
                 .success(function(data){
                     $scope.album = data;
                     console.log(data);
+                    console.log(data.images);
                     $scope.slides = $scope.album.images;
                 });
 
