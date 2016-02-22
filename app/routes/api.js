@@ -443,6 +443,10 @@
           .post(function(req, res){
             reward = new file.Reward({
               reward_tour_id: req.body.reward_tour_id,
+              tour_name: req.body.tour_name,
+              tour_location: req.body.tour_location,
+              tour_details: req.body.tour_details,
+              main_image: req.body.main_image,
               redeem_points: req.body.redeem_points
             });
             reward.save(function(err, newReward){
@@ -451,7 +455,11 @@
                   io.emit('reward', newReward);
                   file.Reward.find({})
                       .populate('reward_tour_id')
-                      .populate('redeem_points');
+                      .populate('redeem_points')
+                      .populate('tour_name')
+                      .populate('tour_location')
+                      .populate('main_image')
+                      .populate('tour_details');
                   return res.json(reward);
               }
             });

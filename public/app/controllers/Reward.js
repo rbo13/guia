@@ -73,7 +73,12 @@
 
         vm.addReward = function(){
             vm.rewardData.redeem_points = vm.getTour(vm.rewardData.reward_tour_id).rate;
+            vm.rewardData.tour_name = vm.getTour(vm.rewardData.reward_tour_id).name;
+            vm.rewardData.tour_location = vm.getTour(vm.rewardData.reward_tour_id).tour_location;
+            vm.rewardData.tour_details = vm.getTour(vm.rewardData.reward_tour_id).details;
+            vm.rewardData.main_image = vm.getTour(vm.rewardData.reward_tour_id).main_image;
             console.log('Added New Reward');
+            console.log(vm.rewardData.main_image);
             Reward.reward(vm.rewardData)
                 .success(function(data){
                     vm.rewardData = '';
