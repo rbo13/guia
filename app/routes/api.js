@@ -549,7 +549,9 @@
                                           name: guide.user.name
                                       },
                                       booking_user_id: req.body.user_id,
-                                      booking_guide_id: tour.tour_guide_id
+                                      booking_guide_id: tour.tour_guide_id,
+                                      start_date: "2/23/2016",
+                                      end_date: "2/23/2016",
                                   });
                                   booking.save(function(err){
                                       if(err) throw err;
