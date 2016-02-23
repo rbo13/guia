@@ -500,6 +500,12 @@
                   file.User.findById({ _id: req.body.user_id }, function(err, user){
                       redeem = new file.Redeemed({
                           redeem_reward_id: req.body._id,
+                          tour:{
+                            tour_name: reward.tour_name,
+                            tour_location: reward.tour_location,
+                            tour_details: reward.tour_details,
+                            main_image: reward.main_image
+                          },
                           user: {
                               id: user._id,
                               name: user.name,
@@ -511,9 +517,46 @@
                       });
                       file.User.findById({ _id: user._id }, function(err, user){
                             var new_points = user.points - reward_points;
-
                           file.User.findByIdAndUpdate({ _id: req.body.user_id }, { points: new_points }, function(err, user){
-                              return res.json(user);
+                              console.log(user);
+                          });
+                      });
+                      //TODO:
+                      file.Tour.find({ _id: reward.reward_tour_id }, function(err, tour){
+                          tour.forEach(function(tour){
+                              file.Guide.findById({ _id: tour.tour_guide_id }, function(err, guide){
+                                  booking = new file.Booking({
+                                      tour: {
+                                          id: tour._id,
+                                          name: tour.name,
+                                          tour_location: tour.tour_location,
+                                          duration: tour.duration,
+                                          duration_format: tour.duration_format,
+                                          details: tour.details,
+                                          tour_guide_id: tour.tour_guide_id,
+                                          rate: tour.rate,
+                                          main_image: tour.main_image,
+                                          tour_preference: tour.tour_preference,
+                                          points: tour.points
+                                      },
+                                      user: {
+                                          name: user.name,
+                                          profImage: user.profImage,
+                                          age: user.age,
+                                          gender: user.gender
+                                      },
+                                      guide: {
+                                          name: guide.user.name
+                                      },
+                                      booking_user_id: req.body.user_id,
+                                      booking_guide_id: tour.tour_guide_id
+                                  });
+                                  booking.save(function(err){
+                                      if(err) throw err;
+
+                                      return res.json(booking);
+                                  });
+                              });
                           });
                       });
                   });
@@ -529,6 +572,16 @@
               return res.json(getRedeems);
           });
       });//end GET-redeem endpoint
+      api.get('/redeem/:user_id', function(req, res){
+         file.Redeemed.find({ 'user.id': req.params.user_id }, function(err, redeems){
+            if(err){
+                throw err;
+                return;
+            }
+
+             return res.json(redeems);
+         });
+      });
       //start: getAllBooking
       api.get('/bookings', function(req, res){
           file.Booking.find({}, function(err, getBookings){

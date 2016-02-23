@@ -101,13 +101,16 @@ app.get('/album.js', function(req, res){
     res.sendFile(__dirname + '/public/app/views/album/album.js');
 });
 app.get('/album', function(req, res){
-    res.sendFile(__dirname + '/public/app/views/album/album.html');
+    res.sendFile(__dirname + '/public/app/views/album/photo-album.html');
 });
 app.get('/albumService.js', function(req, res){
     res.sendFile(__dirname + '/public/app/views/album/albumService.js');
 });
 app.get('/js/jssor.slider.mini.js', function(req, res){
     res.sendFile(__dirname + '/public/app/views/js/jssor.slider.mini.js');
+});
+app.get('/js/jquery-1.9.1.min.js', function(req, res){
+    res.sendFile(__dirname + '/public/app/views/album/js/jquery-1.9.1.min.js');
 });
 app.get('/photo-album.js', function(req, res){
    res.sendFile(__dirname + '/public/app/views/album/photo-album.js');

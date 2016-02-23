@@ -4,6 +4,12 @@ var mongoose = require('mongoose'),
 //create redeem Schema
 var RedeemSchema = new Schema({
   redeem_reward_id: String,
+  tour:{
+    tour_name: String,
+    tour_location: String,
+    tour_details: String,
+    main_image: String
+  },
   user: {
       id: String,
       name: String,
